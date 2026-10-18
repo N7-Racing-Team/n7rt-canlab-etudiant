@@ -1,0 +1,178 @@
+/* N7RT CAN Lab — Physical Lab view: workspace toolbar, schematic stage, library, inspector, virtual console.
+   Tokens only (styles/tokens.css), square geometry, no shadow, no animation; rules in ui/DESIGN.md §5 and §7. */
+
+/* ============================== View slots ==============================
+   The three grid slots exist once per view ([data-view]); the inactive view's slots are hidden, whatever display
+   their own classes give them (flex, grid). */
+.workbench > [data-view][hidden] { display: none !important; }
+/* One column that never grows past the workspace: without it the implicit grid column takes the toolbar's
+   min-content width and the whole column (stage canvas included) overflows under the inspector. */
+#phys-main { grid-template-columns: minmax(0, 1fr); }
+#phys-main > * { min-width: 0; }
+
+/* ============================== Workspace toolbar ============================== */
+/* Every control stays visible (§8.4: « Simulation : » in words, zoom with its fit button): on a narrow workspace the
+   spacing shrinks, then whole groups wrap onto a second 36 px row. */
+.lab-bar {
+  display: flex; flex-wrap: wrap; align-items: center;
+  min-height: var(--h-toolbar); min-width: 0; overflow: hidden;
+  background: var(--bg-head); border-bottom: var(--bw) solid var(--line);
+  container-type: inline-size; container-name: labbar;
+}
+.lab-bar .tool-group { flex: none; height: calc(var(--h-toolbar) - var(--bw)); padding-left: var(--sp-4); }
+@container labbar (max-width: 720px) { .lab-bar .tool-group { padding-left: var(--sp-2); } #phys-tool-wire, #phys-tool-select { padding: 0 var(--sp-3); } }
+.lab-zoom { min-width: 48px; text-align: center; font-family: var(--font-mono); color: var(--text-2); }
+.lab-time { min-width: 84px; padding: 0 var(--sp-3); text-align: right; font-family: var(--font-mono); color: var(--text); }
+.lab-time.preview { color: var(--text-2); }
+/* « ralenti » toggles in RUN: it lives at the right end of the message line, which keeps its height (20 px badge in a
+   19 px content box), so showing it never moves the schematic. */
+#phys-slow { margin-left: auto; margin-block: calc(-1 * var(--bw)); }
+
+/* Mission bench: one line under the message row, shown only in mission mode (the core withholds internal values). */
+.lab-mission {
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--info-bg); border-bottom: var(--bw) solid var(--info-line); border-left: 2px solid var(--info);
+  color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lab-mission[hidden] { display: none; }
+
+/* ============================== Schematic stage ============================== */
+.lab-stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: var(--sch-bg); }
+.lab-canvas { position: absolute; inset: 0; }
+.lab-stage-error {
+  position: absolute; top: var(--sp-6); left: var(--sp-6); right: var(--sp-6);
+  display: flex; align-items: center; gap: var(--sp-5);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--err-bg); border-left: 2px solid var(--err); color: var(--text);
+  overflow-wrap: anywhere; user-select: text;
+}
+.lab-stage-error p { flex: 1; min-width: 0; }
+.lab-stage-error[hidden], .lab-stage-error .btn[hidden] { display: none; }
+
+/* ============================== Library and file ============================== */
+.lab-palette { display: flex; flex-direction: column; }
+.lab-item {
+  display: flex; align-items: center; gap: var(--sp-3);
+  height: var(--h-control); padding: 0 var(--sp-4);
+  background: transparent; color: var(--text);
+  border: 0; border-left: 2px solid transparent;
+  text-align: left; cursor: pointer;
+  transition: background-color var(--t-fast) linear;
+}
+.lab-item:hover { background: var(--bg-hover); }
+.lab-item[aria-pressed="true"] { background: var(--accent-sel); border-left-color: var(--accent); }
+.lab-item:disabled { opacity: 0.4; cursor: not-allowed; }
+.lab-item .lab-prefix { margin-left: auto; font-family: var(--font-mono); font-size: var(--fs-s); color: var(--text-3); }
+.lab-label { color: var(--text-2); white-space: nowrap; }
+.lab-stack { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.lab-grow { flex: 1; min-width: 0; }
+/* Demonstrations have long titles: their list takes the whole line, « Charger » goes under it. */
+.lab-stack > .field-row:has(> #phys-demo-select) { flex-wrap: wrap; justify-content: flex-end; }
+#phys-demo-select { flex: 1 1 100%; }
+.lab-doc { display: flex; align-items: center; gap: var(--sp-4); min-width: 0; }
+.lab-doc b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-mono); font-weight: var(--fw-regular); user-select: text; }
+
+/* ============================== Inspector ============================== */
+.lab-insp { display: flex; flex-direction: column; min-width: 0; container-type: inline-size; container-name: insp; }
+/* Bench multimeter (lab/panels/meter.ts): the display, then function and probes. */
+.lab-meter { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-4); border-bottom: var(--bw) solid var(--line); }
+/* the readout (.readout: mono 22 px, the DESIGN §7 instrument exception): the core's display string, right-aligned */
+.meter-display {
+  display: flex; align-items: center; justify-content: flex-end; height: 44px; padding: 0 var(--sp-5);
+  background: var(--inst-bg); border: var(--bw) solid var(--line-field); white-space: nowrap;
+}
+.meter-row { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: var(--sp-4); align-items: center; }
+.meter-label { display: inline-flex; align-items: center; gap: var(--sp-3); color: var(--text-2); }
+/* the probes' colours of a multimeter: black COM, red VΩ */
+.meter-label[data-probe]::before { content: ""; width: 8px; height: 8px; flex: none; }
+.meter-label[data-probe="com"]::before { background: var(--text-2); }
+.meter-label[data-probe="vohm"]::before { background: var(--err); }
+/* a verification holds the bench: the probes are locked, the core's message says why */
+.meter-note {
+  padding: var(--sp-3) var(--sp-4); border-left: 2px solid var(--accent-text); background: var(--accent-sel);
+  color: var(--text); font-size: var(--fs-m); line-height: var(--lh); overflow-wrap: break-word;
+}
+.meter-note[hidden] { display: none; }
+/* « Mesure clé » during an incident: record the measure where it is taken (same command as the fiche's button) */
+/* (its rule starts 20 px under the probes: clear of the 12 px margin of figure 05) */
+.meter-mission { display: flex; flex-direction: column; gap: var(--sp-3); margin-top: var(--sp-5); padding-top: var(--sp-4); border-top: var(--bw) solid var(--line); }
+.meter-mission[hidden] { display: none; }
+.meter-quantity { font-size: var(--fs-m); font-weight: var(--fw-semibold); line-height: var(--lh); color: var(--text); overflow-wrap: break-word; }
+.meter-consign { align-self: stretch; }
+.meter-consigned { font-size: var(--fs-s); line-height: 16px; color: var(--text-2); }
+.meter-consigned.ok { color: var(--ok); }
+/* not recorded yet: the fiche's amber chip */
+.meter-consigned.warn {
+  align-self: flex-start; display: inline-flex; align-items: center; min-height: 20px; padding: 0 var(--sp-3);
+  border: var(--bw) solid var(--warn-line); background: var(--warn-bg); color: var(--warn); font-weight: var(--fw-medium);
+}
+.meter-error { font-size: var(--fs-s); line-height: 16px; color: var(--warn); overflow-wrap: break-word; }
+.meter-error:empty { display: none; }
+.lab-insp .panel-head { flex: none; }
+.lab-id { display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-4); border-bottom: var(--bw) solid var(--line); }
+.lab-id .input { width: 120px; }
+.lab-id .lab-kind { color: var(--text-2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lab-block { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-4); border-bottom: var(--bw) solid var(--line); }
+.lab-block .field { grid-template-columns: 120px minmax(0, 1fr); }
+/* A long command label (« Position du curseur (0 = A, 1 = B) ») wraps in its column instead of running under the control. */
+.lab-block .field > .lab-label { white-space: normal; }
+.lab-text { padding: var(--sp-4); color: var(--text-2); border-bottom: var(--bw) solid var(--line); overflow-wrap: anywhere; user-select: text; }
+.lab-text.lab-op { color: var(--text); }
+.lab-insp .error-text { padding: 0 var(--sp-4); }
+.lab-insp .error-text:empty { display: none; }
+.lab-insp .grid-table { border-bottom: var(--bw) solid var(--line); }
+
+/* Parameters: name | value | unit; the value cell holds a row-high editor. */
+.lab-params .c-value { width: 112px; }
+.lab-params .c-unit { width: 44px; }
+.lab-params td.lab-cell { padding: 0; }
+.lab-params .input, .lab-params .select { width: 100%; height: var(--h-row); border-color: transparent; background-color: transparent; }
+.lab-params .input:hover, .lab-params .select:hover { border-color: var(--line-strong); }
+.lab-params .input:focus, .lab-params .select:focus { border-color: var(--accent); background-color: var(--bg-field); }
+.lab-params .input.invalid { border-color: var(--err); background-color: var(--err-bg); }
+.lab-params .check { height: var(--h-row); padding: 0 var(--sp-3); }
+.lab-params .lab-fixed { padding: 0 var(--sp-3); color: var(--text-2); }
+
+/* Pinout: pin | full name | role | net | V | I; name and role give way first on a narrow panel. */
+.lab-pins .c-pin { width: 52px; }
+.lab-pins .c-role { width: 104px; }
+.lab-pins .c-net { width: 76px; }
+.lab-pins .c-v, .lab-pins .c-i { width: 100px; }
+@container insp (max-width: 470px) { .lab-pins [data-col="role"] { display: none; } }
+@container insp (max-width: 340px) { .lab-pins [data-col="name"] { display: none; } }
+.lab-measures .c-value { width: 140px; }
+
+/* Readings in words (floating, open…) in amber, unavailable in the faint text colour. */
+.grid-table .lab-word, .lab-word { color: var(--warn); }
+.grid-table .lab-none, .lab-none { color: var(--text-3); }
+
+/* Press-and-hold push button. */
+.lab-hold[aria-pressed="true"] { background: var(--bg-active); border-color: var(--accent); }
+.lab-pos { width: 72px; }
+
+/* ============================== Virtual console ============================== */
+.lab-vlist { contain: strict; }
+.lab-vlist-spacer { position: relative; }
+.lab-row {
+  position: absolute; top: 0; left: 0; right: 0;
+  display: grid; align-items: center; column-gap: var(--sp-4);
+  height: var(--h-row); padding: 0 var(--sp-4) 0 var(--sp-3);
+  border-bottom: var(--bw) solid var(--line-row); border-left: 2px solid transparent;
+  font-family: var(--font-mono); font-size: var(--fs-m); white-space: nowrap;
+  user-select: text;
+}
+.lab-row[hidden] { display: none; }
+.lab-row:hover { background: var(--bg-hover); }
+.lab-row.selected { background: var(--accent-sel); border-left-color: var(--accent); }
+.lab-row > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.lab-row .t { color: var(--text-3); text-align: right; }
+.lab-row .num { text-align: right; }
+.lab-row .k { font-family: var(--font-ui); font-size: var(--fs-s); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-3); }
+.lab-row .k.error, .lab-row .k.refus { color: var(--err); }
+.lab-row .k.warning { color: var(--warn); }
+.lab-row .k.info { color: var(--info); }
+.lab-row .k.action, .lab-row .k.simulation { color: var(--accent-text); }
+.lab-diag .lab-row { grid-template-columns: 80px 184px minmax(0, 1fr); cursor: pointer; }
+.lab-nets .lab-row { grid-template-columns: 132px minmax(0, 1fr) 120px; cursor: pointer; }
+.lab-journal .lab-row { grid-template-columns: 84px 92px minmax(0, 1fr); }
+.lab-vlist .empty[hidden] { display: none; }

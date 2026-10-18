@@ -1,0 +1,125 @@
+/* N7RT CAN Lab design tokens. The only place where colours, sizes and fonts are written down;
+   components use these variables, never raw values. Rules and usage: ui/DESIGN.md.
+
+   Brand sources (sampled from the N7RT logo, drive/.../N7RTrond.png):
+     violet #592783 (left of the logo gradient), indigo #2C2E84 -> #383E90 (centre, right),
+     tricolour blue #0F70B7, red #E72F2A. */
+
+:root {
+  /* --- Brand (identity only: brand mark, primary action, selection) ----------------------- */
+  --n7-violet: #592783;
+  --n7-indigo: #2c2e84;
+  --n7-indigo-2: #383e90;
+  --n7-blue: #0f70b7;
+  --n7-red: #e72f2a;
+  /* The logo gradient, allowed on the brand mark only. */
+  --n7-gradient: linear-gradient(90deg, #592783 0%, #2c2e84 55%, #383e90 100%);
+
+  /* --- Surfaces: neutral, slightly cool; hierarchy by value, never by shadow ---------------- */
+  --bg-app: #0d0e12;        /* window, gutters, activity bar */
+  --bg-panel: #14151a;      /* panels, workspace */
+  --bg-head: #191a20;       /* panel headers, toolbar, table header, status bar */
+  --bg-field: #0f1015;      /* inputs, selects */
+  --bg-raised: #1e2027;     /* neutral buttons */
+  --bg-hover: #23252e;      /* hovered row / button */
+  --bg-active: #2b2e39;     /* pressed */
+  --line: #24262f;          /* 1 px separators between panels and rows */
+  --line-strong: #343846;   /* button borders, header underline, disabled outline (decorative: 1.6:1) */
+  --line-row: #1b1d24;      /* table row separators (quieter than --line) */
+  --line-hover: #454a5a;    /* hovered button border */
+  --line-field: #6b7180;    /* field borders, hollow step nodes, dashed « Ajouter » (3.7:1 on --bg-panel, >= 3.1:1 everywhere) */
+  --line-field-hover: #7d8391; /* hovered field border (4.0 to 5.0:1) */
+  --bg-scroll-hover: #3a3e4b; /* hovered scrollbar thumb */
+
+  /* --- Text --------------------------------------------------------------------------------- */
+  --text: #e4e6eb;          /* values, primary text (14:1 on --bg-panel) */
+  --text-2: #a3a8b4;        /* labels, secondary text (7.5:1) */
+  --text-3: #8a909c;        /* 5,7:1 ; unités, horodatages, codes, libellés désactivés ; jamais une donnée essentielle seule */
+  --text-on-accent: #ffffff;
+
+  /* --- Accent: N7RT violet, lifted for a dark background ------------------------------------ */
+  --accent: #7a4bc0;        /* borders, active tab / nav marker, slider thumb */
+  --accent-fill: #592783;   /* primary button (brand violet as is) */
+  --accent-fill-hover: #683198;
+  --accent-fill-press: #4a1f6e;
+  --accent-text: #b794e8;   /* violet text on dark (7:1) */
+  --accent-sel: #261d3a;    /* selected row / item background */
+  --accent-sel-line: #4b3473;
+  --focus: #b794e8;         /* 1 px focus outline */
+
+  /* --- States -------------------------------------------------------------------------------- */
+  --ok: #3dbe7a;   --ok-bg: #11271c;   --ok-line: #1f5a3c;
+  --warn: #e0a93b; --warn-bg: #2b2210; --warn-line: #5e4815;
+  --err: #f25a56;  --err-bg: #2f1314;  --err-line: #6a2422;   /* from N7RT red, lifted: 5.5:1 on --bg-panel, 4.9:1 on --bg-raised */
+  --info: #4a9be0; --info-bg: #0f2234; --info-line: #1e4a70;  /* from N7RT blue */
+
+  /* --- Typography: two families, three sizes ---------------------------------------------- */
+  --font-ui: "IBM Plex Sans", "N7RT Symbols Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "N7RT Symbols Mono", "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+  --fs-s: 11px;             /* panel titles (caps), table headers, units, tags */
+  --fs-m: 12px;             /* body, controls, tables, console */
+  --fs-l: 13px;             /* toolbar brand, metric values */
+  --lh: 18px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --tracking-caps: 0.06em;
+
+  /* --- Spacing: 2 px base, mostly 4/8 ----------------------------------------------------- */
+  --sp-1: 2px;
+  --sp-2: 4px;
+  --sp-3: 6px;
+  --sp-4: 8px;
+  --sp-5: 12px;
+  --sp-6: 16px;
+
+  /* --- Dimensions --------------------------------------------------------------------------- */
+  --bw: 1px;                /* every border and separator */
+  --h-toolbar: 36px;
+  --h-statusbar: 22px;
+  --h-head: 26px;           /* panel header, tab strip */
+  --h-control: 24px;        /* buttons, inputs, selects */
+  --h-row: 20px;            /* table and console rows */
+  --w-activity: 40px;
+  --w-splitter: 5px;
+  --icon: 16px;
+  --h-step: 28px;           /* stepper row (student progression) */
+  --node: 12px;             /* stepper node */
+
+  /* Resizable panels (changed by the splitters, remembered per user). */
+  --w-left: 296px;
+  --w-right: 300px;
+  --h-bottom: 210px;
+
+  /* --- Instruments (Physical Lab, next milestone) ------------------------------------------ */
+  --inst-bg: #0a0b0e;
+  --inst-grid: #1a1d25;
+  --inst-grid-major: #2a2e3a;
+  --inst-axis: #6c7280;
+  --trace-1: #f2c94c;       /* CH1, CAN_H */
+  --trace-2: #4fc3f7;       /* CH2, CAN_L */
+  --trace-3: #b794e8;       /* math / differential, N7RT violet */
+  --trace-4: #3dbe7a;
+  --readout: #e4e6eb;
+
+  /* --- Schematic (Physical Lab canvas; read by ui/src/lab/canvas through getComputedStyle) --- */
+  --sch-bg: #0a0b0e;          /* canvas background (= --inst-bg) */
+  --sch-grid: #171a21;        /* minor grid points */
+  --sch-grid-major: #232731;  /* every 10th line */
+  --sch-symbol: #c4c8d2;      /* symbol bodies, 1.5 px */
+  --sch-pin: #8b91a0;         /* pin stubs and pin names */
+  --sch-wire: #5aa6d6;        /* wires and junction squares */
+  --sch-label: #e4e6eb;       /* designators (R1, C2) */
+  --sch-value: #a3a8b4;       /* component values (10 kΩ) */
+  --sch-live: #e4e6eb;        /* computed values shown during RUN: neutral readout, never a trace hue */
+  --sch-live-bg: #14151a;     /* box behind a live value (= --bg-panel), keeps it legible over wires */
+  --sch-select: #b794e8;      /* selection outline (= --accent-text) */
+  --sch-select-fill: rgba(122, 75, 192, 0.14);
+  --sch-hover: #e4e6eb;
+  --sch-invalid: #f25a56;     /* refused wire preview, error markers (= --err) */
+  --sch-warn: #e0a93b;        /* floating / open markers (= --warn) */
+  --sch-line: 1.5px;
+
+  /* --- Motion: state changes only, never decorative ------------------------------------------ */
+  --t-fast: 80ms;
+}

@@ -1,0 +1,5 @@
+defaults:
+  baudrate: 115200
+  framing: "8N1"
+  log_format: "jsonl"
+  reconnect_interval_ms: 2000

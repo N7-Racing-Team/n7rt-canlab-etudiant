@@ -1,0 +1,46 @@
+[workspace]
+resolver = "2"
+members = ["crates/n7rt-link", "crates/n7rt-solver", "crates/n7rt-circuit", "crates/n7rt-lab", "crates/n7rt-vehicle", "crates/n7rt-seal", "crates/n7rt-tool", "src-tauri"]
+
+[workspace.package]
+version = "0.3.0"
+edition = "2021"
+license = "LicenseRef-N7RT-Proprietary"
+publish = false
+
+[workspace.dependencies]
+n7rt-link = { path = "crates/n7rt-link" }
+n7rt-lab = { path = "crates/n7rt-lab" }
+n7rt-solver = { path = "crates/n7rt-solver" }
+n7rt-circuit = { path = "crates/n7rt-circuit" }
+n7rt-vehicle = { path = "crates/n7rt-vehicle" }
+n7rt-seal = { path = "crates/n7rt-seal" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Crypto (docs/distribution.md §3): RustCrypto only, pinned.
+argon2 = { version = "=0.5.3", default-features = false, features = ["alloc", "password-hash"] }
+aes-gcm = { version = "=0.10.3", default-features = false, features = ["aes", "alloc"] }
+hmac = "=0.12.1"
+sha2 = "=0.10.9"
+base64 = "=0.22.1"
+getrandom = "0.3"
+# Console code entry without echo (n7rt-tool).
+rpassword = "=7.4.0"
+
+# The panic strategy stays "unwind": docs/can-lab-architecture.md section 8 relies on catch_unwind.
+[profile.dev]
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+
+# Argon2id costs 64 MiB × 3 passes: unoptimised it takes tens of seconds (tests, debug app).
+[profile.dev.package.argon2]
+opt-level = 3
+
+[profile.dev.package.blake2]
+opt-level = 3
+
+# No LTO: the final link stays within ~1 GB (staff laptops), for a negligible gain on this app.
+[profile.release]
+strip = "symbols"

@@ -1,0 +1,26 @@
+{
+  "base_rev": 0,
+  "patch": {
+    "components": [
+      [
+        71,
+        null,
+        {
+          "id": 71,
+          "kind": "resistor",
+          "label": "R2",
+          "pos": [
+            0,
+            200
+          ],
+          "rot": 90,
+          "params": {
+            "power_rating": 0.25,
+            "resistance": 10000.0
+          }
+        }
+      ]
+    ],
+    "wires": []
+  }
+}

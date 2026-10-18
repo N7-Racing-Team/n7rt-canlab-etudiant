@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ref-pot-rc",
+    "title_fr": "Référence : potentiomètre, filtre RC et ADC",
+    "summary_fr": "Alimentation 5 V, interrupteur côté haut fermé, potentiomètre 10 kΩ à 0,3 lu par ADC1, filtre RC 10 kΩ / 10 µF (τ = 121 ms) lu par ADC2 ; ADC 12 bits, Vref 5 V."
+  },
+  {
+    "id": "tp1-capteur-can",
+    "title_fr": "TP1 : capteur analogique et bus CAN",
+    "summary_fr": "Câblage CAN du banc réel (hardware-wiring) + entrées analogiques ajoutées, absentes du banc : ECU STM32, MCP2551, terminaison 120 Ω, bus avec un nœud distant, potentiomètre sur A0 et filtre RC sur A1."
+  }
+]

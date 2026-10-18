@@ -1,0 +1,24 @@
+{
+  "format": "n7rt-mission-enonce",
+  "version": 1,
+  "mission": "apps",
+  "title": "APPS — pédale d'accélérateur",
+  "summary": "Votre carte STM32 joue la partie APPS du calculateur du véhicule. Deux capteurs mesurent la course de la pédale d'accélérateur ; leurs informations arrivent par le bus CAN du véhicule. Votre programme reçoit les trames, retrouve celles de la pédale, les décode, les surveille et publie à chaque tick de 10 ms les huit grandeurs A1 à A8.",
+  "requirements": [
+    "Deux capteurs mesurent la course de la pédale.",
+    "Implausibilité : écart de plus de 10 points de course entre les deux capteurs, ou défaillance d'un signal, y compris perte, retard ou corruption du message.",
+    "Coupure de la puissance moteur si l'implausibilité dure plus de 100 ms.",
+    "Reprise seulement pédale relâchée, à 5 % ou moins, sur 10 ticks consécutifs de 10 ms.",
+    "Publication de A1 à A8 à chaque tick de 10 ms : une valeur, ou un rejet quand la grandeur n'est pas disponible."
+  ],
+  "slots": [
+    { "slot": 0, "code": "A1", "label": "Course de la pédale vue par le capteur 1", "unit": "%" },
+    { "slot": 1, "code": "A2", "label": "Course de la pédale vue par le capteur 2", "unit": "%" },
+    { "slot": 2, "code": "A3", "label": "Écart entre les deux capteurs", "unit": "points de %" },
+    { "slot": 3, "code": "A4", "label": "Implausibilité APPS active", "unit": "0/1" },
+    { "slot": 4, "code": "A5", "label": "Coupure de la puissance moteur demandée", "unit": "0/1" },
+    { "slot": 5, "code": "A6", "label": "Course retenue pour la consigne", "unit": "%" },
+    { "slot": 6, "code": "A7", "label": "Tension d'alimentation du capteur 1", "unit": "V" },
+    { "slot": 7, "code": "A8", "label": "Tension d'alimentation du capteur 2", "unit": "V" }
+  ]
+}

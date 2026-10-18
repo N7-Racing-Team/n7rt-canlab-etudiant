@@ -1,0 +1,9390 @@
+{
+  "format": "n7rt-physlab-circuit",
+  "version": 1,
+  "library_version": 3,
+  "name": "perf-150-300",
+  "next_id": 713,
+  "components": [
+    {
+      "id": 1,
+      "kind": "dc_supply",
+      "label": "V1",
+      "pos": [
+        0,
+        10
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 2,
+      "kind": "switch",
+      "label": "S1",
+      "pos": [
+        20,
+        2
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 3,
+      "kind": "capacitor",
+      "label": "C1",
+      "pos": [
+        12,
+        9
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 4,
+      "kind": "resistor",
+      "label": "R1",
+      "pos": [
+        28,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 5,
+      "kind": "resistor",
+      "label": "R2",
+      "pos": [
+        28,
+        16
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 6,
+      "kind": "adc_input",
+      "label": "ADC1",
+      "pos": [
+        35,
+        12
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 7,
+      "kind": "potentiometer",
+      "label": "RV1",
+      "pos": [
+        44,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 8,
+      "kind": "resistor",
+      "label": "R3",
+      "pos": [
+        52,
+        7
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 9,
+      "kind": "adc_input",
+      "label": "ADC2",
+      "pos": [
+        63,
+        7
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 10,
+      "kind": "capacitor",
+      "label": "C2",
+      "pos": [
+        57,
+        13
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 11,
+      "kind": "push_button",
+      "label": "BP1",
+      "pos": [
+        70,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 12,
+      "kind": "resistor",
+      "label": "R4",
+      "pos": [
+        70,
+        16
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 13,
+      "kind": "adc_input",
+      "label": "ADC3",
+      "pos": [
+        77,
+        12
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 14,
+      "kind": "push_button",
+      "label": "BP2",
+      "pos": [
+        84,
+        5
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 15,
+      "kind": "resistor",
+      "label": "R5",
+      "pos": [
+        84,
+        14
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 16,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        6,
+        30
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 17,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        80,
+        30
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 26,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        12,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 29,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 32,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        44,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 35,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 38,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        12
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 41,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        57,
+        7
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 44,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        12
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 47,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        12,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 50,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 53,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        35,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 56,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        44,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 59,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        57,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 62,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        63,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 65,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 68,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        77,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 71,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        6,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 74,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        80,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 77,
+      "kind": "dc_supply",
+      "label": "V2",
+      "pos": [
+        100,
+        10
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 78,
+      "kind": "switch",
+      "label": "S2",
+      "pos": [
+        120,
+        2
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 79,
+      "kind": "capacitor",
+      "label": "C3",
+      "pos": [
+        112,
+        9
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 80,
+      "kind": "resistor",
+      "label": "R6",
+      "pos": [
+        128,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 81,
+      "kind": "resistor",
+      "label": "R7",
+      "pos": [
+        128,
+        16
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 82,
+      "kind": "adc_input",
+      "label": "ADC4",
+      "pos": [
+        135,
+        12
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 83,
+      "kind": "potentiometer",
+      "label": "RV2",
+      "pos": [
+        144,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 84,
+      "kind": "resistor",
+      "label": "R8",
+      "pos": [
+        152,
+        7
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 85,
+      "kind": "adc_input",
+      "label": "ADC5",
+      "pos": [
+        163,
+        7
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 86,
+      "kind": "capacitor",
+      "label": "C4",
+      "pos": [
+        157,
+        13
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 87,
+      "kind": "push_button",
+      "label": "BP3",
+      "pos": [
+        170,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 88,
+      "kind": "resistor",
+      "label": "R9",
+      "pos": [
+        170,
+        16
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 89,
+      "kind": "adc_input",
+      "label": "ADC6",
+      "pos": [
+        177,
+        12
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 90,
+      "kind": "push_button",
+      "label": "BP4",
+      "pos": [
+        184,
+        5
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 91,
+      "kind": "resistor",
+      "label": "R10",
+      "pos": [
+        184,
+        14
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 92,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        106,
+        30
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 93,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        180,
+        30
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 102,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        112,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 105,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 108,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        144,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 111,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 114,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        12
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 117,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        157,
+        7
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 120,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        12
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 123,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        112,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 126,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 129,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        135,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 132,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        144,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 135,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        157,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 138,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        163,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 141,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 144,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        177,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 147,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        106,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 150,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        180,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 153,
+      "kind": "dc_supply",
+      "label": "V3",
+      "pos": [
+        200,
+        10
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 154,
+      "kind": "switch",
+      "label": "S3",
+      "pos": [
+        220,
+        2
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 155,
+      "kind": "capacitor",
+      "label": "C5",
+      "pos": [
+        212,
+        9
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 156,
+      "kind": "resistor",
+      "label": "R11",
+      "pos": [
+        228,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 157,
+      "kind": "resistor",
+      "label": "R12",
+      "pos": [
+        228,
+        16
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 158,
+      "kind": "adc_input",
+      "label": "ADC7",
+      "pos": [
+        235,
+        12
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 159,
+      "kind": "potentiometer",
+      "label": "RV3",
+      "pos": [
+        244,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 160,
+      "kind": "resistor",
+      "label": "R13",
+      "pos": [
+        252,
+        7
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 161,
+      "kind": "adc_input",
+      "label": "ADC8",
+      "pos": [
+        263,
+        7
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 162,
+      "kind": "capacitor",
+      "label": "C6",
+      "pos": [
+        257,
+        13
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 163,
+      "kind": "push_button",
+      "label": "BP5",
+      "pos": [
+        270,
+        7
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 164,
+      "kind": "resistor",
+      "label": "R14",
+      "pos": [
+        270,
+        16
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 165,
+      "kind": "adc_input",
+      "label": "ADC9",
+      "pos": [
+        277,
+        12
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 166,
+      "kind": "push_button",
+      "label": "BP6",
+      "pos": [
+        284,
+        5
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 167,
+      "kind": "resistor",
+      "label": "R15",
+      "pos": [
+        284,
+        14
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 168,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        206,
+        30
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 169,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        280,
+        30
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 178,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        212,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 181,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 184,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        244,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 187,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        2
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 190,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        12
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 193,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        257,
+        7
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 196,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        12
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 199,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        212,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 202,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 205,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        235,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 208,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        244,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 211,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        257,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 214,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        263,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 217,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 220,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        277,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 223,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        206,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 226,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        280,
+        26
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 229,
+      "kind": "dc_supply",
+      "label": "V4",
+      "pos": [
+        0,
+        50
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 230,
+      "kind": "switch",
+      "label": "S4",
+      "pos": [
+        20,
+        42
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 231,
+      "kind": "capacitor",
+      "label": "C7",
+      "pos": [
+        12,
+        49
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 232,
+      "kind": "resistor",
+      "label": "R16",
+      "pos": [
+        28,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 233,
+      "kind": "resistor",
+      "label": "R17",
+      "pos": [
+        28,
+        56
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 234,
+      "kind": "adc_input",
+      "label": "ADC10",
+      "pos": [
+        35,
+        52
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 235,
+      "kind": "potentiometer",
+      "label": "RV4",
+      "pos": [
+        44,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 236,
+      "kind": "resistor",
+      "label": "R18",
+      "pos": [
+        52,
+        47
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 237,
+      "kind": "adc_input",
+      "label": "ADC11",
+      "pos": [
+        63,
+        47
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 238,
+      "kind": "capacitor",
+      "label": "C8",
+      "pos": [
+        57,
+        53
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 239,
+      "kind": "push_button",
+      "label": "BP7",
+      "pos": [
+        70,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 240,
+      "kind": "resistor",
+      "label": "R19",
+      "pos": [
+        70,
+        56
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 241,
+      "kind": "adc_input",
+      "label": "ADC12",
+      "pos": [
+        77,
+        52
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 242,
+      "kind": "push_button",
+      "label": "BP8",
+      "pos": [
+        84,
+        45
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 243,
+      "kind": "resistor",
+      "label": "R20",
+      "pos": [
+        84,
+        54
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 244,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        6,
+        70
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 245,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        80,
+        70
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 254,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        12,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 257,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 260,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        44,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 263,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 266,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        52
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 269,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        57,
+        47
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 272,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        52
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 275,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        12,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 278,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 281,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        35,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 284,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        44,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 287,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        57,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 290,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        63,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 293,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 296,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        77,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 299,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        6,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 302,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        80,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 305,
+      "kind": "dc_supply",
+      "label": "V5",
+      "pos": [
+        100,
+        50
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 306,
+      "kind": "switch",
+      "label": "S5",
+      "pos": [
+        120,
+        42
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 307,
+      "kind": "capacitor",
+      "label": "C9",
+      "pos": [
+        112,
+        49
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 308,
+      "kind": "resistor",
+      "label": "R21",
+      "pos": [
+        128,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 309,
+      "kind": "resistor",
+      "label": "R22",
+      "pos": [
+        128,
+        56
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 310,
+      "kind": "adc_input",
+      "label": "ADC13",
+      "pos": [
+        135,
+        52
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 311,
+      "kind": "potentiometer",
+      "label": "RV5",
+      "pos": [
+        144,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 312,
+      "kind": "resistor",
+      "label": "R23",
+      "pos": [
+        152,
+        47
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 313,
+      "kind": "adc_input",
+      "label": "ADC14",
+      "pos": [
+        163,
+        47
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 314,
+      "kind": "capacitor",
+      "label": "C10",
+      "pos": [
+        157,
+        53
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 315,
+      "kind": "push_button",
+      "label": "BP9",
+      "pos": [
+        170,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 316,
+      "kind": "resistor",
+      "label": "R24",
+      "pos": [
+        170,
+        56
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 317,
+      "kind": "adc_input",
+      "label": "ADC15",
+      "pos": [
+        177,
+        52
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 318,
+      "kind": "push_button",
+      "label": "BP10",
+      "pos": [
+        184,
+        45
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 319,
+      "kind": "resistor",
+      "label": "R25",
+      "pos": [
+        184,
+        54
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 320,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        106,
+        70
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 321,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        180,
+        70
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 330,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        112,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 333,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 336,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        144,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 339,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 342,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        52
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 345,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        157,
+        47
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 348,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        52
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 351,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        112,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 354,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 357,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        135,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 360,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        144,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 363,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        157,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 366,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        163,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 369,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 372,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        177,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 375,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        106,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 378,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        180,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 381,
+      "kind": "dc_supply",
+      "label": "V6",
+      "pos": [
+        200,
+        50
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 382,
+      "kind": "switch",
+      "label": "S6",
+      "pos": [
+        220,
+        42
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 383,
+      "kind": "capacitor",
+      "label": "C11",
+      "pos": [
+        212,
+        49
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 384,
+      "kind": "resistor",
+      "label": "R26",
+      "pos": [
+        228,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 385,
+      "kind": "resistor",
+      "label": "R27",
+      "pos": [
+        228,
+        56
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 386,
+      "kind": "adc_input",
+      "label": "ADC16",
+      "pos": [
+        235,
+        52
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 387,
+      "kind": "potentiometer",
+      "label": "RV6",
+      "pos": [
+        244,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 388,
+      "kind": "resistor",
+      "label": "R28",
+      "pos": [
+        252,
+        47
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 389,
+      "kind": "adc_input",
+      "label": "ADC17",
+      "pos": [
+        263,
+        47
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 390,
+      "kind": "capacitor",
+      "label": "C12",
+      "pos": [
+        257,
+        53
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 391,
+      "kind": "push_button",
+      "label": "BP11",
+      "pos": [
+        270,
+        47
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 392,
+      "kind": "resistor",
+      "label": "R29",
+      "pos": [
+        270,
+        56
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 393,
+      "kind": "adc_input",
+      "label": "ADC18",
+      "pos": [
+        277,
+        52
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 394,
+      "kind": "push_button",
+      "label": "BP12",
+      "pos": [
+        284,
+        45
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 395,
+      "kind": "resistor",
+      "label": "R30",
+      "pos": [
+        284,
+        54
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 396,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        206,
+        70
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 397,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        280,
+        70
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 406,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        212,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 409,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 412,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        244,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 415,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        42
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 418,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        52
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 421,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        257,
+        47
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 424,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        52
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 427,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        212,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 430,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 433,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        235,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 436,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        244,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 439,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        257,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 442,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        263,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 445,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 448,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        277,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 451,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        206,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 454,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        280,
+        66
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 457,
+      "kind": "dc_supply",
+      "label": "V7",
+      "pos": [
+        0,
+        90
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 458,
+      "kind": "switch",
+      "label": "S7",
+      "pos": [
+        20,
+        82
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 459,
+      "kind": "capacitor",
+      "label": "C13",
+      "pos": [
+        12,
+        89
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 460,
+      "kind": "resistor",
+      "label": "R31",
+      "pos": [
+        28,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 461,
+      "kind": "resistor",
+      "label": "R32",
+      "pos": [
+        28,
+        96
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 462,
+      "kind": "adc_input",
+      "label": "ADC19",
+      "pos": [
+        35,
+        92
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 463,
+      "kind": "potentiometer",
+      "label": "RV7",
+      "pos": [
+        44,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 464,
+      "kind": "resistor",
+      "label": "R33",
+      "pos": [
+        52,
+        87
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 465,
+      "kind": "adc_input",
+      "label": "ADC20",
+      "pos": [
+        63,
+        87
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 466,
+      "kind": "capacitor",
+      "label": "C14",
+      "pos": [
+        57,
+        93
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 467,
+      "kind": "push_button",
+      "label": "BP13",
+      "pos": [
+        70,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 468,
+      "kind": "resistor",
+      "label": "R34",
+      "pos": [
+        70,
+        96
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 469,
+      "kind": "adc_input",
+      "label": "ADC21",
+      "pos": [
+        77,
+        92
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 470,
+      "kind": "push_button",
+      "label": "BP14",
+      "pos": [
+        84,
+        85
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 471,
+      "kind": "resistor",
+      "label": "R35",
+      "pos": [
+        84,
+        94
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 472,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        6,
+        110
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 473,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        80,
+        110
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 482,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        12,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 485,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 488,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        44,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 491,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 494,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        92
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 497,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        57,
+        87
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 500,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        92
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 503,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        12,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 506,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        28,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 509,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        35,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 512,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        44,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 515,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        57,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 518,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        63,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 521,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        70,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 524,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        77,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 527,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        6,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 530,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        80,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 533,
+      "kind": "dc_supply",
+      "label": "V8",
+      "pos": [
+        100,
+        90
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 534,
+      "kind": "switch",
+      "label": "S8",
+      "pos": [
+        120,
+        82
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 535,
+      "kind": "capacitor",
+      "label": "C15",
+      "pos": [
+        112,
+        89
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 536,
+      "kind": "resistor",
+      "label": "R36",
+      "pos": [
+        128,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 537,
+      "kind": "resistor",
+      "label": "R37",
+      "pos": [
+        128,
+        96
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 538,
+      "kind": "adc_input",
+      "label": "ADC22",
+      "pos": [
+        135,
+        92
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 539,
+      "kind": "potentiometer",
+      "label": "RV8",
+      "pos": [
+        144,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 540,
+      "kind": "resistor",
+      "label": "R38",
+      "pos": [
+        152,
+        87
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 541,
+      "kind": "adc_input",
+      "label": "ADC23",
+      "pos": [
+        163,
+        87
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 542,
+      "kind": "capacitor",
+      "label": "C16",
+      "pos": [
+        157,
+        93
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 543,
+      "kind": "push_button",
+      "label": "BP15",
+      "pos": [
+        170,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 544,
+      "kind": "resistor",
+      "label": "R39",
+      "pos": [
+        170,
+        96
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 545,
+      "kind": "adc_input",
+      "label": "ADC24",
+      "pos": [
+        177,
+        92
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 546,
+      "kind": "push_button",
+      "label": "BP16",
+      "pos": [
+        184,
+        85
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 547,
+      "kind": "resistor",
+      "label": "R40",
+      "pos": [
+        184,
+        94
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 548,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        106,
+        110
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 549,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        180,
+        110
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 558,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        112,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 561,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 564,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        144,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 567,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 570,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        92
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 573,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        157,
+        87
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 576,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        92
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 579,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        112,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 582,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        128,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 585,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        135,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 588,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        144,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 591,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        157,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 594,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        163,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 597,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        170,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 600,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        177,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 603,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        106,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 606,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        180,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 609,
+      "kind": "dc_supply",
+      "label": "V9",
+      "pos": [
+        200,
+        90
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 610,
+      "kind": "switch",
+      "label": "S9",
+      "pos": [
+        220,
+        82
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 611,
+      "kind": "capacitor",
+      "label": "C17",
+      "pos": [
+        212,
+        89
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 612,
+      "kind": "resistor",
+      "label": "R41",
+      "pos": [
+        228,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 613,
+      "kind": "resistor",
+      "label": "R42",
+      "pos": [
+        228,
+        96
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 614,
+      "kind": "adc_input",
+      "label": "ADC25",
+      "pos": [
+        235,
+        92
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 615,
+      "kind": "potentiometer",
+      "label": "RV9",
+      "pos": [
+        244,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.25
+      }
+    },
+    {
+      "id": 616,
+      "kind": "resistor",
+      "label": "R43",
+      "pos": [
+        252,
+        87
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 617,
+      "kind": "adc_input",
+      "label": "ADC26",
+      "pos": [
+        263,
+        87
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 618,
+      "kind": "capacitor",
+      "label": "C18",
+      "pos": [
+        257,
+        93
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 1e-6,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 619,
+      "kind": "push_button",
+      "label": "BP17",
+      "pos": [
+        270,
+        87
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "momentary",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 620,
+      "kind": "resistor",
+      "label": "R44",
+      "pos": [
+        270,
+        96
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 621,
+      "kind": "adc_input",
+      "label": "ADC27",
+      "pos": [
+        277,
+        92
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 3.3
+      },
+      "state": {}
+    },
+    {
+      "id": 622,
+      "kind": "push_button",
+      "label": "BP18",
+      "pos": [
+        284,
+        85
+      ],
+      "rot": 90,
+      "params": {
+        "contact": "no",
+        "mode": "latching",
+        "r_off": 100000000.0,
+        "r_on": 0.1
+      },
+      "state": {
+        "latched": false
+      }
+    },
+    {
+      "id": 623,
+      "kind": "resistor",
+      "label": "R45",
+      "pos": [
+        284,
+        94
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 624,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        206,
+        110
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 625,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        280,
+        110
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 634,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        212,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 637,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 640,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        244,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 643,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        82
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 646,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        92
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 649,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        257,
+        87
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 652,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        92
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 655,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        212,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 658,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        228,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 661,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        235,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 664,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        244,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 667,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        257,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 670,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        263,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 673,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        270,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 676,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        277,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 679,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        206,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 682,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        280,
+        106
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 685,
+      "kind": "dc_supply",
+      "label": "V10",
+      "pos": [
+        6,
+        138
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 686,
+      "kind": "capacitor",
+      "label": "C19",
+      "pos": [
+        14,
+        137
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 687,
+      "kind": "ecu_stm32",
+      "label": "U1",
+      "pos": [
+        30,
+        140
+      ],
+      "rot": 0,
+      "params": {
+        "adc_bits": "12",
+        "adc_sample_rate": 1000,
+        "can_mode": "can",
+        "r_out_3v3": 0.05,
+        "r_out_5v": 0.1
+      },
+      "state": {
+        "usb": true
+      }
+    },
+    {
+      "id": 688,
+      "kind": "can_transceiver",
+      "label": "U2",
+      "pos": [
+        70,
+        160
+      ],
+      "rot": 0,
+      "params": {
+        "r_in": 25000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 689,
+      "kind": "termination",
+      "label": "RT1",
+      "pos": [
+        82,
+        159
+      ],
+      "rot": 90,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 120.0
+      },
+      "state": {}
+    },
+    {
+      "id": 690,
+      "kind": "can_bus",
+      "label": "BUS1",
+      "pos": [
+        92,
+        160
+      ],
+      "rot": 0,
+      "params": {
+        "remote_nodes": 2,
+        "remote_r_in": 25000.0,
+        "remote_termination": true
+      },
+      "state": {}
+    },
+    {
+      "id": 691,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        6,
+        146
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 692,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        14,
+        144
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 693,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        20,
+        148
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 694,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        60,
+        166
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 695,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        70,
+        172
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 696,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        86,
+        168
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 698,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        14,
+        130
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    }
+  ],
+  "wires": [
+    {
+      "id": 18,
+      "a": {
+        "comp": 1,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 26,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          0,
+          2
+        ]
+      ]
+    },
+    {
+      "id": 19,
+      "a": {
+        "comp": 2,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 29,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 20,
+      "a": {
+        "comp": 1,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 71,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          0,
+          26
+        ]
+      ]
+    },
+    {
+      "id": 21,
+      "a": {
+        "comp": 4,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 38,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 22,
+      "a": {
+        "comp": 7,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 8,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 23,
+      "a": {
+        "comp": 8,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 41,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 24,
+      "a": {
+        "comp": 11,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 44,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 25,
+      "a": {
+        "comp": 14,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 15,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 27,
+      "a": {
+        "comp": 26,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 2,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 28,
+      "a": {
+        "comp": 26,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 3,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 30,
+      "a": {
+        "comp": 29,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 32,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 31,
+      "a": {
+        "comp": 29,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 4,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 33,
+      "a": {
+        "comp": 32,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 35,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 34,
+      "a": {
+        "comp": 32,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 7,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 36,
+      "a": {
+        "comp": 35,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 14,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 37,
+      "a": {
+        "comp": 35,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 11,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 39,
+      "a": {
+        "comp": 38,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 5,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 40,
+      "a": {
+        "comp": 38,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 42,
+      "a": {
+        "comp": 41,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 9,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 43,
+      "a": {
+        "comp": 41,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 10,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 45,
+      "a": {
+        "comp": 44,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 12,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 46,
+      "a": {
+        "comp": 44,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 13,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 48,
+      "a": {
+        "comp": 47,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 50,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 49,
+      "a": {
+        "comp": 47,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 3,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 51,
+      "a": {
+        "comp": 50,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 53,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 52,
+      "a": {
+        "comp": 50,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 5,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 54,
+      "a": {
+        "comp": 53,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 56,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 55,
+      "a": {
+        "comp": 53,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 57,
+      "a": {
+        "comp": 56,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 59,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 58,
+      "a": {
+        "comp": 56,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 7,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 60,
+      "a": {
+        "comp": 59,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 62,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 61,
+      "a": {
+        "comp": 59,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 10,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 63,
+      "a": {
+        "comp": 62,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 65,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 64,
+      "a": {
+        "comp": 62,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 9,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 66,
+      "a": {
+        "comp": 65,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 68,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 67,
+      "a": {
+        "comp": 65,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 12,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 69,
+      "a": {
+        "comp": 68,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 74,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 70,
+      "a": {
+        "comp": 68,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 13,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 72,
+      "a": {
+        "comp": 71,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 47,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 73,
+      "a": {
+        "comp": 71,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 16,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 75,
+      "a": {
+        "comp": 74,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 15,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          84,
+          26
+        ]
+      ]
+    },
+    {
+      "id": 76,
+      "a": {
+        "comp": 74,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 17,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 94,
+      "a": {
+        "comp": 77,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 102,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          100,
+          2
+        ]
+      ]
+    },
+    {
+      "id": 95,
+      "a": {
+        "comp": 78,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 105,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 96,
+      "a": {
+        "comp": 77,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 147,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          100,
+          26
+        ]
+      ]
+    },
+    {
+      "id": 97,
+      "a": {
+        "comp": 80,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 114,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 98,
+      "a": {
+        "comp": 83,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 84,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 99,
+      "a": {
+        "comp": 84,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 117,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 100,
+      "a": {
+        "comp": 87,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 120,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 101,
+      "a": {
+        "comp": 90,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 91,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 103,
+      "a": {
+        "comp": 102,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 78,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 104,
+      "a": {
+        "comp": 102,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 79,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 106,
+      "a": {
+        "comp": 105,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 108,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 107,
+      "a": {
+        "comp": 105,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 80,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 109,
+      "a": {
+        "comp": 108,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 111,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 110,
+      "a": {
+        "comp": 108,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 83,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 112,
+      "a": {
+        "comp": 111,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 90,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 113,
+      "a": {
+        "comp": 111,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 87,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 115,
+      "a": {
+        "comp": 114,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 81,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 116,
+      "a": {
+        "comp": 114,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 82,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 118,
+      "a": {
+        "comp": 117,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 85,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 119,
+      "a": {
+        "comp": 117,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 86,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 121,
+      "a": {
+        "comp": 120,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 88,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 122,
+      "a": {
+        "comp": 120,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 89,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 124,
+      "a": {
+        "comp": 123,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 126,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 125,
+      "a": {
+        "comp": 123,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 79,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 127,
+      "a": {
+        "comp": 126,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 129,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 128,
+      "a": {
+        "comp": 126,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 81,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 130,
+      "a": {
+        "comp": 129,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 132,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 131,
+      "a": {
+        "comp": 129,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 82,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 133,
+      "a": {
+        "comp": 132,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 135,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 134,
+      "a": {
+        "comp": 132,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 83,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 136,
+      "a": {
+        "comp": 135,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 138,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 137,
+      "a": {
+        "comp": 135,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 86,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 139,
+      "a": {
+        "comp": 138,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 141,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 140,
+      "a": {
+        "comp": 138,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 85,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 142,
+      "a": {
+        "comp": 141,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 144,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 143,
+      "a": {
+        "comp": 141,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 88,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 145,
+      "a": {
+        "comp": 144,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 150,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 146,
+      "a": {
+        "comp": 144,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 89,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 148,
+      "a": {
+        "comp": 147,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 123,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 149,
+      "a": {
+        "comp": 147,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 92,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 151,
+      "a": {
+        "comp": 150,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 91,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          184,
+          26
+        ]
+      ]
+    },
+    {
+      "id": 152,
+      "a": {
+        "comp": 150,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 93,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 170,
+      "a": {
+        "comp": 153,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 178,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          200,
+          2
+        ]
+      ]
+    },
+    {
+      "id": 171,
+      "a": {
+        "comp": 154,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 181,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 172,
+      "a": {
+        "comp": 153,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 223,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          200,
+          26
+        ]
+      ]
+    },
+    {
+      "id": 173,
+      "a": {
+        "comp": 156,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 190,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 174,
+      "a": {
+        "comp": 159,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 160,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 175,
+      "a": {
+        "comp": 160,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 193,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 176,
+      "a": {
+        "comp": 163,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 196,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 177,
+      "a": {
+        "comp": 166,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 167,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 179,
+      "a": {
+        "comp": 178,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 154,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 180,
+      "a": {
+        "comp": 178,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 155,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 182,
+      "a": {
+        "comp": 181,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 184,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 183,
+      "a": {
+        "comp": 181,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 156,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 185,
+      "a": {
+        "comp": 184,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 187,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 186,
+      "a": {
+        "comp": 184,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 159,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 188,
+      "a": {
+        "comp": 187,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 166,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 189,
+      "a": {
+        "comp": 187,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 163,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 191,
+      "a": {
+        "comp": 190,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 157,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 192,
+      "a": {
+        "comp": 190,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 158,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 194,
+      "a": {
+        "comp": 193,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 161,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 195,
+      "a": {
+        "comp": 193,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 162,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 197,
+      "a": {
+        "comp": 196,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 164,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 198,
+      "a": {
+        "comp": 196,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 165,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 200,
+      "a": {
+        "comp": 199,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 202,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 201,
+      "a": {
+        "comp": 199,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 155,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 203,
+      "a": {
+        "comp": 202,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 205,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 204,
+      "a": {
+        "comp": 202,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 157,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 206,
+      "a": {
+        "comp": 205,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 208,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 207,
+      "a": {
+        "comp": 205,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 158,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 209,
+      "a": {
+        "comp": 208,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 211,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 210,
+      "a": {
+        "comp": 208,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 159,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 212,
+      "a": {
+        "comp": 211,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 214,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 213,
+      "a": {
+        "comp": 211,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 162,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 215,
+      "a": {
+        "comp": 214,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 217,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 216,
+      "a": {
+        "comp": 214,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 161,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 218,
+      "a": {
+        "comp": 217,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 220,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 219,
+      "a": {
+        "comp": 217,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 164,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 221,
+      "a": {
+        "comp": 220,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 226,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 222,
+      "a": {
+        "comp": 220,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 165,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 224,
+      "a": {
+        "comp": 223,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 199,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 225,
+      "a": {
+        "comp": 223,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 168,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 227,
+      "a": {
+        "comp": 226,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 167,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          284,
+          26
+        ]
+      ]
+    },
+    {
+      "id": 228,
+      "a": {
+        "comp": 226,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 169,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 246,
+      "a": {
+        "comp": 229,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 254,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          0,
+          42
+        ]
+      ]
+    },
+    {
+      "id": 247,
+      "a": {
+        "comp": 230,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 257,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 248,
+      "a": {
+        "comp": 229,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 299,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          0,
+          66
+        ]
+      ]
+    },
+    {
+      "id": 249,
+      "a": {
+        "comp": 232,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 266,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 250,
+      "a": {
+        "comp": 235,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 236,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 251,
+      "a": {
+        "comp": 236,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 269,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 252,
+      "a": {
+        "comp": 239,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 272,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 253,
+      "a": {
+        "comp": 242,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 243,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 255,
+      "a": {
+        "comp": 254,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 230,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 256,
+      "a": {
+        "comp": 254,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 231,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 258,
+      "a": {
+        "comp": 257,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 260,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 259,
+      "a": {
+        "comp": 257,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 232,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 261,
+      "a": {
+        "comp": 260,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 263,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 262,
+      "a": {
+        "comp": 260,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 235,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 264,
+      "a": {
+        "comp": 263,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 242,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 265,
+      "a": {
+        "comp": 263,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 239,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 267,
+      "a": {
+        "comp": 266,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 233,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 268,
+      "a": {
+        "comp": 266,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 234,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 270,
+      "a": {
+        "comp": 269,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 237,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 271,
+      "a": {
+        "comp": 269,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 238,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 273,
+      "a": {
+        "comp": 272,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 240,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 274,
+      "a": {
+        "comp": 272,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 241,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 276,
+      "a": {
+        "comp": 275,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 278,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 277,
+      "a": {
+        "comp": 275,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 231,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 279,
+      "a": {
+        "comp": 278,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 281,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 280,
+      "a": {
+        "comp": 278,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 233,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 282,
+      "a": {
+        "comp": 281,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 284,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 283,
+      "a": {
+        "comp": 281,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 234,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 285,
+      "a": {
+        "comp": 284,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 287,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 286,
+      "a": {
+        "comp": 284,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 235,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 288,
+      "a": {
+        "comp": 287,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 290,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 289,
+      "a": {
+        "comp": 287,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 238,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 291,
+      "a": {
+        "comp": 290,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 293,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 292,
+      "a": {
+        "comp": 290,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 237,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 294,
+      "a": {
+        "comp": 293,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 296,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 295,
+      "a": {
+        "comp": 293,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 240,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 297,
+      "a": {
+        "comp": 296,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 302,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 298,
+      "a": {
+        "comp": 296,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 241,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 300,
+      "a": {
+        "comp": 299,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 275,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 301,
+      "a": {
+        "comp": 299,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 244,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 303,
+      "a": {
+        "comp": 302,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 243,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          84,
+          66
+        ]
+      ]
+    },
+    {
+      "id": 304,
+      "a": {
+        "comp": 302,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 245,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 322,
+      "a": {
+        "comp": 305,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 330,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          100,
+          42
+        ]
+      ]
+    },
+    {
+      "id": 323,
+      "a": {
+        "comp": 306,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 333,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 324,
+      "a": {
+        "comp": 305,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 375,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          100,
+          66
+        ]
+      ]
+    },
+    {
+      "id": 325,
+      "a": {
+        "comp": 308,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 342,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 326,
+      "a": {
+        "comp": 311,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 312,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 327,
+      "a": {
+        "comp": 312,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 345,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 328,
+      "a": {
+        "comp": 315,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 348,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 329,
+      "a": {
+        "comp": 318,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 319,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 331,
+      "a": {
+        "comp": 330,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 306,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 332,
+      "a": {
+        "comp": 330,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 307,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 334,
+      "a": {
+        "comp": 333,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 336,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 335,
+      "a": {
+        "comp": 333,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 308,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 337,
+      "a": {
+        "comp": 336,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 339,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 338,
+      "a": {
+        "comp": 336,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 311,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 340,
+      "a": {
+        "comp": 339,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 318,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 341,
+      "a": {
+        "comp": 339,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 315,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 343,
+      "a": {
+        "comp": 342,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 309,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 344,
+      "a": {
+        "comp": 342,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 310,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 346,
+      "a": {
+        "comp": 345,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 313,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 347,
+      "a": {
+        "comp": 345,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 314,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 349,
+      "a": {
+        "comp": 348,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 316,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 350,
+      "a": {
+        "comp": 348,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 317,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 352,
+      "a": {
+        "comp": 351,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 354,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 353,
+      "a": {
+        "comp": 351,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 307,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 355,
+      "a": {
+        "comp": 354,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 357,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 356,
+      "a": {
+        "comp": 354,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 309,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 358,
+      "a": {
+        "comp": 357,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 360,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 359,
+      "a": {
+        "comp": 357,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 310,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 361,
+      "a": {
+        "comp": 360,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 363,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 362,
+      "a": {
+        "comp": 360,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 311,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 364,
+      "a": {
+        "comp": 363,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 366,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 365,
+      "a": {
+        "comp": 363,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 314,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 367,
+      "a": {
+        "comp": 366,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 369,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 368,
+      "a": {
+        "comp": 366,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 313,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 370,
+      "a": {
+        "comp": 369,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 372,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 371,
+      "a": {
+        "comp": 369,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 316,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 373,
+      "a": {
+        "comp": 372,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 378,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 374,
+      "a": {
+        "comp": 372,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 317,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 376,
+      "a": {
+        "comp": 375,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 351,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 377,
+      "a": {
+        "comp": 375,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 320,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 379,
+      "a": {
+        "comp": 378,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 319,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          184,
+          66
+        ]
+      ]
+    },
+    {
+      "id": 380,
+      "a": {
+        "comp": 378,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 321,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 398,
+      "a": {
+        "comp": 381,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 406,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          200,
+          42
+        ]
+      ]
+    },
+    {
+      "id": 399,
+      "a": {
+        "comp": 382,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 409,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 400,
+      "a": {
+        "comp": 381,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 451,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          200,
+          66
+        ]
+      ]
+    },
+    {
+      "id": 401,
+      "a": {
+        "comp": 384,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 418,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 402,
+      "a": {
+        "comp": 387,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 388,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 403,
+      "a": {
+        "comp": 388,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 421,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 404,
+      "a": {
+        "comp": 391,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 424,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 405,
+      "a": {
+        "comp": 394,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 395,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 407,
+      "a": {
+        "comp": 406,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 382,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 408,
+      "a": {
+        "comp": 406,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 383,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 410,
+      "a": {
+        "comp": 409,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 412,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 411,
+      "a": {
+        "comp": 409,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 384,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 413,
+      "a": {
+        "comp": 412,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 415,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 414,
+      "a": {
+        "comp": 412,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 387,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 416,
+      "a": {
+        "comp": 415,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 394,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 417,
+      "a": {
+        "comp": 415,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 391,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 419,
+      "a": {
+        "comp": 418,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 385,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 420,
+      "a": {
+        "comp": 418,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 386,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 422,
+      "a": {
+        "comp": 421,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 389,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 423,
+      "a": {
+        "comp": 421,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 390,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 425,
+      "a": {
+        "comp": 424,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 392,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 426,
+      "a": {
+        "comp": 424,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 393,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 428,
+      "a": {
+        "comp": 427,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 430,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 429,
+      "a": {
+        "comp": 427,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 383,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 431,
+      "a": {
+        "comp": 430,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 433,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 432,
+      "a": {
+        "comp": 430,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 385,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 434,
+      "a": {
+        "comp": 433,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 436,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 435,
+      "a": {
+        "comp": 433,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 386,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 437,
+      "a": {
+        "comp": 436,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 439,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 438,
+      "a": {
+        "comp": 436,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 387,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 440,
+      "a": {
+        "comp": 439,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 442,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 441,
+      "a": {
+        "comp": 439,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 390,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 443,
+      "a": {
+        "comp": 442,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 445,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 444,
+      "a": {
+        "comp": 442,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 389,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 446,
+      "a": {
+        "comp": 445,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 448,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 447,
+      "a": {
+        "comp": 445,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 392,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 449,
+      "a": {
+        "comp": 448,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 454,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 450,
+      "a": {
+        "comp": 448,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 393,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 452,
+      "a": {
+        "comp": 451,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 427,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 453,
+      "a": {
+        "comp": 451,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 396,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 455,
+      "a": {
+        "comp": 454,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 395,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          284,
+          66
+        ]
+      ]
+    },
+    {
+      "id": 456,
+      "a": {
+        "comp": 454,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 397,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 474,
+      "a": {
+        "comp": 457,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 482,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          0,
+          82
+        ]
+      ]
+    },
+    {
+      "id": 475,
+      "a": {
+        "comp": 458,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 485,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 476,
+      "a": {
+        "comp": 457,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 527,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          0,
+          106
+        ]
+      ]
+    },
+    {
+      "id": 477,
+      "a": {
+        "comp": 460,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 494,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 478,
+      "a": {
+        "comp": 463,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 464,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 479,
+      "a": {
+        "comp": 464,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 497,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 480,
+      "a": {
+        "comp": 467,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 500,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 481,
+      "a": {
+        "comp": 470,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 471,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 483,
+      "a": {
+        "comp": 482,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 458,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 484,
+      "a": {
+        "comp": 482,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 459,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 486,
+      "a": {
+        "comp": 485,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 488,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 487,
+      "a": {
+        "comp": 485,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 460,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 489,
+      "a": {
+        "comp": 488,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 491,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 490,
+      "a": {
+        "comp": 488,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 463,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 492,
+      "a": {
+        "comp": 491,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 470,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 493,
+      "a": {
+        "comp": 491,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 467,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 495,
+      "a": {
+        "comp": 494,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 461,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 496,
+      "a": {
+        "comp": 494,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 462,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 498,
+      "a": {
+        "comp": 497,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 465,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 499,
+      "a": {
+        "comp": 497,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 466,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 501,
+      "a": {
+        "comp": 500,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 468,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 502,
+      "a": {
+        "comp": 500,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 469,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 504,
+      "a": {
+        "comp": 503,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 506,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 505,
+      "a": {
+        "comp": 503,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 459,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 507,
+      "a": {
+        "comp": 506,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 509,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 508,
+      "a": {
+        "comp": 506,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 461,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 510,
+      "a": {
+        "comp": 509,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 512,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 511,
+      "a": {
+        "comp": 509,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 462,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 513,
+      "a": {
+        "comp": 512,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 515,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 514,
+      "a": {
+        "comp": 512,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 463,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 516,
+      "a": {
+        "comp": 515,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 518,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 517,
+      "a": {
+        "comp": 515,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 466,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 519,
+      "a": {
+        "comp": 518,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 521,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 520,
+      "a": {
+        "comp": 518,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 465,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 522,
+      "a": {
+        "comp": 521,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 524,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 523,
+      "a": {
+        "comp": 521,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 468,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 525,
+      "a": {
+        "comp": 524,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 530,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 526,
+      "a": {
+        "comp": 524,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 469,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 528,
+      "a": {
+        "comp": 527,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 503,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 529,
+      "a": {
+        "comp": 527,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 472,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 531,
+      "a": {
+        "comp": 530,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 471,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          84,
+          106
+        ]
+      ]
+    },
+    {
+      "id": 532,
+      "a": {
+        "comp": 530,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 473,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 550,
+      "a": {
+        "comp": 533,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 558,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          100,
+          82
+        ]
+      ]
+    },
+    {
+      "id": 551,
+      "a": {
+        "comp": 534,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 561,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 552,
+      "a": {
+        "comp": 533,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 603,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          100,
+          106
+        ]
+      ]
+    },
+    {
+      "id": 553,
+      "a": {
+        "comp": 536,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 570,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 554,
+      "a": {
+        "comp": 539,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 540,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 555,
+      "a": {
+        "comp": 540,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 573,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 556,
+      "a": {
+        "comp": 543,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 576,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 557,
+      "a": {
+        "comp": 546,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 547,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 559,
+      "a": {
+        "comp": 558,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 534,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 560,
+      "a": {
+        "comp": 558,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 535,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 562,
+      "a": {
+        "comp": 561,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 564,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 563,
+      "a": {
+        "comp": 561,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 536,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 565,
+      "a": {
+        "comp": 564,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 567,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 566,
+      "a": {
+        "comp": 564,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 539,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 568,
+      "a": {
+        "comp": 567,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 546,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 569,
+      "a": {
+        "comp": 567,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 543,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 571,
+      "a": {
+        "comp": 570,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 537,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 572,
+      "a": {
+        "comp": 570,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 538,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 574,
+      "a": {
+        "comp": 573,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 541,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 575,
+      "a": {
+        "comp": 573,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 542,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 577,
+      "a": {
+        "comp": 576,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 544,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 578,
+      "a": {
+        "comp": 576,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 545,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 580,
+      "a": {
+        "comp": 579,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 582,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 581,
+      "a": {
+        "comp": 579,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 535,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 583,
+      "a": {
+        "comp": 582,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 585,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 584,
+      "a": {
+        "comp": 582,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 537,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 586,
+      "a": {
+        "comp": 585,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 588,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 587,
+      "a": {
+        "comp": 585,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 538,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 589,
+      "a": {
+        "comp": 588,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 591,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 590,
+      "a": {
+        "comp": 588,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 539,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 592,
+      "a": {
+        "comp": 591,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 594,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 593,
+      "a": {
+        "comp": 591,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 542,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 595,
+      "a": {
+        "comp": 594,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 597,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 596,
+      "a": {
+        "comp": 594,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 541,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 598,
+      "a": {
+        "comp": 597,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 600,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 599,
+      "a": {
+        "comp": 597,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 544,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 601,
+      "a": {
+        "comp": 600,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 606,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 602,
+      "a": {
+        "comp": 600,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 545,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 604,
+      "a": {
+        "comp": 603,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 579,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 605,
+      "a": {
+        "comp": 603,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 548,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 607,
+      "a": {
+        "comp": 606,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 547,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          184,
+          106
+        ]
+      ]
+    },
+    {
+      "id": 608,
+      "a": {
+        "comp": 606,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 549,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 626,
+      "a": {
+        "comp": 609,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 634,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          200,
+          82
+        ]
+      ]
+    },
+    {
+      "id": 627,
+      "a": {
+        "comp": 610,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 637,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 628,
+      "a": {
+        "comp": 609,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 679,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          200,
+          106
+        ]
+      ]
+    },
+    {
+      "id": 629,
+      "a": {
+        "comp": 612,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 646,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 630,
+      "a": {
+        "comp": 615,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 616,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 631,
+      "a": {
+        "comp": 616,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 649,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 632,
+      "a": {
+        "comp": 619,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 652,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 633,
+      "a": {
+        "comp": 622,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 623,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 635,
+      "a": {
+        "comp": 634,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 610,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 636,
+      "a": {
+        "comp": 634,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 611,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 638,
+      "a": {
+        "comp": 637,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 640,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 639,
+      "a": {
+        "comp": 637,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 612,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 641,
+      "a": {
+        "comp": 640,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 643,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 642,
+      "a": {
+        "comp": 640,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 615,
+        "pin": "a"
+      },
+      "bends": []
+    },
+    {
+      "id": 644,
+      "a": {
+        "comp": 643,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 622,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 645,
+      "a": {
+        "comp": 643,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 619,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 647,
+      "a": {
+        "comp": 646,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 613,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 648,
+      "a": {
+        "comp": 646,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 614,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 650,
+      "a": {
+        "comp": 649,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 617,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 651,
+      "a": {
+        "comp": 649,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 618,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 653,
+      "a": {
+        "comp": 652,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 620,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 654,
+      "a": {
+        "comp": 652,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 621,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 656,
+      "a": {
+        "comp": 655,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 658,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 657,
+      "a": {
+        "comp": 655,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 611,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 659,
+      "a": {
+        "comp": 658,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 661,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 660,
+      "a": {
+        "comp": 658,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 613,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 662,
+      "a": {
+        "comp": 661,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 664,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 663,
+      "a": {
+        "comp": 661,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 614,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 665,
+      "a": {
+        "comp": 664,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 667,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 666,
+      "a": {
+        "comp": 664,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 615,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 668,
+      "a": {
+        "comp": 667,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 670,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 669,
+      "a": {
+        "comp": 667,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 618,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 671,
+      "a": {
+        "comp": 670,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 673,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 672,
+      "a": {
+        "comp": 670,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 617,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 674,
+      "a": {
+        "comp": 673,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 676,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 675,
+      "a": {
+        "comp": 673,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 620,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 677,
+      "a": {
+        "comp": 676,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 682,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 678,
+      "a": {
+        "comp": 676,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 621,
+        "pin": "ref"
+      },
+      "bends": []
+    },
+    {
+      "id": 680,
+      "a": {
+        "comp": 679,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 655,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 681,
+      "a": {
+        "comp": 679,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 624,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 683,
+      "a": {
+        "comp": 682,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 623,
+        "pin": "p2"
+      },
+      "bends": [
+        [
+          284,
+          106
+        ]
+      ]
+    },
+    {
+      "id": 684,
+      "a": {
+        "comp": 682,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 625,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 697,
+      "a": {
+        "comp": 685,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 698,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          6,
+          130
+        ]
+      ]
+    },
+    {
+      "id": 699,
+      "a": {
+        "comp": 698,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 688,
+        "pin": "vdd"
+      },
+      "bends": [
+        [
+          70,
+          130
+        ]
+      ]
+    },
+    {
+      "id": 700,
+      "a": {
+        "comp": 698,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 686,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 701,
+      "a": {
+        "comp": 685,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 691,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 702,
+      "a": {
+        "comp": 686,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 692,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 703,
+      "a": {
+        "comp": 687,
+        "pin": "gnd"
+      },
+      "b": {
+        "comp": 693,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          20,
+          144
+        ]
+      ]
+    },
+    {
+      "id": 704,
+      "a": {
+        "comp": 687,
+        "pin": "can_tx"
+      },
+      "b": {
+        "comp": 688,
+        "pin": "txd"
+      },
+      "bends": [
+        [
+          41,
+          142
+        ],
+        [
+          41,
+          156
+        ]
+      ]
+    },
+    {
+      "id": 705,
+      "a": {
+        "comp": 687,
+        "pin": "can_rx"
+      },
+      "b": {
+        "comp": 688,
+        "pin": "rxd"
+      },
+      "bends": [
+        [
+          40,
+          144
+        ],
+        [
+          40,
+          158
+        ]
+      ]
+    },
+    {
+      "id": 706,
+      "a": {
+        "comp": 688,
+        "pin": "rs"
+      },
+      "b": {
+        "comp": 694,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          60,
+          162
+        ]
+      ]
+    },
+    {
+      "id": 707,
+      "a": {
+        "comp": 688,
+        "pin": "vss"
+      },
+      "b": {
+        "comp": 695,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 708,
+      "a": {
+        "comp": 688,
+        "pin": "canh"
+      },
+      "b": {
+        "comp": 689,
+        "pin": "p1"
+      },
+      "bends": [
+        [
+          79,
+          158
+        ],
+        [
+          79,
+          156
+        ]
+      ]
+    },
+    {
+      "id": 709,
+      "a": {
+        "comp": 688,
+        "pin": "canl"
+      },
+      "b": {
+        "comp": 689,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 710,
+      "a": {
+        "comp": 689,
+        "pin": "p1"
+      },
+      "b": {
+        "comp": 690,
+        "pin": "canh"
+      },
+      "bends": [
+        [
+          85,
+          156
+        ],
+        [
+          85,
+          158
+        ]
+      ]
+    },
+    {
+      "id": 711,
+      "a": {
+        "comp": 689,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 690,
+        "pin": "canl"
+      },
+      "bends": []
+    },
+    {
+      "id": 712,
+      "a": {
+        "comp": 690,
+        "pin": "gnd"
+      },
+      "b": {
+        "comp": 696,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          86,
+          164
+        ]
+      ]
+    }
+  ]
+}

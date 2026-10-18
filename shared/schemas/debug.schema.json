@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://n7rt-canlab.local/schemas/debug.schema.json",
+  "title": "DebugEvent",
+  "allOf": [
+    {
+      "$ref": "./telemetry-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "debug"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "message"]
+    }
+  ]
+}
+

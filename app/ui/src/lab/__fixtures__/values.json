@@ -1,0 +1,1652 @@
+{
+  "seq": 7,
+  "doc_id": 0,
+  "rev": 0,
+  "sim_time_ns": 3000000,
+  "run": "run",
+  "preview": false,
+  "disclosure": "exploration",
+  "nets": [
+    {
+      "key": {
+        "comp": 1,
+        "pin": "neg"
+      },
+      "name": "GND",
+      "voltage": {
+        "k": "valid",
+        "v": 0.0
+      }
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "pos"
+      },
+      "name": "V1.+",
+      "voltage": {
+        "k": "valid",
+        "v": 4.999993138343064
+      }
+    },
+    {
+      "key": {
+        "comp": 3,
+        "pin": "w"
+      },
+      "name": "RV1.W",
+      "voltage": {
+        "k": "valid",
+        "v": 0.1968332833467316
+      }
+    },
+    {
+      "key": {
+        "comp": 6,
+        "pin": "in"
+      },
+      "name": "ADC2.IN",
+      "voltage": {
+        "k": "floating"
+      }
+    },
+    {
+      "key": {
+        "comp": 8,
+        "pin": "neg"
+      },
+      "name": "V2.−",
+      "voltage": {
+        "k": "no_reference"
+      }
+    },
+    {
+      "key": {
+        "comp": 8,
+        "pin": "pos"
+      },
+      "name": "V2.+",
+      "voltage": {
+        "k": "no_reference"
+      }
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "a0"
+      },
+      "name": "U1.A0",
+      "voltage": {
+        "k": "floating"
+      }
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "a1"
+      },
+      "name": "U1.A1",
+      "voltage": {
+        "k": "floating"
+      }
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "can_rx"
+      },
+      "name": "U1.PD0",
+      "voltage": {
+        "k": "valid",
+        "v": 4.998980208045556
+      }
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "can_tx"
+      },
+      "name": "U1.PD1",
+      "voltage": {
+        "k": "valid",
+        "v": 3.3000000000000003
+      }
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "v3v3"
+      },
+      "name": "U1.3V3",
+      "voltage": {
+        "k": "valid",
+        "v": 3.3
+      }
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "v5"
+      },
+      "name": "U1.5V",
+      "voltage": {
+        "k": "valid",
+        "v": 4.998980208045556
+      }
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "canh"
+      },
+      "name": "U2.CANH",
+      "voltage": {
+        "k": "valid",
+        "v": 2.4997450418240725
+      }
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "canl"
+      },
+      "name": "U2.CANL",
+      "voltage": {
+        "k": "valid",
+        "v": 2.4997450418240725
+      }
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "txd"
+      },
+      "name": "U2.TXD",
+      "voltage": {
+        "k": "valid",
+        "v": 1.999591283381709e-6
+      }
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "vref"
+      },
+      "name": "U2.VREF",
+      "voltage": {
+        "k": "valid",
+        "v": 2.499490104022778
+      }
+    },
+    {
+      "key": {
+        "comp": 15,
+        "pin": "p2"
+      },
+      "name": "BP1.2",
+      "voltage": {
+        "k": "floating"
+      }
+    }
+  ],
+  "comps": [
+    {
+      "id": 1,
+      "state": {
+        "on": true
+      },
+      "op": {
+        "kind": "supply",
+        "output": "cv"
+      },
+      "pins": [
+        {
+          "pin": "pos",
+          "voltage": {
+            "k": "valid",
+            "v": 4.999993138343064
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.0006861656935974736
+          }
+        },
+        {
+          "pin": "neg",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0006861656935974736
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v_out",
+          "label_fr": "Tension de sortie",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 4.999993138343064
+          }
+        },
+        {
+          "name": "i_out",
+          "label_fr": "Courant débité",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": 0.0006861656935974736
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance absorbée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": -0.003430823759753777
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "gnd",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 3,
+      "state": {
+        "position": 0.3
+      },
+      "op": {
+        "kind": "pot",
+        "position": 0.3
+      },
+      "pins": [
+        {
+          "pin": "a",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.00006561109444891053
+          }
+        },
+        {
+          "pin": "b",
+          "voltage": {
+            "k": "valid",
+            "v": 4.999993138343064
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0006861656935709047
+          }
+        },
+        {
+          "pin": "w",
+          "voltage": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.0006205545991219941
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "i_aw",
+          "label_fr": "Courant du segment A–W",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": -0.00006561109444891053
+          }
+        },
+        {
+          "name": "i_wb",
+          "label_fr": "Courant du segment W–B",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": -0.0006861656935709047
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance dissipée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": 0.003308677960379836
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "p1",
+          "voltage": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0006205545991219939
+          }
+        },
+        {
+          "pin": "p2",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.0006205545991219939
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v_c",
+          "label_fr": "Tension aux bornes",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          }
+        },
+        {
+          "name": "i_c",
+          "label_fr": "Courant entrant par la broche 1",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": 0.0006205545991219939
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance absorbée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": 0.00012214579924109688
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "in",
+          "voltage": {
+            "k": "valid",
+            "v": 4.999993138343064
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "ref",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v_in",
+          "label_fr": "Tension échantillonnée",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 4.999993138343064
+          }
+        },
+        {
+          "name": "code",
+          "label_fr": "Code",
+          "unit": "",
+          "reading": {
+            "k": "saturated",
+            "v": 4095.0
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "in",
+          "voltage": {
+            "k": "floating"
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "ref",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v_in",
+          "label_fr": "Tension échantillonnée",
+          "unit": "V",
+          "reading": {
+            "k": "floating"
+          }
+        },
+        {
+          "name": "code",
+          "label_fr": "Code",
+          "unit": "",
+          "reading": {
+            "k": "floating"
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "in",
+          "voltage": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "ref",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v_in",
+          "label_fr": "Tension échantillonnée",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          }
+        },
+        {
+          "name": "code",
+          "label_fr": "Code",
+          "unit": "",
+          "reading": {
+            "k": "valid",
+            "v": 244.0
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "state": {
+        "on": true
+      },
+      "op": {
+        "kind": "supply",
+        "output": "cv"
+      },
+      "pins": [
+        {
+          "pin": "pos",
+          "voltage": {
+            "k": "no_reference"
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.002553186057063783
+          }
+        },
+        {
+          "pin": "neg",
+          "voltage": {
+            "k": "no_reference"
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.002553186057063783
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v_out",
+          "label_fr": "Tension de sortie",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 11.99997446813943
+          }
+        },
+        {
+          "name": "i_out",
+          "label_fr": "Courant débité",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": 0.002553186057063783
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance absorbée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": -0.03063816749717498
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "p1",
+          "voltage": {
+            "k": "no_reference"
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0025531860570509424
+          }
+        },
+        {
+          "pin": "p2",
+          "voltage": {
+            "k": "no_reference"
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.0025531860570509424
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v",
+          "label_fr": "Tension aux bornes",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 11.99997446813943
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance dissipée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": 0.030638167497020887
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "state": {
+        "usb": true
+      },
+      "op": {
+        "kind": "ecu",
+        "powered": true
+      },
+      "pins": [
+        {
+          "pin": "v5",
+          "voltage": {
+            "k": "valid",
+            "v": 4.998980208045556
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.010197919544436829
+          }
+        },
+        {
+          "pin": "v3v3",
+          "voltage": {
+            "k": "valid",
+            "v": 3.3
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "gnd",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.01019791954443682
+          }
+        },
+        {
+          "pin": "a0",
+          "voltage": {
+            "k": "floating"
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "a1",
+          "voltage": {
+            "k": "floating"
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "can_tx",
+          "voltage": {
+            "k": "valid",
+            "v": 3.3000000000000003
+          },
+          "current": {
+            "k": "valid",
+            "v": 8.881784197001253e-18
+          }
+        },
+        {
+          "pin": "can_rx",
+          "voltage": {
+            "k": "valid",
+            "v": 4.998980208045556
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "a0_v",
+          "label_fr": "Tension échantillonnée A0",
+          "unit": "V",
+          "reading": {
+            "k": "floating"
+          }
+        },
+        {
+          "name": "a0_code",
+          "label_fr": "Code A0",
+          "unit": "",
+          "reading": {
+            "k": "floating"
+          }
+        },
+        {
+          "name": "a1_v",
+          "label_fr": "Tension échantillonnée A1",
+          "unit": "V",
+          "reading": {
+            "k": "floating"
+          }
+        },
+        {
+          "name": "a1_code",
+          "label_fr": "Code A1",
+          "unit": "",
+          "reading": {
+            "k": "floating"
+          }
+        },
+        {
+          "name": "i_5v",
+          "label_fr": "Courant du rail 5V",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": 0.010197919544436829
+          }
+        },
+        {
+          "name": "i_3v3",
+          "label_fr": "Courant du rail 3V3",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance absorbée",
+          "unit": "W",
+          "reading": {
+            "k": "unavailable",
+            "reason": "ic_model"
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "state": {},
+      "op": {
+        "kind": "transceiver",
+        "powered": true,
+        "rs": "high_speed",
+        "txd": "dominant_timeout"
+      },
+      "pins": [
+        {
+          "pin": "txd",
+          "voltage": {
+            "k": "valid",
+            "v": 1.999591283381709e-6
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.00019995912833817092
+          }
+        },
+        {
+          "pin": "vss",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.009997980810888075
+          }
+        },
+        {
+          "pin": "vdd",
+          "voltage": {
+            "k": "valid",
+            "v": 4.998980208045556
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.010197919544429284
+          }
+        },
+        {
+          "pin": "rxd",
+          "voltage": {
+            "k": "valid",
+            "v": 4.998980208045556
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "vref",
+          "voltage": {
+            "k": "valid",
+            "v": 2.499490104022778
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "canl",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": 1.0197511235983115e-8
+          }
+        },
+        {
+          "pin": "canh",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": 1.0197511235983115e-8
+          }
+        },
+        {
+          "pin": "rs",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "u_dd",
+          "label_fr": "VDD − VSS",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 4.998980208045556
+          }
+        },
+        {
+          "name": "v_diff",
+          "label_fr": "CANH − CANL",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "name": "i_dd",
+          "label_fr": "Courant absorbé par VDD",
+          "unit": "A",
+          "reading": {
+            "k": "valid",
+            "v": 0.010197919544429284
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance absorbée",
+          "unit": "W",
+          "reading": {
+            "k": "unavailable",
+            "reason": "ic_model"
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "state": {
+        "closed": true
+      },
+      "op": {
+        "kind": "contact",
+        "closed": true
+      },
+      "pins": [
+        {
+          "pin": "p1",
+          "voltage": {
+            "k": "valid",
+            "v": 1.999591283381709e-6
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.00019995912833817092
+          }
+        },
+        {
+          "pin": "p2",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": -0.00019995912833817092
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v",
+          "label_fr": "Tension aux bornes",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 1.999591283381709e-6
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance dissipée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": 3.9983653005761105e-10
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "p1",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "p2",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v",
+          "label_fr": "Tension aux bornes",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance dissipée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "canh",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": -1.0197511236214041e-8
+          }
+        },
+        {
+          "pin": "canl",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": -1.0197511236214041e-8
+          }
+        },
+        {
+          "pin": "gnd",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 2.039502211559352e-8
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v_diff",
+          "label_fr": "CANH − CANL",
+          "unit": "V",
+          "reading": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance absorbée",
+          "unit": "W",
+          "reading": {
+            "k": "unavailable",
+            "reason": "ic_model"
+          }
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "state": {
+        "latched": false,
+        "pressed": false
+      },
+      "op": {
+        "kind": "contact",
+        "closed": false
+      },
+      "pins": [
+        {
+          "pin": "p1",
+          "voltage": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        },
+        {
+          "pin": "p2",
+          "voltage": {
+            "k": "floating"
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "v",
+          "label_fr": "Tension aux bornes",
+          "unit": "V",
+          "reading": {
+            "k": "floating"
+          }
+        },
+        {
+          "name": "power",
+          "label_fr": "Puissance dissipée",
+          "unit": "W",
+          "reading": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 20,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 23,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 26,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 29,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 32,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 35,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 38,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 41,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 44,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.0
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 48,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 4.999993138343064
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 52,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 55,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 0.1968332833467316
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 64,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    },
+    {
+      "id": 68,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [
+        {
+          "pin": "j",
+          "voltage": {
+            "k": "valid",
+            "v": 2.4997450418240725
+          },
+          "current": {
+            "k": "valid",
+            "v": 0.0
+          }
+        }
+      ],
+      "measures": []
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "adc_floating",
+      "severity": "warning",
+      "message_fr": "ADC2 : entrée ADC2.IN flottante, échantillon indéterminé",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 6,
+          "pin": "in"
+        }
+      ]
+    },
+    {
+      "code": "adc_floating",
+      "severity": "warning",
+      "message_fr": "U1 : entrée U1.A0 flottante, échantillon indéterminé",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 10,
+          "pin": "a0"
+        }
+      ]
+    },
+    {
+      "code": "adc_floating",
+      "severity": "warning",
+      "message_fr": "U1 : entrée U1.A1 flottante, échantillon indéterminé",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 10,
+          "pin": "a1"
+        }
+      ]
+    },
+    {
+      "code": "adc_saturated",
+      "severity": "warning",
+      "message_fr": "ADC1.IN : échantillon de 5 V hors de [0 ; 3.3 V[, code saturé à 4095",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 5,
+          "pin": "in"
+        }
+      ]
+    },
+    {
+      "code": "dominant_timeout",
+      "severity": "warning",
+      "message_fr": "U2 : TXD bas depuis plus de 1.25 ms, émetteur coupé par la minuterie de dominant permanent ; bus récessif",
+      "items": [
+        {
+          "type": "component",
+          "id": 11
+        }
+      ]
+    },
+    {
+      "code": "floating_net",
+      "severity": "warning",
+      "message_fr": "Net ADC2.IN flottant : potentiel indéterminé, aucun chemin vers une référence",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 6,
+          "pin": "in"
+        }
+      ]
+    },
+    {
+      "code": "floating_net",
+      "severity": "warning",
+      "message_fr": "Net U1.A0 flottant : potentiel indéterminé, aucun chemin vers une référence",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 10,
+          "pin": "a0"
+        }
+      ]
+    },
+    {
+      "code": "floating_net",
+      "severity": "warning",
+      "message_fr": "Net U1.A1 flottant : potentiel indéterminé, aucun chemin vers une référence",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 10,
+          "pin": "a1"
+        }
+      ]
+    },
+    {
+      "code": "island_no_reference",
+      "severity": "warning",
+      "message_fr": "Îlot sans masse (V2.−, V2.+) : tensions relatives seulement",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 8,
+          "pin": "neg"
+        },
+        {
+          "type": "pin",
+          "comp": 8,
+          "pin": "pos"
+        }
+      ]
+    },
+    {
+      "code": "unconnected_pin",
+      "severity": "warning",
+      "message_fr": "Broche ADC2.IN non reliée alors que ADC2 est câblé",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 6,
+          "pin": "in"
+        }
+      ]
+    },
+    {
+      "code": "open_pin",
+      "severity": "info",
+      "message_fr": "BP1.2 non reliée : circuit ouvert, aucun courant ne la traverse",
+      "items": [
+        {
+          "type": "pin",
+          "comp": 15,
+          "pin": "p2"
+        }
+      ]
+    }
+  ],
+  "meter": {
+    "com": {
+      "comp": 3,
+      "pin": "a"
+    },
+    "vohm": {
+      "comp": 3,
+      "pin": "w"
+    },
+    "function": "v_dc",
+    "display": "0.197 V"
+  },
+  "engine": {
+    "lag_frames": 2,
+    "slow": true,
+    "frame_us_p95": 41.5,
+    "substeps_last": 3,
+    "min_dt_ns": 50000,
+    "islands": 4,
+    "restarts": 1
+  }
+}

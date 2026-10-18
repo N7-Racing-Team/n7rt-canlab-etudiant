@@ -1,0 +1,774 @@
+/* N7RT CAN Lab components. Tokens only (styles/tokens.css); rules in ui/DESIGN.md. */
+
+/* ============================== App shell ============================== */
+.app {
+  display: grid;
+  grid-template-rows: var(--h-toolbar) minmax(0, 1fr) var(--h-statusbar);
+  height: 100%;
+}
+
+.workbench {
+  display: grid;
+  grid-template-columns: var(--w-activity) var(--w-left) var(--w-splitter) minmax(0, 1fr) var(--w-splitter) var(--w-right);
+  min-height: 0;
+}
+.app.no-left .workbench { grid-template-columns: var(--w-activity) 0 0 minmax(0, 1fr) var(--w-splitter) var(--w-right); }
+.app.no-right .workbench { grid-template-columns: var(--w-activity) var(--w-left) var(--w-splitter) minmax(0, 1fr) 0 0; }
+.app.no-left.no-right .workbench { grid-template-columns: var(--w-activity) 0 0 minmax(0, 1fr) 0 0; }
+.app.no-left .side-left, .app.no-left .splitter-left,
+.app.no-right .side-right, .app.no-right .splitter-right,
+.app.no-bottom .bottom, .app.no-bottom .splitter-bottom { display: none; }
+
+.workspace {
+  display: grid;
+  /* one column, never wider than the workspace: a wide dock content (the fiche) scrolls inside its panel */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) var(--w-splitter) var(--h-bottom);
+  min-width: 0;
+  min-height: 0;
+  background: var(--bg-panel);
+}
+.app.no-bottom .workspace { grid-template-rows: auto minmax(0, 1fr); }
+
+/* ============================== Toolbar (top bar) ============================== */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding-right: var(--sp-4);
+  background: var(--bg-head);
+  border-bottom: var(--bw) solid var(--line);
+  min-width: 0;
+}
+.brand { display: flex; align-items: center; gap: var(--sp-4); height: 100%; padding-right: var(--sp-5); border-right: var(--bw) solid var(--line); }
+/* The one place where the logo gradient appears. */
+.brand-mark { width: var(--h-toolbar); height: var(--h-toolbar); display: grid; place-items: center; background: var(--n7-gradient); }
+.brand-mark svg { width: 22px; height: 14px; fill: var(--text-on-accent); }
+.brand-name { font-size: var(--fs-l); font-weight: var(--fw-semibold); letter-spacing: 0.01em; white-space: nowrap; }
+.brand-name span { color: var(--text-2); font-weight: var(--fw-regular); }
+
+.tool-group { display: flex; align-items: center; gap: var(--sp-2); padding-right: var(--sp-4); border-right: var(--bw) solid var(--line); height: 100%; }
+.tool-group:last-child { border-right: 0; }
+.tool-label { font-size: var(--fs-s); color: var(--text-3); text-transform: uppercase; letter-spacing: var(--tracking-caps); margin-right: var(--sp-1); }
+.toolbar .spacer { flex: 1; }
+
+/* ============================== Activity bar (left nav) ============================== */
+.activity { display: flex; flex-direction: column; background: var(--bg-app); border-right: var(--bw) solid var(--line); }
+.activity button {
+  width: var(--w-activity); height: var(--w-activity);
+  display: grid; place-items: center;
+  background: transparent; border: 0; border-left: 2px solid transparent;
+  color: var(--text-3); cursor: pointer;
+}
+.activity button:hover:not(:disabled) { color: var(--text); }
+.activity button[aria-current="page"] { color: var(--text); border-left-color: var(--accent); background: var(--bg-panel); }
+.activity button:disabled { cursor: not-allowed; opacity: 0.35; }
+.activity .icon { width: 20px; height: 20px; }
+
+/* ============================== Side panels and sections ============================== */
+/* position: the panel contains its visually hidden labels (.sr, absolute): far down a long panel they would otherwise
+   make the whole window scrollable. */
+.side { position: relative; min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; background: var(--bg-panel); }
+.side-left { border-right: 0; }
+.side-right { display: flex; flex-direction: column; }
+
+.section { border-bottom: var(--bw) solid var(--line); }
+.section > summary, .panel-head {
+  display: flex; align-items: center; gap: var(--sp-3);
+  height: var(--h-head); padding: 0 var(--sp-4);
+  background: var(--bg-head);
+  font-size: var(--fs-s); font-weight: var(--fw-semibold); color: var(--text-2);
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  border-bottom: var(--bw) solid var(--line);
+  white-space: nowrap; overflow: hidden;
+}
+.section > summary { cursor: pointer; list-style: none; }
+.section > summary::-webkit-details-marker { display: none; }
+.section > summary::before {
+  content: ""; width: 0; height: 0; flex: none;
+  border-left: 4px solid var(--text-3); border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+}
+.section[open] > summary::before { border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid var(--text-3); border-bottom: 0; }
+.section > summary:hover { color: var(--text); }
+.section-body { padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-4); }
+.panel-head .spacer { flex: 1; }
+.panel-head .count { color: var(--text-3); font-weight: var(--fw-regular); text-transform: none; letter-spacing: 0; font-family: var(--font-mono); }
+
+/* Key / value lists (board, session). */
+.kv { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--sp-1) var(--sp-4); }
+.kv dt { color: var(--text-3); white-space: nowrap; }
+.kv dd { font-family: var(--font-mono); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; user-select: text; }
+/* session values are short sentences, not hashes: they wrap rather than end with an ellipsis */
+#session-info dd { white-space: normal; overflow-wrap: break-word; }
+.kv dd.ok { color: var(--ok); }
+.kv dd.err { color: var(--err); }
+
+.field { display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: var(--sp-4); }
+.field > label { color: var(--text-2); white-space: nowrap; }
+.field-row { display: flex; align-items: center; gap: var(--sp-3); min-width: 0; }
+.field-row output { min-width: 36px; text-align: right; font-family: var(--font-mono); color: var(--text); }
+.hint { font-size: var(--fs-s); color: var(--text-3); }
+.error-text { font-size: var(--fs-s); color: var(--err); min-height: 16px; }
+.fault { padding: var(--sp-3) var(--sp-4); background: var(--err-bg); border-left: 2px solid var(--err); color: var(--text); font-family: var(--font-mono); font-size: var(--fs-s); user-select: text; overflow-wrap: anywhere; }
+
+/* ============================== Controls ============================== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-3);
+  height: var(--h-control); padding: 0 var(--sp-4);
+  background: var(--bg-raised); color: var(--text);
+  border: var(--bw) solid var(--line-strong);
+  font-size: var(--fs-m); font-weight: var(--fw-medium); white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--t-fast) linear, border-color var(--t-fast) linear;
+}
+.btn:hover:not(:disabled) { background: var(--bg-hover); border-color: var(--line-hover); }
+.btn:active:not(:disabled) { background: var(--bg-active); }
+.btn:disabled { cursor: not-allowed; }
+.btn .icon { width: 14px; height: 14px; }
+.btn--primary { background: var(--accent-fill); border-color: var(--accent); color: var(--text-on-accent); }
+.btn--primary:hover:not(:disabled) { background: var(--accent-fill-hover); border-color: var(--accent-text); }
+.btn--primary:active:not(:disabled) { background: var(--accent-fill-press); }
+.btn--primary:focus-visible { outline-color: var(--text-on-accent); }
+.btn--danger { color: var(--err); border-color: var(--err-line); }
+.btn--danger:hover:not(:disabled) { background: var(--err-bg); border-color: var(--err); }
+.btn--icon { width: var(--h-control); padding: 0; }
+.btn--ghost { background: transparent; border-color: transparent; color: var(--text-2); }
+.btn--ghost:hover:not(:disabled) { background: var(--bg-hover); border-color: transparent; color: var(--text); }
+.btn--ghost[aria-pressed="false"] { color: var(--text-3); }
+.btn--ghost[aria-pressed="true"] { color: var(--text); }
+/* « Ajouter … »: a ghost action under the last record, « + » and violet text (the dashed outline means disabled). */
+.btn--add {
+  align-self: flex-start; width: auto; padding: 0 var(--sp-4) 0 var(--sp-3);
+  background-color: transparent; border-color: transparent; color: var(--accent-text);
+}
+.btn--add:hover:not(:disabled) { background-color: var(--accent-sel); border-color: var(--accent-sel-line); color: var(--accent-text); }
+/* Disabled (DESIGN.md §5): no fill and no violet (violet means « do this now »), a dashed outline, a label that stays
+   readable (--text-3, 5.7:1); its reason is shown next to it (a message, a title or the fiche note). Ghost toggles
+   (icons) keep the 0.4 fade. The background-color longhand keeps a select's chevron. */
+.btn:disabled:not(.btn--ghost) {
+  opacity: 1; background-color: transparent; border-style: dashed; border-color: var(--line-strong); color: var(--text-3);
+}
+.btn--ghost:disabled { opacity: 0.4; }
+
+.input, .select, .textarea {
+  height: var(--h-control); min-width: 0;
+  padding: 0 var(--sp-3);
+  background-color: var(--bg-field); color: var(--text);
+  border: var(--bw) solid var(--line-field);
+  font-size: var(--fs-m);
+  transition: border-color var(--t-fast) linear;
+}
+.input { font-family: var(--font-mono); user-select: text; }
+.textarea {
+  height: auto; min-height: 72px; padding: var(--sp-3);
+  font-family: var(--font-ui); line-height: var(--lh); resize: vertical; user-select: text;
+}
+.input::placeholder, .textarea::placeholder { color: var(--text-3); font-family: var(--font-ui); }
+.input:hover, .select:hover, .textarea:hover { border-color: var(--line-field-hover); }
+/* Focus: the border and a 1 px outline around it, 2 px of --focus (7:1) in all. */
+.input:focus, .select:focus, .textarea:focus { border-color: var(--focus); outline: none; }
+.input:focus-visible, .select:focus-visible, .textarea:focus-visible { outline: var(--bw) solid var(--focus); outline-offset: 0; }
+.input.invalid, .select.invalid, .textarea.invalid { border-color: var(--err); background-color: var(--err-bg); }
+.select {
+  appearance: none; -webkit-appearance: none;
+  padding-right: 22px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0h8L4 5z' fill='%23a3a8b4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center;
+}
+.select option { background: var(--bg-panel); color: var(--text); }
+/* Disabled or frozen field: no fill, a dashed outline, the value in --text-2 (7.6:1), never faded (the WebView fades
+   a disabled select to 0.7 by default). */
+.input:disabled, .select:disabled, .textarea:disabled {
+  opacity: 1; cursor: not-allowed;
+  background-color: transparent; border-style: dashed; border-color: var(--line-strong); color: var(--text-2);
+}
+
+/* Icons drawn by CSS for controls built in TypeScript (the sprite's rules: 16 px box, 1.5 stroke, square caps, miter
+   joins), as masks in the text colour. Data URIs are allowed by the CSP (img-src 'self' data:). */
+.ico::before {
+  content: ""; width: 14px; height: 14px; flex: none; background-color: currentColor;
+  -webkit-mask: var(--ico) center / 14px no-repeat; mask: var(--ico) center / 14px no-repeat;
+}
+.ico--play { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M5 3l8 5-8 5z'/%3E%3C/svg%3E"); }
+.ico--undo { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M5 2L2 5l3 3M2 5h10v8H6'/%3E%3C/svg%3E"); }
+.ico--doc, .step-fiche { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M3 1.5h7l3 3v10H3zM10 1.5v3h3M5.5 7.5h5M5.5 10h5M5.5 12.5h3'/%3E%3C/svg%3E"); }
+.ico--plus { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M8 3v10M3 8h10'/%3E%3C/svg%3E"); }
+.ico--meter { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M2 2h12v12H2zM4 4h8v3H4zM6 11h4'/%3E%3C/svg%3E"); }
+.w-port { width: 332px; }   /* « COMx · probe · serial » in full */
+.w-tick { width: 84px; }
+.w-id { width: 120px; }
+.w-filter { width: 150px; }
+
+/* Checkbox: a square box, a square mark. */
+.check { display: inline-flex; align-items: center; gap: var(--sp-3); cursor: pointer; color: var(--text); }
+.check input {
+  appearance: none; -webkit-appearance: none; margin: 0;
+  width: 14px; height: 14px; flex: none;
+  background: var(--bg-field); border: var(--bw) solid var(--line-field);
+  display: grid; place-items: center; cursor: pointer;
+}
+.check input::after { content: ""; width: 6px; height: 6px; background: transparent; }
+.check input:checked { border-color: var(--accent); }
+.check input:checked::after { background: var(--accent-text); }
+.check input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* the label is the target: 24 px high at least */
+.check { min-height: 24px; }
+
+/* Range: a 2 px track and a rectangular thumb. */
+.range { appearance: none; -webkit-appearance: none; flex: 1; min-width: 0; height: var(--h-control); background: transparent; cursor: pointer; margin: 0; }
+.range::-webkit-slider-runnable-track { height: 2px; background: var(--line-strong); }
+.range::-webkit-slider-thumb { -webkit-appearance: none; width: 8px; height: 16px; margin-top: -7px; background: var(--accent); border: var(--bw) solid var(--accent-text); }
+.range:hover::-webkit-slider-thumb { background: var(--accent-text); }
+.range::-moz-range-track { height: 2px; background: var(--line-strong); }
+.range::-moz-range-thumb { width: 8px; height: 16px; background: var(--accent); border: var(--bw) solid var(--accent-text); }
+
+/* ============================== Status badges ============================== */
+.badge {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  height: 20px; padding: 0 var(--sp-3);
+  font-size: var(--fs-s); font-weight: var(--fw-semibold);
+  text-transform: uppercase; letter-spacing: var(--tracking-caps); white-space: nowrap;
+  color: var(--text-2); background: var(--bg-raised); border: var(--bw) solid var(--line-strong);
+}
+.badge::before { content: ""; width: 6px; height: 6px; background: currentColor; flex: none; }
+.badge--ok { color: var(--ok); background: var(--ok-bg); border-color: var(--ok-line); }
+.badge--warn { color: var(--warn); background: var(--warn-bg); border-color: var(--warn-line); }
+.badge--err { color: var(--err); background: var(--err-bg); border-color: var(--err-line); }
+.badge--info { color: var(--info); background: var(--info-bg); border-color: var(--info-line); }
+.badge--accent { color: var(--accent-text); background: var(--accent-sel); border-color: var(--accent-sel-line); }
+.badge[hidden] { display: none; }
+
+/* ============================== Message line ============================== */
+.message {
+  display: flex; align-items: center; gap: var(--sp-4);
+  min-height: 28px; padding: var(--sp-2) var(--sp-4);
+  background: var(--bg-panel); border-bottom: var(--bw) solid var(--line);
+  color: var(--text-2); overflow: hidden;
+}
+.message p { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.message.warn { color: var(--warn); }
+.message.err { color: var(--err); }
+
+/* ============================== Metrics strip ============================== */
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); border-bottom: var(--bw) solid var(--line); background: var(--bg-panel); }
+.metric { display: flex; flex-direction: column; justify-content: center; gap: 0; padding: var(--sp-3) var(--sp-4); border-right: var(--bw) solid var(--line); min-width: 0; }
+.metric:last-child { border-right: 0; }
+.metric .v { font-family: var(--font-mono); font-size: var(--fs-l); font-weight: var(--fw-medium); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric .l { font-size: var(--fs-s); color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric .v.nonzero { color: var(--err); }
+
+/* ============================== Data tables ============================== */
+.frames { display: flex; flex-direction: column; min-height: 0; min-width: 0; container-type: inline-size; container-name: frames; }
+/* The scrollbar's gutter is always reserved: the columns do not move when the rows start to scroll. */
+.table-wrap { flex: 1; min-height: 0; overflow: auto; contain: strict; background: var(--bg-panel); scrollbar-gutter: stable; }
+.frames-empty[hidden] { display: none; }
+.grid-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-family: var(--font-mono); font-size: var(--fs-m); }
+.grid-table th {
+  position: sticky; top: 0; z-index: 1;
+  height: var(--h-head); padding: 0 var(--sp-3);
+  background: var(--bg-head); color: var(--text-3);
+  font-family: var(--font-ui); font-size: var(--fs-s); font-weight: var(--fw-semibold);
+  text-transform: uppercase; letter-spacing: var(--tracking-caps); text-align: left;
+  border-bottom: var(--bw) solid var(--line-strong); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.grid-table td {
+  height: var(--h-row); padding: 0 var(--sp-3);
+  border-bottom: var(--bw) solid var(--line-row);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: var(--text); user-select: text;
+}
+.grid-table tbody tr:hover td { background: var(--bg-hover); }
+.grid-table tbody tr.selected td { background: var(--accent-sel); }
+.grid-table tbody tr.selected td:first-child { box-shadow: none; border-left: 2px solid var(--accent); }
+.grid-table .num { text-align: right; }
+.grid-table .dim { color: var(--text-3); }
+.grid-table .r-ok { color: var(--ok); }
+.grid-table .r-nack, .grid-table .r-lost, .grid-table .r-aborted { color: var(--err); }
+.grid-table .r-result { color: var(--warn); }   /* delivered but not OK (flags, status 1) */
+
+/* Slots table (right panel). With a mission open the slots carry their public names: the code (« A1 »), then the full
+   name on its own lines, and the value with its unit; the source and the update count move to the row's title. */
+.col-slot { width: 56px; } .col-src { width: 96px; } .col-upd { width: 56px; }
+#slots.named .col-slot { width: auto; } #slots.named .col-val { width: 112px; }
+#slots.named .col-src, #slots.named .col-upd { width: 0; }
+#slots.named thead th:nth-child(n+3) { display: none; }
+#slots.named td.slot-name { white-space: normal; height: auto; padding-top: var(--sp-1); padding-bottom: var(--sp-1); line-height: 16px; }
+#slots.named td.num { vertical-align: top; padding-top: var(--sp-1); line-height: 16px; }
+.slot-code { font-family: var(--font-mono); color: var(--accent-text); }
+.slot-label { display: block; font-family: var(--font-ui); font-size: var(--fs-s); color: var(--text-2); overflow-wrap: break-word; }
+.grid-table td.rejected { color: var(--warn); }
+
+/* Frames: fixed column widths (on the header cells), so new rows never shift the layout; the
+   data column takes the rest. Secondary columns give way as the workspace narrows, so the
+   payload stays visible without any horizontal scroll (the cells keep their text). */
+#frames th[data-col="session"] { width: 72px; } #frames th[data-col="seq"] { width: 54px; } #frames th[data-col="t"] { width: 96px; }
+#frames th[data-col="id"] { width: 90px; } #frames th[data-col="kind"] { width: 86px; } #frames th[data-col="dlc"] { width: 38px; }
+#frames th[data-col="result"] { width: 104px; } #frames th[data-col="publications"] { width: 150px; }
+#frames th[data-col="cycles"] { width: 56px; } #frames th[data-col="rtt"] { width: 58px; }
+@container frames (max-width: 1180px) { #frames [data-col="session"] { display: none; } }
+@container frames (max-width: 1040px) { #frames [data-col="cycles"] { display: none; } }
+@container frames (max-width: 940px) { #frames [data-col="rtt"] { display: none; } }
+@container frames (max-width: 860px) { #frames [data-col="kind"] { display: none; } }
+@container frames (max-width: 760px) { #frames [data-col="t"] { display: none; } }
+
+/* ============================== Bottom panel: tabs + console ============================== */
+.bottom { display: flex; flex-direction: column; min-height: 0; border-top: var(--bw) solid var(--line); background: var(--bg-panel); }
+.tabs { display: flex; align-items: stretch; height: var(--h-head); background: var(--bg-head); border-bottom: var(--bw) solid var(--line); }
+.tab {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  padding: 0 var(--sp-5);
+  background: transparent; border: 0; border-right: var(--bw) solid var(--line); border-top: 2px solid transparent;
+  color: var(--text-3); font-size: var(--fs-s); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  cursor: pointer;
+}
+.tab:hover { color: var(--text); }
+.tab[aria-selected="true"] { color: var(--text); background: var(--bg-panel); border-top-color: var(--accent); }
+.tab .count { font-family: var(--font-mono); font-weight: var(--fw-regular); letter-spacing: 0; color: var(--text-3); }
+.tab .count.alert { color: var(--err); }
+.tabs .spacer { flex: 1; }
+.tabs .tools { display: flex; align-items: center; gap: var(--sp-2); padding: 0 var(--sp-3); }
+.tab-panel { flex: 1; min-height: 0; overflow: auto; }
+.tab[hidden], .tab-panel[hidden] { display: none; }
+
+.console { font-family: var(--font-mono); font-size: var(--fs-m); user-select: text; contain: content; }
+.console li { display: grid; grid-template-columns: 92px 72px minmax(0, 1fr); align-items: baseline; min-height: var(--h-row); padding: 1px var(--sp-4); border-bottom: var(--bw) solid var(--line-row); }
+.console li:hover { background: var(--bg-hover); }
+.console .t { color: var(--text-3); text-align: right; padding-right: var(--sp-4); }
+.console .k { font-family: var(--font-ui); font-size: var(--fs-s); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-3); }
+.console .m { color: var(--text); overflow-wrap: anywhere; }
+.console .k.log { color: var(--accent-text); }
+.console .k.info { color: var(--info); }
+.console .k.session, .console .k.nack, .console .k.link { color: var(--warn); }
+.console .k.port, .console .k.fault, .console .k.framing, .console .k.reject { color: var(--err); }
+.console li.hide { display: none; }
+.counters-row { display: flex; gap: 0; border-bottom: var(--bw) solid var(--line); background: var(--bg-panel); }
+.counters-row .metric { padding: var(--sp-2) var(--sp-4); }
+.counters-row .metric .v { font-size: var(--fs-m); }
+
+.diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.diag-grid > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sp-4); padding: 2px var(--sp-4); border-bottom: var(--bw) solid var(--line-row); border-right: var(--bw) solid var(--line-row); }
+.diag-grid dt { color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.diag-grid dd { margin: 0; font-family: var(--font-mono); color: var(--text); text-align: right; white-space: nowrap; }
+
+/* ============================== Right panel: results + selected frame ============================== */
+.side-right .grid-table td, .side-right .grid-table th { padding: 0 var(--sp-4); }
+.slot-name { color: var(--accent-text); }
+.detail { padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
+.detail .bytes { font-family: var(--font-mono); color: var(--text); user-select: text; overflow-wrap: anywhere; line-height: 20px; }
+.empty { padding: var(--sp-5) var(--sp-4); color: var(--text-3); }
+
+/* ============================== Mission (left panel; covers during a check) ==============================
+   Statement, flat library (every document drawn the same way), check button and result. During a check the
+   frames and the slots are covered by the progress message (ch. 24 §7.5). */
+.mission-select { flex: 1; }
+.mission-text { color: var(--text); line-height: var(--lh); user-select: text; }
+/* where the mission's bench is, and the way there */
+.mission-bench { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-3) var(--sp-4); }
+.mission-bench > .hint { margin: 0; }
+/* a unit after its value, never on a line of its own */
+.field-row > .unit { flex: none; font-size: var(--fs-s); color: var(--text-3); white-space: nowrap; }
+.mission-block { display: flex; flex-direction: column; gap: var(--sp-2); }
+.mission-head { font-size: var(--fs-s); font-weight: var(--fw-semibold); color: var(--text-2); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
+.mission-reqs { display: flex; flex-direction: column; gap: var(--sp-2); padding-left: var(--sp-6); list-style: square; color: var(--text); line-height: var(--lh); user-select: text; }
+.mission-reqs li::marker { color: var(--text-3); }
+.mission-library { display: flex; flex-direction: column; border-top: var(--bw) solid var(--line-row); }
+.lib-doc {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-1);
+  width: 100%; padding: var(--sp-2) var(--sp-3);
+  background: transparent; border: 0; border-bottom: var(--bw) solid var(--line-row);
+  text-align: left; cursor: pointer;
+  transition: background-color var(--t-fast) linear;
+}
+.lib-doc:hover { background: var(--bg-hover); }
+.lib-doc:active { background: var(--bg-active); }
+.lib-doc:focus-visible { outline: var(--bw) solid var(--focus); outline-offset: -1px; }
+.lib-title { color: var(--text); }
+.lib-meta { font-size: var(--fs-s); color: var(--text-2); }
+.mission-result {
+  display: flex; flex-direction: column; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-raised); border-left: 2px solid var(--line-strong);
+  color: var(--text); line-height: var(--lh); user-select: text;
+}
+.mission-result[hidden] { display: none; }
+.mission-result.ok { background: var(--ok-bg); border-left-color: var(--ok); color: var(--ok); }
+.mission-result.err { background: var(--err-bg); border-left-color: var(--err); }
+.mission-result.warn { background: var(--warn-bg); border-left-color: var(--warn); }
+.mission-progress { height: 4px; background: var(--line-strong); }
+.mission-progress[hidden] { display: none; }
+.mission-progress > i { display: block; width: 0; height: 100%; background: var(--accent); }
+.check-cover {
+  flex: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--sp-4);
+  padding: var(--sp-6); background: var(--bg-panel); color: var(--text);
+}
+.check-cover[hidden] { display: none; }
+.check-cover .mission-progress { max-width: 480px; }
+
+/* ============================== Modes (left panel, dialogs) ==============================
+   Student and instructor modes (docs/distribution.md §2): the mode line, the student flow, the instructor tools and
+   their dialogs (native <dialog>, square, 1 px line, no shadow; the backdrop is the app background, dimmed). */
+.mode-row { justify-content: space-between; flex-wrap: wrap; row-gap: var(--sp-2); }
+.field-row.wrap { flex-wrap: wrap; }
+.mission-block[hidden], .field-row[hidden], .btn[hidden] { display: none; }
+.code-input { flex: 1; min-width: 0; }
+/* The mode is a statement, not a button: no box around « Mode étudiant » (the instructor badge keeps its colour). */
+#mode-line.badge:not(.badge--accent) { background-color: transparent; border-color: transparent; padding-left: 0; }
+/* The session's mission, in full on its own line, the confirm button under it. */
+#student-choice > .field-row { flex-wrap: wrap; }
+#student-choice .mission-select { flex: 1 1 100%; }
+/* Locked mission: the names wrap; once the group pack is open only « Fermer » remains (views/access.ts: is-open). */
+#student-locked .kv dd { font-family: var(--font-ui); white-space: normal; overflow-wrap: break-word; }
+.student-locked.is-open .student-import-row, .student-locked.is-open #student-code, .student-locked.is-open #student-open { display: none; }
+.student-locked.is-open .student-code-row { justify-content: flex-end; }
+.judge-detail {
+  font-family: var(--font-mono); font-size: var(--fs-s); color: var(--text);
+  white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; max-height: 200px; overflow: auto;
+}
+.dialog {
+  width: 360px; max-width: calc(100vw - 32px); padding: var(--sp-5);
+  background: var(--bg-panel); color: var(--text); border: var(--bw) solid var(--line-strong);
+}
+.dialog[open] { display: flex; flex-direction: column; gap: var(--sp-4); }
+.dialog--wide { width: 560px; }
+.dialog::backdrop { background: var(--bg-app); opacity: 0.7; }
+.dialog-title { font-size: var(--fs-s); font-weight: var(--fw-semibold); color: var(--text-2); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
+.dialog-actions { justify-content: flex-end; }
+.dialog-table { max-height: 240px; overflow: auto; border: var(--bw) solid var(--line); }
+.dialog-table[hidden] { display: none; }
+.packs-table th:nth-child(1) { width: 72px; }
+.packs-table th:nth-child(2) { width: 184px; }
+.packs-table td { user-select: text; }
+.packs-table .code { color: var(--accent-text); }
+
+/* ============================== Splitters ============================== */
+.splitter { background: var(--bg-app); position: relative; z-index: 2; }
+.splitter::after { content: ""; position: absolute; background: var(--line); }
+.splitter-left, .splitter-right { cursor: col-resize; }
+.splitter-left::after, .splitter-right::after { top: 0; bottom: 0; left: 2px; width: var(--bw); }
+.splitter-bottom { cursor: row-resize; background: var(--bg-panel); }
+.splitter-bottom::after { left: 0; right: 0; top: 2px; height: var(--bw); }
+.splitter:hover::after, .splitter.dragging::after { background: var(--accent); }
+
+/* ============================== Status bar ============================== */
+.statusbar {
+  display: flex; align-items: stretch;
+  background: var(--bg-head); border-top: var(--bw) solid var(--line);
+  font-size: var(--fs-s); color: var(--text-2); white-space: nowrap; overflow: hidden;
+}
+.statusbar > span { display: inline-flex; align-items: center; gap: var(--sp-3); padding: 0 var(--sp-4); border-right: var(--bw) solid var(--line); }
+.statusbar .mono { font-size: var(--fs-s); }
+.statusbar .spacer { flex: 1; border-right: 0; }
+.statusbar .dot { width: 8px; height: 8px; background: var(--text-3); }
+.statusbar .ok { color: var(--ok); } .statusbar .ok .dot { background: var(--ok); }
+.statusbar .warn { color: var(--warn); } .statusbar .warn .dot { background: var(--warn); }
+.statusbar .err { color: var(--err); } .statusbar .err .dot { background: var(--err); }
+.statusbar .info { color: var(--info); } .statusbar .info .dot { background: var(--info); }
+.statusbar .accent { color: var(--accent-text); } .statusbar .accent .dot { background: var(--accent); }
+.statusbar .alert { color: var(--err); }
+
+/* ============================== Instruments (Physical Lab, next milestone) ==============================
+   Same language: square panels, 1 px lines, mono readouts, canvas on --inst-bg with --inst-grid lines.
+   Not used by the cockpit yet; see ui/DESIGN.md. */
+.instrument { display: flex; flex-direction: column; background: var(--bg-panel); border: var(--bw) solid var(--line); }
+.instrument canvas { display: block; background: var(--inst-bg); }
+.readout { font-family: var(--font-mono); font-size: 22px; font-weight: var(--fw-medium); color: var(--readout); font-variant-numeric: tabular-nums; }
+
+/* ============================== Student progression (views/progress.ts) ==============================
+   A short vertical dossier at the top of the cockpit side panel: the steps, the consigne, the last verdict, then the
+   action bar, which sticks to the panel's bottom edge. Every state is a glyph, a word and a colour (colour is never the
+   only cue); no score, counter or percentage (ch. 24 §7.1): the E-codes are the tutorial's step names, drawn by a CSS
+   counter outside the text. The fiche itself lives in the bottom dock (.fiche-dock). */
+.progress {
+  container: progress / inline-size;
+  display: flex; flex-direction: column; gap: var(--sp-4);
+  /* edge to edge in the panel, so that the sticky action bar covers what scrolls under it */
+  margin: 0 calc(-1 * var(--sp-4)) var(--sp-5);
+}
+.progress > :not(.progress-actions) { margin: 0 var(--sp-4); }
+.progress[hidden], .progress-blocked[hidden], .progress-hint[hidden], .progress-alert[hidden], .progress-feedback[hidden], .progress-run[hidden],
+#progress-final[hidden], .fiche[hidden], .fiche-foot[hidden] { display: none; }
+/* Keyboard focus in the progression and the fiche: a 2 px outline set off from the control, never mistaken for the
+   red border of a wrongly shaped field. */
+.progress :focus-visible, .fiche :focus-visible,
+.fiche .input:focus-visible, .fiche .select:focus-visible, .fiche .textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Stepper: five step rows, then the fiche row. The row is a grid node | name | state, the date under the name. */
+.progress-steps { display: flex; flex-direction: column; border: var(--bw) solid var(--line); counter-reset: step -1; }
+.step {
+  display: grid; grid-template-columns: var(--node) minmax(0, 1fr) auto; grid-template-areas: "node name state" ". since since";
+  column-gap: var(--sp-4); row-gap: 0; align-items: center;
+  min-height: var(--h-step); padding: var(--sp-3) var(--sp-4) var(--sp-3) calc(var(--sp-4) - 2px);
+  border-left: 2px solid transparent; border-bottom: var(--bw) solid var(--line-row);
+  font-size: var(--fs-m); line-height: 16px; color: var(--text);
+}
+.step:not(.step-fiche) { counter-increment: step; }
+.step:has(+ .step-fiche) { border-bottom: 0; }
+.step::before { content: ""; grid-area: node; box-sizing: border-box; width: var(--node); height: var(--node); border: var(--bw) solid var(--line-field); }
+.step-name { grid-area: name; min-width: 0; overflow-wrap: break-word; }
+.step:not(.step-fiche) > .step-name::before { content: "E" counter(step); margin-right: var(--sp-3); font-family: var(--font-mono); font-size: var(--fs-s); color: var(--text-3); }
+.step-state { grid-area: state; justify-self: end; font-size: var(--fs-s); font-weight: var(--fw-semibold); letter-spacing: var(--tracking-caps); color: var(--text-2); white-space: nowrap; }
+.step-since { grid-area: since; font-size: var(--fs-s); color: var(--text-2); white-space: nowrap; }
+.step-current { background: var(--accent-sel); border-left-color: var(--accent-text); }
+.step-current > .step-name { font-weight: var(--fw-semibold); }
+.step-open::before { background-color: var(--accent-text); border-color: var(--accent-text); }
+.step-open > .step-state { color: var(--accent-text); }
+.step-passed::before { background-color: var(--ok); border-color: var(--ok); }
+/* the check: a rotated L of two borders, square ends */
+.step-passed::after {
+  content: ""; grid-area: node; justify-self: center; align-self: center; box-sizing: border-box;
+  width: 5px; height: 8px; margin-top: -2px; border: solid var(--bg-app); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg);
+}
+.step-passed > .step-state { color: var(--ok); }
+/* amber, not red: « à corriger » is something to do; red stays for system faults */
+.step-failed { background: var(--warn-bg); border-left-color: var(--warn); }
+.step-failed::before { background-color: var(--warn); border-color: var(--warn); }
+.step-failed::after {
+  content: "!" / ""; grid-area: node; display: grid; place-items: center; width: var(--node); height: var(--node);
+  background-color: var(--warn); color: var(--bg-app); font-family: var(--font-mono); font-size: var(--fs-s); font-weight: var(--fw-semibold); line-height: 1;
+}
+.step-failed > .step-state { color: var(--warn); }
+.step-fiche { border-top: var(--bw) solid var(--line-strong); border-bottom: 0; }
+.step-fiche::before { border: 0; background-color: var(--text-2); -webkit-mask: var(--ico) center / var(--node) no-repeat; mask: var(--ico) center / var(--node) no-repeat; }
+.step-fiche > .step-state { font-weight: var(--fw-regular); letter-spacing: 0; white-space: normal; text-align: right; }
+/* a narrow panel (dragged under 260 px): the state goes under the name */
+@container progress (max-width: 259px) {
+  .step { grid-template-columns: var(--node) minmax(0, 1fr); grid-template-areas: "node name" ". state" ". since"; }
+  .step-state { justify-self: start; }
+  .step-fiche > .step-state { text-align: left; }
+}
+
+/* Consigne: the order of the current step, verbatim and selectable; « Reproduire l'anomalie » belongs to it. */
+.progress-brief { border: var(--bw) solid var(--line); background: var(--bg-head); }
+.progress-brief-head {
+  display: flex; align-items: center; flex-wrap: wrap; column-gap: var(--sp-4);
+  min-height: var(--h-head); padding: var(--sp-2) var(--sp-4); border-bottom: var(--bw) solid var(--line);
+  font-size: var(--fs-s); line-height: 16px;
+}
+.progress-brief-head > span:first-child { color: var(--text-2); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
+#progress-brief-step { color: var(--text); font-size: var(--fs-m); font-weight: var(--fw-medium); }
+.progress-order { margin: 0; padding: var(--sp-3) var(--sp-4) var(--sp-4); font-size: var(--fs-m); line-height: var(--lh); color: var(--text); user-select: text; }
+.progress-brief-foot { padding: 0 var(--sp-4) var(--sp-4); }
+.progress-brief-foot:has(> [hidden]:only-child) { display: none; }
+
+/* Verdict of the last attempt: one block, a 2 px rule and a background by tone; one p.feedback-line per core line,
+   its kind and tone in data attributes, its parts in spans whose text adds up to the line. */
+.progress-feedback {
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4); border: var(--bw) solid var(--line); border-left: 2px solid var(--line-strong);
+  background: var(--bg-raised); scroll-margin-bottom: 140px;
+}
+.progress-feedback:focus { outline: none; }
+.progress-feedback:focus-visible { outline: var(--bw) solid var(--focus); outline-offset: -1px; }
+.progress-feedback.is-ok { background: var(--ok-bg); border-left-color: var(--ok); }
+.progress-feedback.is-warn { background: var(--warn-bg); border-left-color: var(--warn); }
+.progress-feedback.is-info { background: var(--info-bg); border-left-color: var(--info); }
+.progress-feedback.is-err { background: var(--err-bg); border-left-color: var(--err); }
+.feedback-line { margin: 0; font-size: var(--fs-m); line-height: var(--lh); color: var(--text); overflow-wrap: break-word; user-select: text; }
+.feedback-line[data-kind="head"] { font-size: var(--fs-l); font-weight: var(--fw-semibold); }
+.feedback-line[data-kind="head"][data-tone="ok"], .feedback-line[data-kind="closure"], .feedback-line[data-kind="export"][data-tone="ok"] { color: var(--ok); }
+.feedback-line[data-kind="head"][data-tone="warn"] { color: var(--warn); }
+.feedback-line[data-kind="head"][data-tone="info"] { color: var(--info); }
+.feedback-line[data-tone="err"] { color: var(--err); }
+.feedback-line[data-kind="closure"] { font-weight: var(--fw-semibold); }
+.feedback-line[data-kind="hint"] { font-size: var(--fs-s); line-height: 16px; color: var(--text-2); }
+.feedback-line[data-kind="part"] { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--sp-4); align-items: baseline; }
+.feedback-line[data-kind="part"] .fl-label { color: var(--text-2); }
+.feedback-line[data-kind="part"] .fl-value { display: inline-flex; align-items: center; gap: var(--sp-3); font-weight: var(--fw-semibold); }
+.feedback-line[data-kind="part"] .fl-value::before { content: ""; width: 6px; height: 6px; flex: none; background: var(--text-2); }
+.feedback-line[data-kind="part"][data-tone="ok"] .fl-value::before { background: var(--ok); }
+.feedback-line[data-kind="part"][data-tone="warn"] .fl-value::before { background: var(--warn); }
+/* E4: one row per competence, the PASS / FAIL badge first, the label wrapping after it; no count */
+.feedback-line[data-kind="cp"] {
+  display: grid; grid-template-columns: 60px minmax(0, 1fr); column-gap: var(--sp-3); align-items: start;
+  min-height: 24px; padding: var(--sp-1) 0 var(--sp-1) var(--sp-3);
+  border-left: 2px solid transparent; border-bottom: var(--bw) solid var(--line-row);
+}
+.feedback-line[data-kind="cp"][data-tone="warn"] { border-left-color: var(--warn); }
+.feedback-line[data-kind="cp"] .fl-value { grid-column: 1; grid-row: 1; justify-self: start; }
+.feedback-line[data-kind="cp"] .fl-label { grid-column: 2; grid-row: 1; padding-top: 1px; }
+
+/* E4: the CP rows end clear of the action bar */
+.progress-feedback:has(> [data-kind="cp"]) { padding-bottom: var(--sp-5); }
+
+/* E5, export failed: an error block with what is kept and the retry, the progression's main action then. */
+.progress-alert {
+  display: flex; flex-direction: column; gap: var(--sp-3);
+  padding: var(--sp-4); border: var(--bw) solid var(--err-line); border-left: 2px solid var(--err); background: var(--err-bg);
+}
+.progress-alert-title { margin: 0; font-size: var(--fs-l); font-weight: var(--fw-semibold); line-height: var(--lh); color: var(--err); }
+.progress-alert-text { margin: 0; font-size: var(--fs-m); line-height: var(--lh); color: var(--text); overflow-wrap: break-word; }
+.progress-alert > .btn { width: 100%; }
+
+/* Action bar: the fiche toggle, the one main action, its run bar, the message under it (tutorial §3 item 5). Opaque,
+   with a field-contrast rule on top: what scrolls under it is clearly cut, never mistaken for the list's end. */
+.progress-actions {
+  position: sticky; bottom: 0; z-index: 1;
+  display: flex; flex-direction: column; gap: var(--sp-3);
+  padding: var(--sp-4); background: var(--bg-head); border-top: var(--bw) solid var(--line-field);
+}
+.progress-actions > .btn { width: 100%; }
+.progress-run { height: 2px; background: var(--line-strong); }
+.progress-run > i { display: block; width: 0; height: 100%; background: var(--accent); }
+.progress-blocked {
+  margin: 0; padding: var(--sp-3) var(--sp-4); border-left: 2px solid var(--warn); background: var(--warn-bg);
+  color: var(--text); font-size: var(--fs-m); line-height: var(--lh); overflow-wrap: break-word; user-select: text;
+}
+.progress-blocked.is-run { border-left-color: var(--accent-text); background: var(--accent-sel); }
+/* the missing-fields message: its first sentence, « Champs à renseigner : », then one line per group of fields */
+.pb-label { display: block; margin-top: var(--sp-2); font-size: var(--fs-s); font-weight: var(--fw-semibold); line-height: 16px; color: var(--text-2); }
+.pb-list { display: flex; flex-direction: column; gap: var(--sp-1); margin: var(--sp-2) 0 0; padding: 0; list-style: none; }
+.pb-item { position: relative; padding-left: var(--sp-5); line-height: 16px; }
+.pb-item::before { content: ""; position: absolute; left: var(--sp-1); top: 6px; width: 4px; height: 4px; background: var(--warn); }
+/* what the open fiche means for the verification: a wrong field (amber), or unsaved changes saved first */
+.progress-hint { margin: 0; font-size: var(--fs-s); line-height: 16px; color: var(--text-2); overflow-wrap: break-word; }
+.progress-hint.is-warn { color: var(--warn); font-weight: var(--fw-medium); }
+
+/* ============================== Fiche (bottom dock, tab « Fiche ») ==============================
+   #progress-fiche is the scroll container of the dock panel, so its rectangle is the visible fiche. A document: a
+   sticky head (title, note, index of the sections), numbered sections of bordered records whose labelled fields wrap
+   on a grid (never a horizontal scroll), and a sticky foot (« Enregistrer la fiche », unsaved changes, status). */
+.fiche-dock:not([hidden]) { display: flex; flex-direction: column; overflow: hidden; }
+.fiche {
+  flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; background: var(--bg-panel);
+  container: fiche / inline-size;
+  /* a field brought into view stops under the sticky head and above the sticky foot */
+  scroll-padding: 104px 0 72px;
+}
+.fiche:has(.fiche-head > .fiche-note:not([hidden])) { scroll-padding-top: 148px; }
+.fiche:has(.incident-grid) { scroll-padding-top: 48px; }
+.fiche:has(.incident-grid):has(.fiche-head > .fiche-note:not([hidden])) { scroll-padding-top: 92px; }
+
+.fiche-head {
+  position: sticky; top: 0; z-index: 2;
+  display: flex; flex-direction: column; gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-6); background: var(--bg-head); border-bottom: var(--bw) solid var(--line-strong);
+}
+.fiche-title { margin: 0; font-size: var(--fs-l); font-weight: var(--fw-semibold); line-height: var(--lh); color: var(--text); }
+.fiche-note { margin: 0; padding: var(--sp-3) var(--sp-4); border-left: 2px solid var(--info); background: var(--info-bg); color: var(--text); line-height: var(--lh); }
+.fiche-note[hidden] { display: none; }
+/* the index: one entry per section, numbered like the sections (01–07); a section holding a wrong field is red */
+.fiche-nav { display: flex; flex-wrap: wrap; gap: var(--sp-2); counter-reset: fiche-nav; }
+.fiche-nav-item { flex: none; height: 24px; padding: 0 var(--sp-3); counter-increment: fiche-nav; font-weight: var(--fw-regular); }
+.fiche-nav-item::before { content: counter(fiche-nav, decimal-leading-zero); font-family: var(--font-mono); font-size: var(--fs-s); color: var(--text-3); }
+/* the section in view (views/progress.ts, IntersectionObserver) */
+.fiche-nav-item[aria-current="true"] { background: var(--accent-sel); color: var(--text); }
+.fiche-nav-item[data-invalid="true"], .fiche-nav-item[data-invalid="true"]::before { color: var(--err); }
+/* a short window (1366 x 768): the index stays on one line and scrolls sideways, the head keeps its height */
+@media (max-height: 820px) {
+  .fiche-nav { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; margin: calc(-1 * var(--sp-2)); padding: var(--sp-2); }
+  .fiche { scroll-padding-top: 80px; }
+  .fiche:has(.fiche-head > .fiche-note:not([hidden])) { scroll-padding-top: 124px; }
+}
+
+.fiche-body { padding: 0 var(--sp-6) var(--sp-6); counter-reset: fiche-section; }
+.fiche-block { display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0; margin-top: var(--sp-6); scroll-margin-top: var(--sp-4); }
+.fiche-section {
+  display: flex; align-items: center; gap: var(--sp-4);
+  min-height: var(--h-head); margin: 0; border-bottom: var(--bw) solid var(--line);
+  counter-increment: fiche-section;
+  font-size: var(--fs-s); font-weight: var(--fw-semibold); color: var(--text-2); text-transform: uppercase; letter-spacing: var(--tracking-caps);
+}
+.fiche-section::before { content: counter(fiche-section, decimal-leading-zero); font-family: var(--font-mono); font-weight: var(--fw-regular); color: var(--text-3); letter-spacing: 0; }
+
+/* A record: « Trame 2 », the identifier as typed, « Supprimer »; then its lines of fields. */
+.fiche-record { min-width: 0; border: var(--bw) solid var(--line); }
+.fiche-record:focus-within { border-color: var(--line-field); }
+.fiche-record-head {
+  display: flex; align-items: center; gap: var(--sp-4);
+  min-height: var(--h-head); padding: 0 var(--sp-1) 0 var(--sp-4); background: var(--bg-head); border-bottom: var(--bw) solid var(--line);
+}
+.fiche-record-name { color: var(--text-2); font-weight: var(--fw-semibold); white-space: nowrap; }
+.fiche-record-id { min-width: 0; font-family: var(--font-mono); color: var(--text); overflow-wrap: anywhere; }
+/* « Supprimer »: discreet, a trash glyph, red on hover; « Confirmer la suppression » is the danger button */
+.fiche-record-head > .fiche-remove { margin-left: auto; min-height: 24px; gap: var(--sp-2); padding: 0 var(--sp-3); }
+.fiche-remove::before {
+  content: ""; width: 14px; height: 14px; flex: none; background-color: currentColor;
+  --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M2.5 4h11M6 4V2h4v2M4 4l.8 10h6.4L12 4M6.5 6.5v5M9.5 6.5v5'/%3E%3C/svg%3E");
+  -webkit-mask: var(--ico) center / 14px no-repeat; mask: var(--ico) center / 14px no-repeat;
+}
+.fiche-remove.btn--ghost:hover:not(:disabled) { background: var(--err-bg); color: var(--err); }
+.fiche-record-body { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-4); }
+/* A line of fields: a grid that wraps (5 columns at the student's 716 px workspace). Fields start at the top, so a
+   format error only lengthens its own field; next to a bit field, a plain field's label drops to the bit field's
+   cell labels (legend: 14 + 2 + 1 + 4 px). Supervision and decisions have long labels that may wrap: their controls
+   align at the bottom. */
+.fiche-line { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: var(--sp-4) var(--sp-5); align-items: start; }
+.fiche-line:has(> .ff-bits) > .ff { padding-top: 21px; }
+.fiche-line--doc { grid-template-columns: minmax(0, 2fr) minmax(200px, 1fr); }
+.fiche-line--supervision { grid-template-columns: repeat(auto-fill, minmax(156px, 1fr)); align-items: end; }
+.fiche-line--decisions { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); align-items: end; }
+/* A labelled field: its label, the control at full width, its format error under it. */
+.ff { display: flex; flex-direction: column; gap: var(--sp-1); min-width: 0; }
+.ff > .input, .ff > .select { width: 100%; }
+.ff-label { font-size: var(--fs-s); font-weight: var(--fw-medium); line-height: 14px; color: var(--text-2); overflow-wrap: break-word; }
+.ff-error { font-size: var(--fs-s); line-height: 14px; color: var(--err); overflow-wrap: break-word; }
+.ff-error[hidden] { display: none; }
+.ff--wide { grid-column: span 2; }
+.ff--full { grid-column: 1 / -1; }
+/* A bit field: order, LSB, length under the core's name of the field (« CRC de protection »). */
+.ff-bits { grid-column: span 2; min-width: 0; margin: 0; padding: 0; border: 0; }
+.ff-legend {
+  float: left; width: 100%; margin: 0 0 var(--sp-2); padding: 0 0 var(--sp-1); border-bottom: var(--bw) solid var(--line);
+  font-size: var(--fs-s); font-weight: var(--fw-semibold); line-height: 14px; color: var(--text-2); text-transform: uppercase; letter-spacing: var(--tracking-caps);
+}
+.ff-bits-cells { clear: both; display: grid; grid-template-columns: minmax(104px, 1.6fr) minmax(52px, 1fr) minmax(52px, 1fr); gap: var(--sp-4) var(--sp-3); align-items: start; }
+@container fiche (max-width: 339px) {
+  .ff--wide, .ff-bits { grid-column: 1 / -1; }
+  .fiche-line--doc { grid-template-columns: minmax(0, 1fr); }
+}
+.fiche-justification { display: block; width: 100%; }
+
+/* Foot: always in view at the bottom of the fiche. While fields changed and are not saved, the marker shows and
+   « Enregistrer la fiche » is the fiche's main action (nothing is saved by itself). */
+.fiche-foot {
+  position: sticky; bottom: 0; z-index: 2;
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5);
+  padding: var(--sp-4) var(--sp-6); background: var(--bg-head); border-top: var(--bw) solid var(--line-strong);
+}
+.fiche-dirty { display: inline-flex; align-items: center; gap: var(--sp-3); color: var(--warn); font-weight: var(--fw-medium); }
+.fiche-dirty::before { content: ""; width: 6px; height: 6px; flex: none; background: var(--warn); }
+.fiche-dirty[hidden] { display: none; }
+.fiche-status { flex: 1 1 240px; min-width: 0; margin: 0; line-height: var(--lh); color: var(--text-2); overflow-wrap: break-word; }
+.fiche-status.ok { color: var(--ok); }
+.fiche-status.err { color: var(--err); }
+
+/* Incident part of the fiche (views/incident.ts): five sections; from 640 px of fiche on, two columns (Cible,
+   Catégorie, État observé | Mesure clé, Justification). */
+@container fiche (min-width: 640px) {
+  .incident-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--sp-6); align-items: start;
+    grid-template-areas: "cible mesure" "categorie mesure" "etat justif";
+  }
+  .incident-cible { grid-area: cible; }
+  .incident-categorie { grid-area: categorie; }
+  .incident-etat { grid-area: etat; }
+  .incident-mesure { grid-area: mesure; }
+  .incident-justif { grid-area: justif; }
+}
+.incident-grid > .fiche-block { gap: var(--sp-3); }
+.incident-grid > .fiche-block > .select { width: 100%; }
+.incident-designation { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--sp-4) var(--sp-5); align-items: start; }
+.incident-designation:empty { display: none; }
+.incident-definition, .incident-hint { margin: 0; font-size: var(--fs-s); line-height: 16px; color: var(--text-2); overflow-wrap: break-word; }
+.incident-quantity { margin: 0; font-size: var(--fs-m); font-weight: var(--fw-semibold); line-height: var(--lh); color: var(--text); overflow-wrap: break-word; }
+/* « Consigner la mesure » and its record, clear of any field (figure 07), then value and unit */
+.incident-consign-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-5); margin-top: var(--sp-3); }
+.incident-consigned { margin: 0; font-size: var(--fs-s); line-height: 16px; color: var(--text-2); }
+.incident-consigned.ok { color: var(--ok); }
+/* not recorded yet: an amber chip, something still to do */
+.incident-consigned.warn {
+  display: inline-flex; align-items: center; min-height: 20px; padding: 0 var(--sp-3);
+  border: var(--bw) solid var(--warn-line); background: var(--warn-bg); color: var(--warn); font-weight: var(--fw-medium);
+}
+.incident-value-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-5); align-items: start; margin-top: var(--sp-5); }
+
+/* ============================== Status bar: progression segment ============================== */
+.statusbar > .sb-progress {
+  display: inline-flex; align-items: center; gap: var(--sp-3); padding: 0 var(--sp-4);
+  background: transparent; border: 0; border-right: var(--bw) solid var(--line);
+  color: inherit; font-size: var(--fs-s); cursor: pointer;
+  transition: background-color var(--t-fast) linear;
+}
+.statusbar > .sb-progress:hover { background: var(--bg-hover); color: var(--text); }
+.statusbar > .sb-progress:focus-visible { outline: var(--bw) solid var(--focus); outline-offset: -1px; }
+.sb-progress[hidden] { display: none; }

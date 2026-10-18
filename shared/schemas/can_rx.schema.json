@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://n7rt-canlab.local/schemas/can_rx.schema.json",
+  "title": "CanRxEvent",
+  "allOf": [
+    {
+      "$ref": "./telemetry-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "can_rx"
+        }
+      },
+      "required": ["type", "id", "dlc", "data"]
+    }
+  ]
+}
+

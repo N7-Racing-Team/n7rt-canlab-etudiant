@@ -1,0 +1,575 @@
+{
+  "format": "n7rt-physlab-circuit",
+  "version": 1,
+  "library_version": 3,
+  "name": "tp1-capteur-can",
+  "next_id": 40,
+  "components": [
+    {
+      "id": 1,
+      "kind": "ecu_stm32",
+      "label": "U1",
+      "pos": [
+        0,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "adc_bits": "12",
+        "adc_sample_rate": 1000,
+        "can_mode": "can",
+        "r_out_3v3": 0.05,
+        "r_out_5v": 0.1
+      },
+      "state": {
+        "usb": true
+      }
+    },
+    {
+      "id": 2,
+      "kind": "can_transceiver",
+      "label": "U2",
+      "pos": [
+        35,
+        6
+      ],
+      "rot": 0,
+      "params": {
+        "r_in": 25000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 3,
+      "kind": "potentiometer",
+      "label": "RV1",
+      "pos": [
+        10,
+        -18
+      ],
+      "rot": 180,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.3
+      }
+    },
+    {
+      "id": 4,
+      "kind": "resistor",
+      "label": "R1",
+      "pos": [
+        15,
+        -11
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 5,
+      "kind": "capacitor",
+      "label": "C1",
+      "pos": [
+        25,
+        -8
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 6,
+      "kind": "termination",
+      "label": "RT1",
+      "pos": [
+        52,
+        15
+      ],
+      "rot": 180,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 120.0
+      },
+      "state": {}
+    },
+    {
+      "id": 7,
+      "kind": "can_bus",
+      "label": "BUS1",
+      "pos": [
+        64,
+        17
+      ],
+      "rot": 0,
+      "params": {
+        "remote_nodes": 1,
+        "remote_r_in": 25000.0,
+        "remote_termination": true
+      },
+      "state": {}
+    },
+    {
+      "id": 8,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        -10,
+        7
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 9,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        17,
+        -16
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 10,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        25,
+        -3
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 11,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        26,
+        11
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 12,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        35,
+        17
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 13,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        58,
+        23
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 18,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        10,
+        -11
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 23,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        20,
+        -11
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 33,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        56,
+        15
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 36,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        48,
+        15
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    }
+  ],
+  "wires": [
+    {
+      "id": 14,
+      "a": {
+        "comp": 1,
+        "pin": "v5"
+      },
+      "b": {
+        "comp": 2,
+        "pin": "vdd"
+      },
+      "bends": [
+        [
+          -12,
+          -4
+        ],
+        [
+          -12,
+          -22
+        ],
+        [
+          35,
+          -22
+        ]
+      ]
+    },
+    {
+      "id": 15,
+      "a": {
+        "comp": 1,
+        "pin": "v3v3"
+      },
+      "b": {
+        "comp": 3,
+        "pin": "b"
+      },
+      "bends": [
+        [
+          -10,
+          -2
+        ],
+        [
+          -10,
+          -18
+        ]
+      ]
+    },
+    {
+      "id": 16,
+      "a": {
+        "comp": 1,
+        "pin": "gnd"
+      },
+      "b": {
+        "comp": 8,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          -10,
+          4
+        ]
+      ]
+    },
+    {
+      "id": 17,
+      "a": {
+        "comp": 1,
+        "pin": "a0"
+      },
+      "b": {
+        "comp": 18,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          10,
+          -4
+        ]
+      ]
+    },
+    {
+      "id": 19,
+      "a": {
+        "comp": 18,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 4,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 20,
+      "a": {
+        "comp": 18,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 3,
+        "pin": "w"
+      },
+      "bends": []
+    },
+    {
+      "id": 21,
+      "a": {
+        "comp": 3,
+        "pin": "a"
+      },
+      "b": {
+        "comp": 9,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          17,
+          -18
+        ]
+      ]
+    },
+    {
+      "id": 22,
+      "a": {
+        "comp": 4,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 23,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 24,
+      "a": {
+        "comp": 23,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 5,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 25,
+      "a": {
+        "comp": 23,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 1,
+        "pin": "a1"
+      },
+      "bends": [
+        [
+          20,
+          -2
+        ]
+      ]
+    },
+    {
+      "id": 26,
+      "a": {
+        "comp": 5,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 10,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 27,
+      "a": {
+        "comp": 1,
+        "pin": "can_tx"
+      },
+      "b": {
+        "comp": 2,
+        "pin": "txd"
+      },
+      "bends": []
+    },
+    {
+      "id": 28,
+      "a": {
+        "comp": 1,
+        "pin": "can_rx"
+      },
+      "b": {
+        "comp": 2,
+        "pin": "rxd"
+      },
+      "bends": []
+    },
+    {
+      "id": 29,
+      "a": {
+        "comp": 2,
+        "pin": "rs"
+      },
+      "b": {
+        "comp": 11,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          26,
+          8
+        ]
+      ]
+    },
+    {
+      "id": 30,
+      "a": {
+        "comp": 2,
+        "pin": "vss"
+      },
+      "b": {
+        "comp": 12,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 31,
+      "a": {
+        "comp": 2,
+        "pin": "canh"
+      },
+      "b": {
+        "comp": 33,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          56,
+          4
+        ]
+      ]
+    },
+    {
+      "id": 32,
+      "a": {
+        "comp": 2,
+        "pin": "canl"
+      },
+      "b": {
+        "comp": 36,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          48,
+          8
+        ]
+      ]
+    },
+    {
+      "id": 34,
+      "a": {
+        "comp": 33,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 7,
+        "pin": "canh"
+      },
+      "bends": []
+    },
+    {
+      "id": 35,
+      "a": {
+        "comp": 33,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 37,
+      "a": {
+        "comp": 36,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 7,
+        "pin": "canl"
+      },
+      "bends": [
+        [
+          48,
+          19
+        ]
+      ]
+    },
+    {
+      "id": 38,
+      "a": {
+        "comp": 36,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "p2"
+      },
+      "bends": []
+    },
+    {
+      "id": 39,
+      "a": {
+        "comp": 7,
+        "pin": "gnd"
+      },
+      "b": {
+        "comp": 13,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          58,
+          21
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "kind": "supply",
+    "output": "cv"
+  },
+  {
+    "kind": "supply",
+    "output": "cv"
+  },
+  {
+    "kind": "contact",
+    "closed": true
+  },
+  {
+    "kind": "contact",
+    "closed": false
+  },
+  {
+    "kind": "pot",
+    "position": 0.3
+  },
+  {
+    "kind": "ecu",
+    "powered": true
+  },
+  {
+    "kind": "transceiver",
+    "powered": true,
+    "rs": "high_speed",
+    "txd": "dominant_timeout"
+  },
+  {
+    "kind": "passive"
+  }
+]

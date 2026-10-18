@@ -1,0 +1,6 @@
+// Type check of the dev-only preview harness, against ui/src/types.ts (from app/: npx tsc --noEmit -p ui/preview).
+// Not used by the build: app/tsconfig.json covers ui/src only.
+{
+  "extends": "../../tsconfig.json",
+  "include": ["./*.ts"]
+}

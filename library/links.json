@@ -1,0 +1,141 @@
+[
+  {
+    "title": "CAN Specification Version 2.0",
+    "publisher": "Robert Bosch GmbH",
+    "reference": "CAN Specification 2.0 (Part A, Part B)",
+    "revision": "Version 2.0",
+    "date": "1991-09",
+    "primary_url": "https://web.archive.org/web/20171215103144id_/http://www.bosch-semiconductors.de:80/media/ubk_semiconductors/pdf_1/canliteratur/can2spec.pdf",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ]
+  },
+  {
+    "title": "E2E Protocol Specification",
+    "publisher": "AUTOSAR",
+    "reference": "AUTOSAR_FO_PRS_E2EProtocol (Document ID 849)",
+    "revision": "R25-11",
+    "date": "2025-11-27",
+    "primary_url": "https://www.autosar.org/fileadmin/standards/R25-11/FO/AUTOSAR_FO_PRS_E2EProtocol.pdf",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ]
+  },
+  {
+    "title": "Formula Student Inspection Sheet – Electric",
+    "publisher": "Formula Student Germany (FSG)",
+    "reference": "2026_FSG_v1.0 (build 4b8e7f9)",
+    "revision": "2026_FSG_v1.0",
+    "date": "2026-07-13",
+    "primary_url": "https://www.formulastudent.de/fileadmin/user_upload/all/2026/important_docs/FSG26_InspectionSheet_EV_v20260713.pdf",
+    "missions": [
+      "APPS",
+      "BPS"
+    ]
+  },
+  {
+    "title": "Formula Student Rules 2023",
+    "publisher": "Formula Student Germany (FSG)",
+    "reference": "Rev-44c3679",
+    "revision": "Version 1.1",
+    "date": "2022-11-23",
+    "primary_url": "https://www.formulastudent.de/fileadmin/user_upload/all/2023/rules/FS-Rules_2023_v1.1.pdf",
+    "missions": [
+      "APPS",
+      "BPS"
+    ]
+  },
+  {
+    "title": "Formula Student Rules 2026",
+    "publisher": "Formula Student Germany (FSG)",
+    "reference": "Rev-15f99a7",
+    "revision": "Version 1.1",
+    "date": "2025-11-25",
+    "primary_url": "https://www.formulastudent.de/fileadmin/user_upload/all/2026/rules/FS-Rules_2026_v1.1.pdf",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ]
+  },
+  {
+    "title": "Formula Student Rules 2027",
+    "publisher": "Formula Student Germany (FSG)",
+    "reference": "FS-Rules-2027",
+    "revision": "Version 1.0",
+    "date": "2026-09-29",
+    "primary_url": "https://www.formulastudent.de/fileadmin/user_upload/all/2027/rules/FS_Rules_2027_v1.0.pdf",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ]
+  },
+  {
+    "title": "MLX90371 – Triaxis Position Processor, Datasheet",
+    "publisher": "Melexis",
+    "reference": "MLX90371",
+    "revision": "Revision 004",
+    "date": "2019-03",
+    "primary_url": "https://www.melexis.com/-/media/files/documents/datasheets/MLX90371-datasheet-melexis.pdf",
+    "missions": [
+      "APPS"
+    ]
+  },
+  {
+    "title": "MLX90372 – Triaxis Position Processor, Datasheet",
+    "publisher": "Melexis",
+    "reference": "3901090372",
+    "revision": "REVISION 8",
+    "date": "2019-03-08",
+    "primary_url": "https://www.melexis.com/-/media/files/documents/datasheets/MLX90372-datasheet-melexis.pdf",
+    "missions": [
+      "APPS"
+    ]
+  },
+  {
+    "title": "MLX90377 – Triaxis Position Sensor IC, Datasheet",
+    "publisher": "Melexis",
+    "reference": "3901090377",
+    "revision": "REVISION 003",
+    "date": "2021-12-22",
+    "primary_url": "https://media.melexis.com/-/media/files/documents/datasheets/mlx90377-datasheet-melexis.pdf",
+    "missions": [
+      "APPS",
+      "SAS"
+    ]
+  },
+  {
+    "title": "Specification of CRC Library",
+    "publisher": "AUTOSAR",
+    "reference": "AUTOSAR_CP_SWS_CRCLibrary (Document ID 16)",
+    "revision": "R25-11",
+    "date": "2025-11-27",
+    "primary_url": "https://www.autosar.org/fileadmin/standards/R25-11/CP/AUTOSAR_CP_SWS_CRCLibrary.pdf",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ]
+  },
+  {
+    "title": "TLE4997A8(D) Programmable Single/Dual Die Linear Hall Sensor, Data Sheet",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE4997A8(D)",
+    "revision": "Revision 1.1",
+    "date": "2018-01",
+    "primary_url": "https://www.farnell.com/datasheets/3627096.pdf",
+    "missions": [
+      "APPS"
+    ]
+  }
+]

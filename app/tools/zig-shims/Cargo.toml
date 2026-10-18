@@ -1,0 +1,9 @@
+[package]
+name = "zig-shims"
+description = "windres and dlltool stand-ins backed by zig, for Windows GNU builds without MinGW binutils"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Standalone tool, not part of the application workspace.
+[workspace]

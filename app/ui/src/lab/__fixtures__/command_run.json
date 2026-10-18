@@ -1,0 +1,5 @@
+{
+  "type": "run",
+  "run": "run",
+  "sim_time_ns": 3000000
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://n7rt-canlab.local/schemas/state.schema.json",
+  "title": "StateEvent",
+  "allOf": [
+    {
+      "$ref": "./telemetry-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "state"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "state"]
+    }
+  ]
+}
+

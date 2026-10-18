@@ -1,0 +1,152 @@
+[
+  {
+    "frame": 0,
+    "command": {
+      "cmd": "run"
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "meter",
+      "com": {
+        "comp": 3,
+        "pin": "a"
+      },
+      "vohm": {
+        "comp": 3,
+        "pin": "w"
+      },
+      "function": "v_dc"
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "stop"
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "edit",
+      "base_rev": 0,
+      "edit": {
+        "op": "add_component",
+        "kind": "resistor",
+        "pos": [
+          0,
+          200
+        ],
+        "rot": 90,
+        "params": {},
+        "label": null
+      }
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "edit",
+      "base_rev": 1,
+      "edit": {
+        "op": "move",
+        "components": [
+          71
+        ],
+        "wires": [],
+        "delta": [
+          4,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "interact",
+      "interact": {
+        "op": "set_pot",
+        "comp": 3,
+        "position": 0.7
+      }
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "run"
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "undo"
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "redo"
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "interact",
+      "interact": {
+        "op": "set_switch",
+        "comp": 12,
+        "closed": false
+      }
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "interact",
+      "interact": {
+        "op": "set_power",
+        "comp": 8,
+        "on": false
+      }
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "interact",
+      "interact": {
+        "op": "set_button",
+        "comp": 15,
+        "pressed": true
+      }
+    }
+  },
+  {
+    "frame": 3,
+    "command": {
+      "cmd": "reset"
+    }
+  },
+  {
+    "frame": 0,
+    "command": {
+      "cmd": "stop"
+    }
+  },
+  {
+    "frame": 0,
+    "command": {
+      "cmd": "edit",
+      "base_rev": 4,
+      "edit": {
+        "op": "set_param",
+        "comp": 9,
+        "name": "resistance",
+        "value": "2k2"
+      }
+    }
+  }
+]

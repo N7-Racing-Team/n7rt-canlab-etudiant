@@ -1,0 +1,22 @@
+{
+  "format": "n7rt-mission-enonce",
+  "version": 1,
+  "mission": "sas",
+  "title": "SAS — angle du volant",
+  "summary": "Votre carte STM32 joue la partie angle du volant du calculateur du véhicule. Un module capteur mesure la rotation du volant ; les informations de son calculateur arrivent par le bus CAN. En agissant sur le banc Physical Lab, retrouvez les messages utiles, décodez les grandeurs, surveillez leur validité et publiez les cinq sorties demandées à chaque tick de 10 ms.",
+  "requirements": [
+    "L'angle du volant est positif vers la gauche et négatif vers la droite, vu du siège du conducteur.",
+    "Les butées du volant sont à −120° et +120°. Le jeu de direction est inférieur ou égal à 7°.",
+    "Une valeur qualifiée doit être fraîche, intègre, déclarée valide par sa source et physiquement plausible. Justifiez vos limites de plausibilité à partir du véhicule et des documents de la bibliothèque.",
+    "ANGLE et SPEED sont publiés uniquement quand la grandeur correspondante est qualifiée ; sinon, rejetez le slot avec n7rt_reject. Les trois drapeaux sont toujours publiés sous forme de 0 ou 1.",
+    "LIMIT_REQ vaut 1 dès que l'angle n'est pas valide. Il revient à 0 à la première évaluation où l'angle est resté valide au moins 100 ms, comptés depuis la première évaluation valide.",
+    "Publiez les cinq sorties à chaque tick de 10 ms. Entre deux évaluations d'un message source, conservez le résultat de la dernière évaluation."
+  ],
+  "slots": [
+    { "slot": 0, "code": "ANGLE", "label": "Angle du volant qualifié, positif vers la gauche", "unit": "°" },
+    { "slot": 1, "code": "ANGLE_VALID", "label": "Angle du volant valide", "unit": "0/1" },
+    { "slot": 2, "code": "SPEED", "label": "Vitesse angulaire qualifiée, positive vers la gauche", "unit": "°/s" },
+    { "slot": 3, "code": "SPEED_VALID", "label": "Vitesse angulaire valide", "unit": "0/1" },
+    { "slot": 4, "code": "LIMIT_REQ", "label": "Limitation prudente du couple demandée", "unit": "0/1" }
+  ]
+}

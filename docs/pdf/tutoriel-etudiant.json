@@ -1,0 +1,23 @@
+{
+ "source": "tutoriel-etudiant.typ",
+ "figures": [
+  "figures-etudiant-1.json",
+  "figures-etudiant-2.json"
+ ],
+ "images": "../img/tutoriel-0.3-pdf",
+ "manifest": "../img/tutoriel-0.3-pdf/manifest.json",
+ "root": "../..",
+ "output": "../N7RT_CANLab_0.3_Tutoriel_Etudiant.pdf",
+ "legend": "steps",
+ "min_figures": 30,
+ "mission": null,
+ "data": null,
+ "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+ "captures": null,
+ "report": "build-report-etudiant.json",
+ "render": null,
+ "parts": [
+  "tutoriel-etudiant-1.typ",
+  "tutoriel-etudiant-2.typ"
+ ]
+}

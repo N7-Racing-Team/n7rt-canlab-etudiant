@@ -1,0 +1,23 @@
+{
+  "format": "n7rt-mission-enonce",
+  "version": 1,
+  "mission": "bps",
+  "title": "BPS — pression de freinage",
+  "summary": "Votre carte STM32 reçoit le bus CAN du véhicule. Deux capteurs mesurent les pressions des circuits hydrauliques avant et arrière ; un contact indique l'état du frein. Retrouvez les informations utiles, décodez-les, surveillez leur validité et leur fraîcheur, puis publiez les six résultats B1 à B6 à chaque tick de 10 ms.",
+  "requirements": [
+    "Publier à chaque tick de 10 ms le résultat de la dernière évaluation des données de freinage : une valeur qualifiée ou un rejet pour chaque grandeur qui n'est pas disponible.",
+    "B1 et B2 sont les pressions relatives qualifiées des circuits avant et arrière, en bar. Rejeter chaque pression qui n'est pas qualifiable.",
+    "B3 vaut 1 quand la plus grande pression qualifiée atteint 5,0 bar et repasse à 0 sous 4,0 bar. Entre ces seuils, conserver l'état précédent. Sans pression qualifiée, utiliser l'état du contact de frein s'il est disponible ; sinon rejeter B3.",
+    "B4 vaut 1 si et seulement si B3 vaut 1 sur la base des deux pressions qualifiées. Publier 0 dans tous les autres cas, sans rejet.",
+    "Le rapport nominal des pressions arrière et avant est β = 0,75. B5 vaut 1 si |P_arrière − 0,75 × P_avant| dépasse 7,0 bar + 0,075 × P_avant pendant au moins 200 ms ; il repasse à 0 après 200 ms de cohérence. Rejeter B5 si une pression n'est pas qualifiée.",
+    "B6 vaut 1 quand les données de freinage sont valides, fraîches et sans timeout ; sinon publier 0, sans rejet."
+  ],
+  "slots": [
+    { "slot": 0, "code": "B1", "label": "Pression circuit avant", "unit": "bar" },
+    { "slot": 1, "code": "B2", "label": "Pression circuit arrière", "unit": "bar" },
+    { "slot": 2, "code": "B3", "label": "Frein hydraulique actionné", "unit": "0/1" },
+    { "slot": 3, "code": "B4", "label": "Condition frein pour le R2D", "unit": "0/1" },
+    { "slot": 4, "code": "B5", "label": "Incohérence avant/arrière", "unit": "0/1" },
+    { "slot": 5, "code": "B6", "label": "Données de freinage exploitables", "unit": "0/1" }
+  ]
+}

@@ -1,0 +1,11 @@
+[package]
+name = "n7rt-circuit"
+description = "N7RT Physical Lab circuit model: component library, schematic graph, nets, transactions, undo/redo, persistence"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }

@@ -1,0 +1,36 @@
+# Python tools of the student repository (bench, N7RT-Link reference codec, library check, release).
+# They run as scripts (python tools/...); this file lists their dependencies and test settings:
+#   python -m pip install .          (dependencies only, installs no package)
+#   python -m pip install ".[dev]"   (+ tests)
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = []
+py-modules = []
+
+[project]
+name = "n7rt-canlab-tools"
+version = "0.1.0"
+description = "N7RT CAN Lab bench and release tools (scripts, not an installable package)."
+requires-python = ">=3.11"
+dependencies = [
+  "pyserial>=3.5,<4.0",
+  "jsonschema>=4.0,<5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9.0",
+  "psutil>=5.9",
+  "pillow>=10.0",
+  "ruff>=0.9,<1.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tools/stm32/tests", "tools/n7rt_link/tests", "tools/release/tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"

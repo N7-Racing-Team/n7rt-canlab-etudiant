@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="n7rt-editor-style-nonce" content="__TAURI_STYLE_NONCE__" />
+  <title>N7RT CAN Lab</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="./src/main.ts"></script>
+</head>
+<body>
+  <!-- Icon sprite: 16 px grid, 1.5 px strokes, square caps (ui/DESIGN.md, Icônes). -->
+  <svg width="0" height="0" class="sr" aria-hidden="true">
+    <symbol id="i-refresh" viewBox="0 0 16 16"><path d="M13 3v4H9M3 13V9h4M12.6 7A5 5 0 0 0 3.8 5.2M3.4 9a5 5 0 0 0 8.8 1.8"/></symbol>
+    <symbol id="i-connect" viewBox="0 0 16 16"><path d="M6 2v3M10 2v3M4 5h8v3a4 4 0 0 1-8 0zM8 12v3"/></symbol>
+    <symbol id="i-disconnect" viewBox="0 0 16 16"><path d="M6 2v3M10 2v3M4 5h8v3a4 4 0 0 1-8 0zM8 12v3M2 2l12 12"/></symbol>
+    <symbol id="i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 16 16"><path d="M4 4h8v8H4z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 16 16"><path d="M2 8h10M8 4l4 4-4 4M14 3v10"/></symbol>
+    <symbol id="i-cockpit" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM2 6h12M6 6v8"/></symbol>
+    <symbol id="i-lab" viewBox="0 0 16 16"><path d="M1 3h14v10H1zM3 10l2-4 2 5 2-6 2 4h2"/></symbol>
+    <symbol id="i-left" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM6 2v12"/></symbol>
+    <symbol id="i-right" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM10 2v12"/></symbol>
+    <symbol id="i-bottom" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM2 10h12"/></symbol>
+    <symbol id="i-clear" viewBox="0 0 16 16"><path d="M3 4h10M6 4V2h4v2M4 4l1 10h6l1-10"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 16 16"><path d="M5 2L2 5l3 3M2 5h10v8H6"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 16 16"><path d="M11 2l3 3-3 3M14 5H4v8h6"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 16 16"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4M6 6h4v4H6z"/></symbol>
+    <symbol id="i-code" viewBox="0 0 16 16"><path d="M5 4L1 8l4 4M11 4l4 4-4 4M9 2L7 14"/></symbol>
+  </svg>
+
+  <div class="app" id="app">
+    <!-- ======================= Toolbar ======================= -->
+    <header class="toolbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 22 14"><path d="M0 14h2.6L5.6 0H3zM3 0h2.6L9 14H6.4zM6.4 14H9l3-14H9.4zM12.5 0H22l-.8 2.6h-9.5zM18.6 2.6h2.6L15.2 14h-2.6z"/></svg>
+        </div>
+        <div class="brand-name">N7RT <span>CAN Lab</span> <span id="app-version" class="app-version"></span></div>
+      </div>
+
+      <div class="tool-group">
+        <label for="port-select" class="tool-label">Carte</label>
+        <select id="port-select" class="select w-port"></select>
+        <button id="btn-refresh" type="button" class="btn btn--icon btn--ghost" title="Rechercher les cartes" aria-label="Rechercher les cartes"><svg class="icon"><use href="#i-refresh"/></svg></button>
+        <button id="btn-connect" type="button" class="btn btn--primary"><svg class="icon"><use href="#i-connect"/></svg>Connecter</button>
+        <button id="btn-disconnect" type="button" class="btn"><svg class="icon"><use href="#i-disconnect"/></svg>Déconnecter</button>
+      </div>
+
+      <div class="tool-group">
+        <label for="tick-select" class="tool-label">Tick</label>
+        <select id="tick-select" class="select w-tick">
+          <option value="0">aucun</option>
+          <option value="1">1 ms</option>
+          <option value="5">5 ms</option>
+          <option value="10" selected>10 ms</option>
+          <option value="20">20 ms</option>
+          <option value="50">50 ms</option>
+          <option value="100">100 ms</option>
+        </select>
+        <button id="btn-start" type="button" class="btn btn--primary"><svg class="icon"><use href="#i-play"/></svg>Start</button>
+        <button id="btn-stop" type="button" class="btn btn--danger"><svg class="icon"><use href="#i-stop"/></svg>Stop</button>
+      </div>
+
+      <div class="tool-group">
+        <span id="state-badge" class="badge">…</span>
+        <span id="overlay-stalled" class="badge badge--warn" hidden>Carte muette</span>
+        <span id="overlay-busy" class="badge badge--warn" hidden>Code étudiant occupé</span>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="tool-group">
+        <button id="toggle-left" type="button" class="btn btn--icon btn--ghost" aria-pressed="true" title="Panneau latéral" aria-label="Panneau latéral"><svg class="icon"><use href="#i-left"/></svg></button>
+        <button id="toggle-bottom" type="button" class="btn btn--icon btn--ghost" aria-pressed="true" title="Console" aria-label="Console"><svg class="icon"><use href="#i-bottom"/></svg></button>
+        <button id="toggle-right" type="button" class="btn btn--icon btn--ghost" aria-pressed="true" title="Résultats" aria-label="Résultats"><svg class="icon"><use href="#i-right"/></svg></button>
+      </div>
+    </header>
+
+    <div class="workbench">
+      <!-- ======================= Activity bar ======================= -->
+      <nav class="activity" aria-label="Vues">
+        <button type="button" data-show-view="code" title="Code STM32" aria-label="Code STM32"><svg class="icon"><use href="#i-code"/></svg></button>
+        <button type="button" data-show-view="cockpit" aria-current="page" title="Cockpit" aria-label="Cockpit"><svg class="icon"><use href="#i-cockpit"/></svg></button>
+        <button type="button" data-show-view="phys" title="Physical Lab" aria-label="Physical Lab"><svg class="icon"><use href="#i-lab"/></svg></button>
+      </nav>
+
+      <!-- ======================= Left side panel ======================= -->
+      <aside class="side side-left" data-view="cockpit" aria-label="Mission, carte, session, stimuli">
+        <!-- The open mission comes first: its progression (steps, consigne, verdict, actions) stays in view next to the
+             bus; the fiche itself lives in the bottom dock (tab « Fiche »). Carte and Session fold when a progression opens. -->
+        <details class="section" open id="mission-panel" hidden>
+          <summary id="mission-title">Mission APPS</summary>
+          <div class="section-body">
+            <div id="progress-section" class="progress" hidden>
+              <div id="progress-steps" class="progress-steps" role="list" aria-label="Étapes de la mission"></div>
+              <section class="progress-brief" aria-labelledby="progress-brief-head">
+                <p class="progress-brief-head" id="progress-brief-head"><span>Consigne</span><span id="progress-brief-step"></span></p>
+                <p id="progress-order" class="progress-order"></p>
+                <div class="progress-brief-foot"><button id="progress-reproduce" type="button" class="btn ico ico--undo" hidden>Reproduire l'anomalie</button></div>
+              </section>
+              <!-- E5, the final fiche not exported: what happened, what is kept, and the retry (views/progress.ts). -->
+              <div id="progress-export" class="progress-alert is-err" role="alert" hidden>
+                <p class="progress-alert-title">Exportation de la fiche finale impossible</p>
+                <p class="progress-alert-text">Vos données sont conservées sur ce poste : la mission reste clôturée et rien n'est perdu. «&nbsp;Réessayer l'export&nbsp;» écrit à nouveau la fiche finale dans le dossier Documents, puis l'ouvre.</p>
+                <button id="progress-export-retry" type="button" class="btn btn--primary ico ico--undo" title="Exporte à nouveau la fiche finale dans le dossier Documents, puis l'ouvre.">Réessayer l'export</button>
+              </div>
+              <div id="progress-feedback" class="progress-feedback" role="status" tabindex="-1" hidden></div>
+              <!-- The fiche first (the work to do), then the verification and the message under it (tutorial §3). -->
+              <div class="progress-actions">
+                <button id="progress-fiche-toggle" type="button" class="btn ico ico--doc" aria-controls="progress-fiche">Ouvrir la fiche</button>
+                <button id="progress-verify" type="button" class="btn btn--primary ico ico--play" aria-describedby="progress-blocked progress-hint">Lancer la vérification</button>
+                <button id="progress-final" type="button" class="btn btn--primary ico ico--doc" hidden>Ouvrir la fiche finale</button>
+                <div id="progress-run" class="progress-run" hidden><i id="progress-run-bar"></i></div>
+                <div id="progress-blocked" class="progress-blocked" role="status" hidden></div>
+                <p id="progress-hint" class="progress-hint" hidden></p>
+              </div>
+            </div>
+            <button id="mission-check" type="button" class="btn btn--primary">Vérifier l'essai nominal</button>
+            <div id="mission-result" class="mission-result" role="status" hidden>
+              <p id="mission-result-text"></p>
+              <div id="mission-progress" class="mission-progress" hidden><i id="mission-progress-bar"></i></div>
+              <div class="field-row"><button id="mission-runs-folder" type="button" class="btn" hidden>Ouvrir le dossier</button></div>
+            </div>
+            <p id="mission-summary" class="mission-text"></p>
+            <div class="mission-block">
+              <p class="mission-head">Exigences fonctionnelles</p>
+              <ul id="mission-requirements" class="mission-reqs"></ul>
+            </div>
+            <div class="mission-block">
+              <p class="mission-head">Sorties à publier</p>
+              <ul id="mission-outputs" class="mission-reqs"></ul>
+            </div>
+            <div class="mission-bench">
+              <p class="hint">Le banc de la mission est dans le Physical Lab.</p>
+              <button id="mission-bench" type="button" class="btn"><svg class="icon"><use href="#i-lab"/></svg>Ouvrir le banc</button>
+            </div>
+            <div class="mission-block">
+              <p class="mission-head">Bibliothèque</p>
+              <ul id="mission-library" class="mission-library"></ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="section" open id="board-section">
+          <summary>Carte</summary>
+          <div class="section-body">
+            <!-- Long hashes and serials end with an ellipsis on purpose; every value carries its full text as a title. -->
+            <dl class="kv" id="board-info" data-lint-ellipsis>
+              <dt>Port</dt><dd data-k="port">—</dd>
+              <dt>Sonde</dt><dd data-k="probe">—</dd>
+              <dt>Runtime</dt><dd data-k="runtime">—</dd>
+              <dt>Intégrité</dt><dd data-k="verified">—</dd>
+              <dt>Code étudiant</dt><dd data-k="student">—</dd>
+              <dt>CRC étudiant</dt><dd data-k="crc">—</dd>
+              <dt>UID MCU</dt><dd data-k="uid">—</dd>
+              <dt>Dernier reset</dt><dd data-k="reset">—</dd>
+            </dl>
+            <p id="board-fault" class="fault" hidden></p>
+          </div>
+        </details>
+
+        <details class="section" open id="session-section">
+          <summary>Session</summary>
+          <div class="section-body">
+            <dl class="kv" id="session-info">
+              <dt>Session</dt><dd data-k="id">—</dd>
+              <dt>État</dt><dd data-k="phase">—</dd>
+              <dt>Durée</dt><dd data-k="elapsed">—</dd>
+              <dt>Temps bus</dt><dd data-k="bus">—</dd>
+            </dl>
+          </div>
+        </details>
+
+        <details class="section" open>
+          <summary>Mission</summary>
+          <div class="section-body">
+            <button id="mission-code" type="button" class="btn"><svg class="icon"><use href="#i-code"/></svg>Ouvrir le code STM32</button>
+            <!-- Modes (docs/distribution.md §2): student by default, instructor after the instructor code. -->
+            <div class="field-row mode-row">
+              <span id="mode-line" class="badge">Mode étudiant</span>
+              <button id="mode-btn" type="button" class="btn">Mode encadrant</button>
+            </div>
+
+            <!-- Student: the session's mission (locked once confirmed), the group pack, the group code. -->
+            <div id="student-flow" class="mission-block">
+              <div id="student-choice" class="mission-block">
+                <div class="field-row">
+                  <label for="student-mission" class="sr">Mission de la session</label>
+                  <select id="student-mission" class="select mission-select"></select>
+                  <button id="student-choose" type="button" class="btn btn--primary">Choisir cette mission</button>
+                </div>
+                <div id="student-confirm" class="mission-result warn" role="alertdialog" aria-labelledby="student-confirm-text" hidden>
+                  <p id="student-confirm-text">Ce choix est définitif pour la session : pour en changer, demandez à votre encadrant.</p>
+                  <div class="field-row">
+                    <button id="student-confirm-yes" type="button" class="btn btn--danger">Confirmer</button>
+                    <button id="student-confirm-no" type="button" class="btn">Annuler</button>
+                  </div>
+                </div>
+              </div>
+              <div id="student-locked" class="mission-block student-locked" hidden>
+                <dl class="kv">
+                  <dt>Mission</dt><dd id="student-locked-title">—</dd>
+                  <dt>Pack</dt><dd id="student-pack">Aucun pack importé.</dd>
+                </dl>
+                <div class="field-row student-import-row">
+                  <button id="student-import" type="button" class="btn">Importer le pack du groupe…</button>
+                  <input id="student-pack-file" type="file" accept=".n7rtpack" hidden />
+                </div>
+                <div class="field-row student-code-row">
+                  <label for="student-code" class="sr">Code du groupe</label>
+                  <input id="student-code" class="input code-input" type="password" autocomplete="off" spellcheck="false" placeholder="Code du groupe" />
+                  <button id="student-open" type="button" class="btn btn--primary">Ouvrir</button>
+                  <button id="student-close" type="button" class="btn">Fermer</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Instructor: every mission with its reference pack, reset, group packs, judgement. -->
+            <div id="instructor-flow" class="mission-block" hidden>
+              <div class="field-row">
+                <label for="mission-select" class="sr">Mission</label>
+                <select id="mission-select" class="select mission-select"></select>
+                <button id="mission-open" type="button" class="btn btn--primary">Ouvrir</button>
+                <button id="mission-close" type="button" class="btn">Fermer</button>
+              </div>
+              <div class="field-row wrap">
+                <button id="mission-reset" type="button" class="btn" title="Restaurer le banc de la mission ouverte et recommencer l’essai">Réinitialiser le banc</button>
+                <button id="instructor-reset" type="button" class="btn">Réinitialiser</button>
+                <button id="instructor-packs" type="button" class="btn">Packs de groupe…</button>
+                <button id="instructor-judge" type="button" class="btn">Juger un essai…</button>
+                <input id="instructor-run-file" type="file" accept=".n7rtrun" hidden />
+              </div>
+              <div id="judge-result" class="mission-result" role="status" hidden>
+                <p id="judge-verdict"></p>
+                <p id="judge-meta" class="hint"></p>
+                <p id="judge-detail" class="judge-detail"></p>
+              </div>
+            </div>
+            <p id="mission-error" class="error-text" role="alert"></p>
+          </div>
+        </details>
+
+        <details class="section" open id="stim-section">
+          <summary>Stimuli — ECU virtuel</summary>
+          <div class="section-body">
+            <div class="field">
+              <label for="stim-pot">Potentiomètre</label>
+              <div class="field-row"><input id="stim-pot" class="range" type="range" min="0" max="255" step="1" value="128" /><output id="stim-pot-out">128</output></div>
+            </div>
+            <div class="field">
+              <span class="hint"></span>
+              <label class="check"><input id="stim-button" type="checkbox" />Bouton appuyé</label>
+            </div>
+            <div class="field">
+              <label for="stim-format">Format</label>
+              <select id="stim-format" class="select">
+                <option value="classic">CAN 2.0A (11 bits)</option>
+                <option value="extended">CAN 2.0B (29 bits)</option>
+                <option value="fd">CAN FD</option>
+                <option value="fd_brs">CAN FD + BRS</option>
+                <option value="remote">Remote (RTR)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="stim-id">Identifiant</label>
+              <input id="stim-id" class="input w-id" type="text" value="0x123" spellcheck="false" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="stim-dlc">DLC</label>
+              <select id="stim-dlc" class="select"></select>
+            </div>
+            <div class="field">
+              <label for="stim-rate">Cadence</label>
+              <div class="field-row"><input id="stim-rate" class="range" type="range" min="0" max="1000" step="10" value="10" /><output id="stim-rate-out">10</output><span class="unit">trames/s</span></div>
+            </div>
+            <div class="field">
+              <span></span>
+              <button id="btn-send-one" type="button" class="btn"><svg class="icon"><use href="#i-send"/></svg>Envoyer une trame</button>
+            </div>
+            <p id="stim-error" class="error-text" role="alert"></p>
+          </div>
+        </details>
+      </aside>
+
+      <!-- ======================= Physical Lab: library and file ======================= -->
+      <aside class="side side-left" data-view="phys" id="phys-left" aria-label="Bibliothèque et fichier" hidden>
+        <details class="section" open>
+          <summary>Bibliothèque</summary>
+          <div class="section-body">
+            <div class="lab-palette" id="phys-palette" role="group" aria-label="Composants à poser"></div>
+            <p class="hint">Appuyez sur un composant, puis cliquez dans le schéma pour le poser. R le tourne, Échap annule.</p>
+          </div>
+        </details>
+        <details class="section" open>
+          <summary>Fichier</summary>
+          <div class="section-body">
+            <div class="lab-doc"><span class="lab-label">Circuit</span><b id="phys-doc-name">—</b><span id="phys-dirty" class="badge badge--warn" hidden>modifié</span></div>
+            <div class="lab-stack">
+              <label for="phys-file-name" class="lab-label">Enregistrer sous</label>
+              <input id="phys-file-name" class="input" type="text" spellcheck="false" autocomplete="off" maxlength="64" placeholder="nom du circuit" />
+              <div class="field-row"><button id="phys-save" type="button" class="btn btn--primary">Enregistrer</button><button id="phys-new" type="button" class="btn">Nouveau</button></div>
+            </div>
+            <div class="lab-stack">
+              <label for="phys-open-select" class="lab-label">Ouvrir</label>
+              <div class="field-row"><select id="phys-open-select" class="select lab-grow"></select><button id="phys-open" type="button" class="btn">Ouvrir</button></div>
+            </div>
+            <div class="lab-stack">
+              <label for="phys-demo-select" class="lab-label">Démonstration</label>
+              <div class="field-row"><select id="phys-demo-select" class="select lab-grow"></select><button id="phys-demo" type="button" class="btn">Charger</button></div>
+              <p class="hint" id="phys-demo-summary"></p>
+            </div>
+          </div>
+        </details>
+      </aside>
+      <aside class="side side-left" data-view="code" aria-label="Explorateur du projet étudiant" hidden>
+        <div class="panel-head">Explorateur de projet</div>
+        <div class="ide-project-name">N7RT_CANLab_Student <span class="hint">C · STM32H753</span></div>
+        <div class="ide-tree-folder">▾ student</div>
+        <div id="ide-files" role="group" aria-label="Fichiers modifiables">
+          <button class="ide-file" data-file="student_decoder.c" type="button"><span class="ide-file-kind">C</span>student_decoder.c<span class="ide-dirty" aria-label="Modifié" hidden>●</span></button>
+          <button class="ide-file" data-file="student_decoder.h" type="button"><span class="ide-file-kind">H</span>student_decoder.h<span class="ide-dirty" aria-label="Modifié" hidden>●</span></button>
+        </div>
+        <p class="ide-note">Ces deux fichiers constituent votre projet. Le code est enregistré sur ce poste.</p>
+        <div class="panel-head">Parcours du TP</div>
+        <ol class="ide-workflow">
+          <li>Modifier le code C.</li><li>Compiler et corriger les erreurs.</li><li>Flasher la carte connectée.</li><li>Ouvrir le cockpit et lancer l'essai.</li>
+        </ol>
+        <button id="ide-cockpit" type="button" class="btn ide-nav">Mission et résultats CAN</button>
+        <button id="ide-phys" type="button" class="btn ide-nav">Banc Physical Lab</button>
+        <details class="section"><summary>Raccourcis</summary><div class="section-body hint">Ctrl+S : enregistrer<br />Ctrl+F : rechercher<br />Ctrl+H : remplacer<br />Ctrl+Z / Ctrl+Y : annuler / rétablir<br />Tab : indenter · Ctrl+Espace : compléter</div></details>
+      </aside>
+      <div class="splitter splitter-left" data-split="left" role="separator" aria-orientation="vertical" aria-label="Largeur du panneau latéral"></div>
+
+      <!-- ======================= Workspace ======================= -->
+      <main class="workspace" data-view="cockpit">
+        <div>
+          <div class="message" id="state-message-row"><p id="state-message" role="status"></p></div>
+          <section class="metrics" aria-label="Compteurs">
+            <div class="metric" title="Trames émises par seconde"><span class="v" data-m="tx_fps">0</span><span class="l">émises/s</span></div>
+            <div class="metric" title="RESULT reçus par seconde"><span class="v" data-m="rx_fps">0</span><span class="l">résultats/s</span></div>
+            <div class="metric" title="Trames envoyées dans la session"><span class="v" data-m="frames_sent">0</span><span class="l">envoyées</span></div>
+            <div class="metric" title="RESULT reçus dans la session"><span class="v" data-m="results">0</span><span class="l">RESULT</span></div>
+            <div class="metric" title="Trames en vol / fenêtre de crédits W"><span class="v" data-m="in_flight">0</span><span class="l">en vol / W</span></div>
+            <div class="metric" title="Aller-retour trame vers RESULT, p50 / p99, en ms"><span class="v" data-m="rtt">—</span><span class="l">A/R p50/p99</span></div>
+            <div class="metric" title="Trames refusées par la carte"><span class="v" data-m="nacks">0</span><span class="l">NACK</span></div>
+            <div class="metric" title="Trames sans réponse de la carte"><span class="v" data-m="lost">0</span><span class="l">perdues</span></div>
+          </section>
+        </div>
+
+        <section class="frames" aria-labelledby="h-frames">
+          <div class="panel-head">
+            <span id="h-frames">Trames reçues par le nœud étudiant</span>
+            <span class="count" id="frames-note"></span>
+            <span class="spacer"></span>
+            <label for="frame-filter" class="sr">Filtrer par identifiant</label>
+            <input id="frame-filter" class="input w-filter" type="text" placeholder="Filtre ID (hex)" spellcheck="false" autocomplete="off" />
+          </div>
+          <div class="table-wrap" id="frames-wrap">
+            <table id="frames" class="grid-table">
+              <thead>
+                <tr>
+                  <th data-col="session">Session</th><th data-col="seq" class="num">#</th><th data-col="t" class="num">t (ms)</th><th data-col="id">ID</th><th data-col="kind">Type</th><th data-col="dlc" class="num">DLC</th>
+                  <th data-col="data">Données</th><th data-col="result">Résultat</th><th data-col="publications">Publications</th><th data-col="cycles" class="num">Cycles</th><th data-col="rtt" class="num">A/R ms</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <p class="empty frames-empty" id="frames-empty" hidden>Aucune trame pour l'instant : démarrez une session (Start) pour voir le trafic du bus.</p>
+          </div>
+          <div class="check-cover" id="check-cover" hidden>
+            <p id="check-cover-text"></p>
+            <div class="mission-progress"><i id="check-cover-bar"></i></div>
+          </div>
+        </section>
+
+        <div class="splitter splitter-bottom" data-split="bottom" role="separator" aria-orientation="horizontal" aria-label="Hauteur de la console"></div>
+
+        <section class="bottom" aria-label="Console">
+          <div class="tabs" role="tablist">
+            <!-- Shown while a progression is open; the fiche takes 60 % of the workspace, remembered apart (shell.ts). -->
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="fiche" id="tab-fiche" aria-controls="fiche-dock" hidden>Fiche</button>
+            <button type="button" class="tab" role="tab" aria-selected="true" data-tab="logs">Console étudiant <span class="count" id="count-logs">0</span></button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="link">Liaison <span class="count" id="count-errors">0</span></button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="diag">Diagnostic</button>
+            <span class="spacer"></span>
+            <div class="tools">
+              <label for="console-filter" class="sr">Filtrer la console</label>
+              <input id="console-filter" class="input w-filter" type="text" placeholder="Filtrer" spellcheck="false" autocomplete="off" />
+            </div>
+          </div>
+          <div class="tab-panel fiche-dock" data-panel="fiche" role="tabpanel" id="fiche-dock" aria-labelledby="tab-fiche" hidden><div id="progress-fiche" class="fiche" hidden></div></div>
+          <div class="tab-panel" data-panel="logs" role="tabpanel"><ol id="logs" class="console"></ol></div>
+          <div class="tab-panel" data-panel="link" role="tabpanel" hidden>
+            <div class="counters-row" id="board-counters">
+              <div class="metric"><span class="v" data-c="rx_crc_errors">—</span><span class="l">CRC (carte)</span></div>
+              <div class="metric"><span class="v" data-c="rx_framing_errors">—</span><span class="l">tramage (carte)</span></div>
+              <div class="metric"><span class="v" data-c="rx_seq_gaps">—</span><span class="l">trous de seq (carte)</span></div>
+              <div class="metric"><span class="v" data-c="rx_overruns">—</span><span class="l">débordements UART</span></div>
+              <div class="metric"><span class="v" data-c="log_dropped">—</span><span class="l">logs perdus</span></div>
+              <div class="metric"><span class="v" data-c="pc_errors">—</span><span class="l">erreurs reçues (PC)</span></div>
+            </div>
+            <ol id="errors" class="console"></ol>
+          </div>
+          <div class="tab-panel" data-panel="diag" role="tabpanel" hidden><dl class="diag-grid" id="diag"></dl></div>
+        </section>
+      </main>
+
+      <!-- ======================= Physical Lab: toolbar, schematic, console ======================= -->
+      <main class="workspace" data-view="phys" id="phys-main" aria-label="Physical Lab" hidden>
+        <div>
+          <div class="lab-bar" role="toolbar" aria-label="Schéma et simulation">
+            <div class="tool-group">
+              <button id="phys-tool-select" type="button" class="btn btn--ghost" aria-pressed="true" title="Outil Sélection (Échap)">Sélection</button>
+              <button id="phys-tool-wire" type="button" class="btn btn--ghost" aria-pressed="false" title="Outil Fil (W)">Fil</button>
+            </div>
+            <div class="tool-group">
+              <button id="phys-undo" type="button" class="btn btn--icon btn--ghost" title="Annuler (Ctrl+Z)" aria-label="Annuler"><svg class="icon"><use href="#i-undo"/></svg></button>
+              <button id="phys-redo" type="button" class="btn btn--icon btn--ghost" title="Rétablir (Ctrl+Y)" aria-label="Rétablir"><svg class="icon"><use href="#i-redo"/></svg></button>
+            </div>
+            <div class="tool-group">
+              <button id="phys-zoom-out" type="button" class="btn btn--icon btn--ghost" title="Zoom arrière" aria-label="Zoom arrière">−</button>
+              <output id="phys-zoom" class="lab-zoom" title="Zoom (1 : 100 %)">100&nbsp;%</output>
+              <button id="phys-zoom-in" type="button" class="btn btn--icon btn--ghost" title="Zoom avant" aria-label="Zoom avant">+</button>
+              <button id="phys-fit" type="button" class="btn btn--icon btn--ghost" title="Ajuster le schéma à la vue (F)" aria-label="Ajuster"><svg class="icon"><use href="#i-fit"/></svg></button>
+            </div>
+            <div class="tool-group">
+              <span class="tool-label">Simulation&nbsp;:</span>
+              <button id="phys-run" type="button" class="btn btn--primary" title="Faire avancer le temps simulé (indépendant de la session STM32)">RUN</button>
+              <button id="phys-stop" type="button" class="btn btn--danger" title="Figer le temps simulé ; les modifications restent possibles">STOP</button>
+              <button id="phys-reset" type="button" class="btn" title="t = 0, condensateurs déchargés, alimentations en CV">RESET</button>
+              <output id="phys-time" class="lab-time" title="Temps simulé">0.000&nbsp;s</output>
+            </div>
+          </div>
+          <div class="message" id="phys-message-row"><p id="phys-message" role="status"></p><span id="phys-slow" class="badge badge--warn" title="Le moteur ne tient pas le temps réel" hidden>ralenti</span></div>
+          <p class="lab-mission" id="phys-mission" role="note" hidden>Banc de la mission — mode mission : les grandeurs internes ne sont pas affichées.</p>
+        </div>
+
+        <div class="lab-stage">
+          <div class="lab-canvas" id="phys-canvas"></div>
+          <div class="lab-stage-error" id="phys-stage-error" role="alert" hidden><p id="phys-stage-error-text"></p><button id="phys-retry" type="button" class="btn">Réessayer</button></div>
+        </div>
+
+        <div class="splitter splitter-bottom" data-split="bottom" role="separator" aria-orientation="horizontal" aria-label="Hauteur de la console"></div>
+
+        <section class="bottom" aria-label="Console du Physical Lab">
+          <div class="tabs" role="tablist">
+            <button type="button" class="tab" role="tab" aria-selected="true" data-tab="phys-diag">Diagnostics <span class="count" id="phys-count-diag">0</span></button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="phys-nets">Nets <span class="count" id="phys-count-nets">0</span></button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="phys-journal">Journal <span class="count" id="phys-count-journal">0</span></button>
+            <span class="spacer"></span>
+          </div>
+          <div class="tab-panel lab-vlist lab-diag" data-panel="phys-diag" role="tabpanel" id="phys-diag"><p class="empty" id="phys-diag-empty">Aucun diagnostic.</p></div>
+          <div class="tab-panel lab-vlist lab-nets" data-panel="phys-nets" role="tabpanel" id="phys-nets" hidden><p class="empty" id="phys-nets-empty">Aucun net.</p></div>
+          <div class="tab-panel lab-vlist lab-journal" data-panel="phys-journal" role="tabpanel" id="phys-journal" hidden><p class="empty" id="phys-journal-empty">Journal vide.</p></div>
+        </section>
+      </main>
+      <main class="workspace ide-workspace" data-view="code" aria-label="IDE C étudiant" hidden>
+        <div class="ide-head">
+          <div class="ide-actions">
+            <button id="ide-save" type="button" class="btn" disabled>Enregistrer</button>
+            <button id="ide-build" type="button" class="btn" disabled>Compiler</button>
+            <button id="ide-flash" type="button" class="btn" disabled>Flasher</button>
+            <button id="ide-build-flash" type="button" class="btn btn--primary" disabled>Compiler + flasher</button>
+            <span class="spacer"></span>
+            <button id="ide-restore" type="button" class="btn" disabled>Restaurer le template</button>
+          </div>
+          <div class="ide-message" role="status" id="ide-message">Chargement du projet…</div>
+          <div class="tabs ide-file-tabs" role="tablist" aria-label="Fichiers ouverts">
+            <button class="tab" role="tab" type="button" data-file="student_decoder.c" aria-selected="true">student_decoder.c<span class="ide-dirty" hidden>●</span></button>
+            <button class="tab" role="tab" type="button" data-file="student_decoder.h" aria-selected="false">student_decoder.h<span class="ide-dirty" hidden>●</span></button>
+            <span class="spacer"></span><button id="ide-search" class="btn btn--ghost" type="button">Rechercher</button>
+          </div>
+        </div>
+        <div class="ide-stage"><div id="ide-editor" aria-label="Éditeur C"></div><div class="ide-editor-status"><span id="ide-cursor">Ln 1, Col 1</span><span class="spacer"></span><span id="ide-source-version">—</span><span>C · UTF-8 · Tab 2</span></div></div>
+        <div class="splitter splitter-bottom" data-split="bottom" role="separator" aria-orientation="horizontal" aria-label="Hauteur de la console IDE"></div>
+        <section class="bottom" aria-label="Compilation et diagnostics">
+          <div class="tabs" role="tablist">
+            <button type="button" class="tab" role="tab" aria-selected="true" data-tab="ide-console">Console</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="ide-problems">Problèmes <span class="count" id="ide-problem-count">0</span></button>
+          </div>
+          <div class="tab-panel" data-panel="ide-console" role="tabpanel"><pre id="ide-console" class="ide-console">Le projet étudiant est prêt à être ouvert.</pre></div>
+          <div class="tab-panel" data-panel="ide-problems" role="tabpanel" hidden><div id="ide-problems"></div></div>
+        </section>
+      </main>
+      <div class="splitter splitter-right" data-split="right" role="separator" aria-orientation="vertical" aria-label="Largeur du panneau de résultats"></div>
+
+      <!-- ======================= Right side panel ======================= -->
+      <aside class="side side-right" data-view="cockpit" aria-label="Résultats étudiants">
+        <div class="panel-head">Résultats étudiants</div>
+        <div id="slots-area">
+          <table id="slots" class="grid-table">
+            <colgroup><col class="col-slot" /><col class="col-val" /><col class="col-src" /><col class="col-upd" /></colgroup>
+            <thead><tr><th>Slot</th><th class="num">Valeur</th><th>Source</th><th class="num">Màj</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p class="empty" id="slots-empty">Dernière valeur publiée par slot : aucune pour l'instant.</p>
+        </div>
+        <p class="empty" id="slots-cover" hidden></p>
+        <div class="panel-head">Trame sélectionnée</div>
+        <div class="detail" id="frame-detail"><p class="empty">Cliquez une trame du tableau.</p></div>
+      </aside>
+
+      <!-- ======================= Physical Lab: inspector ======================= -->
+      <aside class="side side-right" data-view="phys" id="phys-right" aria-label="Inspecteur" hidden>
+        <div class="panel-head"><span>Inspecteur</span><span class="spacer"></span><span class="count" id="phys-insp-what"></span></div>
+        <div class="lab-insp" id="phys-inspector"></div>
+        <div class="panel-head">Multimètre</div>
+        <div class="lab-meter" id="phys-meter"></div>
+      </aside>
+      <aside class="side side-right" data-view="code" aria-label="Plan du code et carte" hidden>
+        <div class="panel-head">Plan du code</div><div id="ide-outline" class="ide-outline"></div>
+        <div class="panel-head">Compilation</div>
+        <dl class="kv ide-kv"><dt>Source</dt><dd id="ide-revision">—</dd><dt>Flash étudiant</dt><dd id="ide-flash-size">—</dd><dt>RAM</dt><dd id="ide-ram-size">—</dd><dt>CRC compilé</dt><dd id="ide-build-crc">—</dd></dl>
+        <div class="panel-head">Carte connectée</div>
+        <dl class="kv ide-kv"><dt>État</dt><dd id="ide-board-state">—</dd><dt>Runtime</dt><dd id="ide-runtime">—</dd><dt>Intégrité</dt><dd id="ide-integrity">—</dd><dt>Version / ABI</dt><dd id="ide-board-version">—</dd><dt>CRC étudiant</dt><dd id="ide-board-crc">—</dd></dl>
+        <p class="ide-note" id="ide-match">Connectez la carte pour vérifier le code chargé.</p>
+      </aside>
+    </div>
+
+    <!-- ======================= Status bar ======================= -->
+    <footer class="statusbar" aria-label="Barre d'état">
+      <span id="sb-state"><i class="dot"></i><b data-s="state">—</b></span>
+      <span class="mono" data-s="port">—</span>
+      <span class="mono" data-s="runtime">—</span>
+      <span class="mono" data-s="session">—</span>
+      <button type="button" id="sb-progress" class="sb-progress" hidden><i class="dot"></i><span data-s="progress"></span></button>
+      <span class="spacer"></span>
+      <span class="mono" data-s="rates">— trames/s</span>
+      <span class="mono" data-s="rtt">A/R —</span>
+      <span class="mono" data-s="errors">0 erreur</span>
+    </footer>
+  </div>
+  <dialog id="ide-restore-dialog" class="dialog" aria-labelledby="ide-restore-title">
+    <p class="dialog-title" id="ide-restore-title">Restaurer le template</p><p>Remplacer les deux fichiers étudiants par leur version de départ ? Le code présent sur la carte ne change pas.</p>
+    <div class="field-row dialog-actions"><button id="ide-restore-confirm" type="button" class="btn btn--danger">Restaurer les deux fichiers</button><button id="ide-restore-cancel" type="button" class="btn">Annuler</button></div>
+  </dialog>
+
+  <dialog id="reproduce-dialog" class="dialog" aria-labelledby="reproduce-title">
+    <p class="dialog-title" id="reproduce-title">Reproduire l'anomalie</p><p>Remettre le véhicule dans l'état où il est revenu d'essai ? Vos modifications du circuit sont conservées ; l'anomalie sera de nouveau présente jusqu'à sa réparation.</p>
+    <div class="field-row dialog-actions"><button id="reproduce-cancel" type="button" class="btn">Annuler</button><button id="reproduce-confirm" type="button" class="btn btn--primary">Reproduire</button></div>
+  </dialog>
+
+  <!-- ======================= Dialogs of the instructor mode (docs/distribution.md §2.2) ======================= -->
+  <dialog id="code-dialog" class="dialog" aria-labelledby="code-dialog-title">
+    <p id="code-dialog-title" class="dialog-title">Mode encadrant</p>
+    <p class="hint">Saisissez le code encadrant. Il n'est ni affiché ni conservé.</p>
+    <label for="code-input" class="sr">Code encadrant</label>
+    <input id="code-input" class="input" type="password" autocomplete="off" spellcheck="false" placeholder="Code encadrant" />
+    <p id="code-error" class="error-text" role="alert"></p>
+    <div class="field-row dialog-actions">
+      <button id="code-submit" type="button" class="btn btn--primary">Valider</button>
+      <button id="code-cancel" type="button" class="btn">Annuler</button>
+    </div>
+  </dialog>
+
+  <dialog id="packs-dialog" class="dialog dialog--wide" aria-labelledby="packs-dialog-title">
+    <p id="packs-dialog-title" class="dialog-title">Packs de groupe</p>
+    <div class="field"><label for="packs-mission">Mission</label><select id="packs-mission" class="select"></select></div>
+    <div class="field"><label for="packs-cohort">Cohorte</label><input id="packs-cohort" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="promo-2026" /></div>
+    <div class="field"><label for="packs-groups">Groupes</label><input id="packs-groups" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="G01, G02, G03" /></div>
+    <div class="field"><span></span><label class="check"><input id="packs-replace" type="checkbox" />Régénérer les groupes déjà présents</label></div>
+    <p class="hint">Chaque groupe reçoit un code et son fichier .n7rtpack, rangés dans le dossier encadrant (cohorts/…). Régénérer un groupe lui donne un nouveau code et un nouveau pack à redistribuer.</p>
+    <p id="packs-error" class="error-text" role="alert"></p>
+    <div class="dialog-table" id="packs-table" hidden>
+      <table class="grid-table packs-table">
+        <thead><tr><th>Groupe</th><th>Code</th><th>Fichier</th></tr></thead>
+        <tbody id="packs-rows"></tbody>
+      </table>
+    </div>
+    <div class="field-row dialog-actions">
+      <button id="packs-generate" type="button" class="btn btn--primary">Générer</button>
+      <button id="packs-close" type="button" class="btn">Fermer</button>
+    </div>
+  </dialog>
+</body>
+</html>

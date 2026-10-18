@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://n7rt-canlab.local/schemas/library-links.schema.json",
+  "title": "LibraryLinks",
+  "description": "Public list of the student documents cited by link (library/links.json): documents of library/README.md « Documents cités par lien », consulted at the publisher's address, never copied in library/. Sorted by title (case and accents ignored). Bibliographic fields only: no other property is allowed.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["title", "publisher", "reference", "revision", "date", "primary_url", "missions"],
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1
+      },
+      "publisher": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reference": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Document number or part number as printed by the publisher."
+      },
+      "revision": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Revision label as printed by the publisher."
+      },
+      "date": {
+        "type": ["string", "null"],
+        "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$",
+        "description": "Publication date (YYYY, YYYY-MM or YYYY-MM-DD); null when not recorded."
+      },
+      "primary_url": {
+        "type": "string",
+        "format": "uri",
+        "pattern": "^https://[^\"\\s]+$",
+        "description": "Publisher's address, opened by the application."
+      },
+      "missions": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": ["APPS", "WSF", "SAS", "BPS"]
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,18 @@
+aliases:
+  STM32_A:
+    node: stm32_a
+    role: primary_can_node
+    color: "#005f73"
+  STM32_B:
+    node: stm32_b
+    role: secondary_can_node
+    color: "#0a9396"
+  ARDUINO_A:
+    node: arduino_a
+    role: stimulus_helper
+    color: "#ee9b00"
+  ARDUINO_B:
+    node: arduino_b
+    role: test_panel
+    color: "#bb3e03"
+

@@ -1,0 +1,21 @@
+{
+  "_doc": "Registry of the physical NUCLEO-H753ZI boards. stlink_sn = USB serial of the on-board STLINK-V3E (selects the probe); mcu_uid = STM32 96-bit unique ID at 0x1FF1E800 as three 32-bit words (checked over SWD before any flash). COM port numbers are NOT stable and are resolved at run time from stlink_sn. Relevé le 2026-09-25 avec STM32_Programmer_CLI 2.22.0.",
+  "boards": {
+    "A": {
+      "node": "stm32_a",
+      "board": "NUCLEO-H753ZI",
+      "stlink_sn": "002D00263234510737333934",
+      "mcu_uid": "0028003C-32335101-34343734",
+      "led_hz": 1,
+      "led_signature": "LD1 green: 1 Hz (one 120 ms flash per second)"
+    },
+    "B": {
+      "node": "stm32_b",
+      "board": "NUCLEO-H753ZI",
+      "stlink_sn": "003B002D4142500720353451",
+      "mcu_uid": "00310032-32335101-34343734",
+      "led_hz": 2,
+      "led_signature": "LD1 green: 2 Hz (one 120 ms flash every 500 ms)"
+    }
+  }
+}

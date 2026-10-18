@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://n7rt-canlab.local/schemas/heartbeat.schema.json",
+  "title": "HeartbeatEvent",
+  "allOf": [
+    {
+      "$ref": "./telemetry-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "heartbeat"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "state"]
+    }
+  ]
+}
+

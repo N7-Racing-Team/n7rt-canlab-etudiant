@@ -1,0 +1,18 @@
+[
+  {
+    "k": "valid",
+    "v": "low"
+  },
+  {
+    "k": "valid",
+    "v": "high"
+  },
+  {
+    "k": "valid",
+    "v": "high"
+  },
+  {
+    "k": "unavailable",
+    "reason": "not_logic_pin"
+  }
+]

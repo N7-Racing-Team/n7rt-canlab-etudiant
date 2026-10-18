@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Cyclic Redundancy Check (CRC) Algorithms in Sensor Communications",
+    "publisher": "Allegro MicroSystems",
+    "reference": "296177-AN (MCO-0000911)",
+    "revision": "Initial release",
+    "date": "2020-07-09",
+    "primary_url": "https://www.allegromicro.com/-/media/files/application-notes/an296177-crc-algorithms-in-sensor-communication.pdf",
+    "sha256": "add850bda90e7abdd7d6e5c8244c940807263d7857f5cbc8f31d5025c0028ee9",
+    "missions": [
+      "SAS"
+    ],
+    "local_file": "allegro-an296177-application-note-2020-07-09.pdf"
+  },
+  {
+    "title": "Steering Wheel Angle Sensor LWS – Data Sheet",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "54425995",
+    "revision": "en (sans indice)",
+    "date": "2026-01-27",
+    "primary_url": "https://www.bosch-motorsport.com/content/downloads/raceparts/Resources/pdf/Data%20Sheet_191153675_Steering_Wheel_Angle_Sensor_LWS.pdf",
+    "sha256": "ff09b5311e3bd91497a19719297c84869799e06673cf64469ea3fdfdeaafc497",
+    "missions": [
+      "SAS"
+    ],
+    "local_file": "bosch-motorsport-lws-datasheet-2026-01-27.pdf"
+  },
+  {
+    "title": "TLE5012B — GMR-Based Angle Sensor — Data Sheet",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE5012B",
+    "revision": "Rev. 2.1",
+    "date": "2018-06-20",
+    "primary_url": "https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle5012b-exxxx-datasheet-en.pdf",
+    "sha256": "9c7f6b66713734620255309f15ff67fed389d28381e43d74e7e6dc958f77e674",
+    "missions": [
+      "SAS"
+    ],
+    "local_file": "infineon-tle5012b-datasheet-rev2-1.pdf"
+  },
+  {
+    "title": "TLE5014 GMR-based angle sensor – Final Datasheet",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE5014",
+    "revision": "Rev. 1.0",
+    "date": "2018-04-04",
+    "primary_url": "https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle5014c-p-s-datasheet-en.pdf",
+    "sha256": "9ba7c749f7032e0bcfd176643dc78d0e695bcb308185e9397d7da4c594af2247",
+    "missions": [
+      "SAS"
+    ],
+    "local_file": "infineon-tle5014-datasheet-rev1-0.pdf"
+  },
+  {
+    "title": "TLE5014D — Final Datasheet (addendum to the TLE5014 datasheet)",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE5014D",
+    "revision": "Rev. 1.0",
+    "date": "2018-04-04",
+    "primary_url": "https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle5014c-p-s-16d-datasheet-en.pdf",
+    "sha256": "7a0ee3d9ea280e6b57bc2237db8d2906975c3f557176a29d8b2704e67ebca029",
+    "missions": [
+      "SAS"
+    ],
+    "local_file": "infineon-tle5014d-datasheet-rev1-0.pdf"
+  }
+]

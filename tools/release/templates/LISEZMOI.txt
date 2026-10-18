@@ -1,0 +1,67 @@
+N7RT CAN Lab - archive étudiant (Windows 10/11, 64 bits)
+========================================================
+
+Contenu
+  n7rt-can-lab.exe         l'application, édition publique (garder WebView2Loader.dll et library\ à côté)
+  WebView2Loader.dll       composant WebView2 de l'application
+  N7RT_CANLab_Student\     le SDK public et le projet de secours STM32CubeIDE
+  runtime-release.json    version et empreinte du runtime validé
+  tools\stm32\             helpers de Code STM32 et du parcours protégé de programmation
+  requirements-student-ide.txt  dépendance Python du helper (pyserial)
+  docs\                    tutoriel étudiant (PDF), démarrage en 5 minutes, index des documents,
+                           tutoriel Code STM32, rapports de validation et captures publiques
+  CODEMIRROR-LICENSES.txt  licences des composants de l'éditeur intégré
+  library\                 liste des documents techniques : manifestes et liens vers les éditeurs (aucun PDF)
+  shared\missions\         énoncés des missions
+  manifest.json            empreinte SHA-256 de chaque fichier de l'archive
+
+1. Installer
+   Décompresser l'archive dans un dossier à vous (pas Program Files), lancer n7rt-can-lab.exe.
+   L'exécutable n'est pas signé : SmartScreen > « Informations complémentaires » > « Exécuter quand même ».
+
+2. Code STM32 : écrire, compiler et programmer
+   Installer séparément Python 3.11 ou plus récent (commande python), la chaîne GNU ARM
+   contenant arm-none-eabi-gcc et STM32CubeProgrammer. Aucun Python ni compilateur n'est
+   embarqué. Depuis ce dossier, installer la dépendance du helper :
+     python -m pip install -r .\requirements-student-ide.txt
+   Ouvrir « Code STM32 », modifier student_decoder.c ou student_decoder.h et « Enregistrer ».
+   Cliquer « Compiler » et corriger les diagnostics de « Problèmes ».
+   Dans le Cockpit, choisir et connecter une NUCLEO-H753ZI sur ST-LINK (CN1), attendre la
+   vérification du runtime et arrêter la session. Revenir à Code STM32 et « Flasher » ou
+   « Compiler + flasher ». La carte est reconnectée après programmation de la zone étudiante.
+   Toute modification sauvegardée exige une nouvelle compilation. Vos deux fichiers restent
+   dans le profil local ; les entrées du SDK sont protégées.
+   Tutoriel : docs\inapp-student-ide-tutorial.md. Validation : docs\inapp-student-ide-r1.md.
+
+3. Mission
+   Choisir une mission dans l'application : APPS, WSF, SAS ou BPS.
+   Ce choix reste verrouillé après redémarrage.
+   Le choix est définitif pour la session : pour changer de mission, demander à l'encadrant.
+
+4. Pack du groupe
+   Importer le fichier <groupe>.n7rtpack remis par l'encadrant (par exemple G01.n7rtpack), puis saisir
+   le code du groupe à chaque ouverture. Ne partagez ni le pack ni le code.
+
+5. Progression de la mission (pack 0.3)
+   Le panneau de progression guide l'essai nominal (E0), trois incidents (E1 à E3), la qualification
+   finale (E4) et la clôture (E5). Chaque vérification donne son verdict, sans détail ; deux minutes
+   séparent deux vérifications d'une étape (cinq en E4). Ne pas débrancher la carte pendant une
+   vérification. À la clôture, la fiche finale est exportée dans Documents\N7RT CAN Lab\fiches.
+   Démarrage : docs\demarrage-5-minutes.md. Tutoriel complet : docs\N7RT_CANLab_0.3_Tutoriel_Etudiant.pdf.
+   Index des documents de la release : docs\README_CANLab_0.3.md.
+   Problèmes connus et contournements : docs\known-issues-0.3.md.
+   Avec un pack 0.2, « Enregistrer l'essai nominal » écrit essai-<mission>-<groupe>-<aaaammjj-hhmmss>.n7rtrun (heure UTC)
+   dans Documents\N7RT CAN Lab\essais. Si Documents est redirigé vers OneDrive, ce dossier est dans
+   OneDrive ; le bouton « Ouvrir le dossier » l'ouvre. Ne pas débrancher la carte pendant l'essai.
+   Pour un pack 0.2, cette édition ne donne aucun verdict : envoyer ce fichier à l'encadrant, qui le juge.
+   L'essai décisif se fait en direct devant l'encadrant.
+
+6. Documents
+   L'application ouvre chaque document de la bibliothèque à l'adresse de son éditeur : accès internet
+   nécessaire. Copie locale facultative : voir library\README.md.
+
+7. Secours encadrant
+   Le projet N7RT_CANLab_Student peut être importé dans STM32CubeIDE 2.0.0 pour compiler
+   ou déboguer. L'encadrant utilise ensuite le flasher protégé stm32lab.py flash <carte>
+   --student. Le flash direct de CubeIDE ne passe pas par ces contrôles. La protection du
+   téléversement ne constitue pas une sandbox du programme C sur le microcontrôleur.

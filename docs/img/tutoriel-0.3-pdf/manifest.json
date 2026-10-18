@@ -1,0 +1,1300 @@
+{
+ "etu1-carte-deconnectee": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-carte-deconnectee.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "neutral-disconnected",
+  "capture_sha256": "1bd9dc9602023b7c61a7131cfb5fa5a03992b4cfa8573381e8e1707ef99c4228",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1950,
+   895
+  ],
+  "targets": [
+   "rect",
+   "#btn-connect",
+   "#state-message",
+   "#board-info"
+  ]
+ },
+ "etu1-carte-prete": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-carte-prete.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "neutral-connected",
+  "capture_sha256": "1f3e75cc9a4c11a584761606c1fd2342640bb217f993ae5d46122ccde7307aab",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2250,
+   895
+  ],
+  "targets": [
+   "#state-message",
+   "#board-info",
+   "#btn-disconnect"
+  ]
+ },
+ "etu1-mission-choix": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-mission-choix.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-open-student-choice",
+  "capture_sha256": "6354369f80ad1e784c94f350166e3616e23a3b72f3dc59f9ae0d68771369f719",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1428,
+   860
+  ],
+  "targets": [
+   "#student-mission",
+   "#student-choose"
+  ]
+ },
+ "etu1-mission-confirmer": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-mission-confirmer.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-open-student-confirm",
+  "capture_sha256": "a340d81b4fca1817cdaa2e344cb695105624ff0eb8ec860dabaff9d03ffc71c3",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1428,
+   860
+  ],
+  "targets": [
+   "#student-confirm-text",
+   "#student-confirm-yes",
+   "#student-confirm-no"
+  ]
+ },
+ "etu1-mission-import": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-mission-import.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-open-student-import",
+  "capture_sha256": "0b60eb619a7f72813b96f1d1da10aea688f8234b24ad907e0d0122174b0ac3e6",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1428,
+   860
+  ],
+  "targets": [
+   "#student-import",
+   "#student-code"
+  ]
+ },
+ "etu1-mission-code": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-mission-code.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-open-student-code",
+  "capture_sha256": "0cad01d5b69c8cdd6f549cc7058addda37a7a8f008eea9ff7d1402ea9d00b8dd",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1428,
+   860
+  ],
+  "targets": [
+   "#student-pack",
+   "#student-code",
+   "#student-open"
+  ]
+ },
+ "etu1-mission-ouverte": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-mission-ouverte.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-open-mission-opened",
+  "capture_sha256": "50fa3a65c43bbfc03de5e7856eb82b0c72190d9b53a9017f68d747e0e3131982",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1250,
+   750
+  ],
+  "targets": [
+   "rect",
+   "#progress-steps"
+  ]
+ },
+ "etu1-vue-ensemble": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-vue-ensemble.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "capture": "neutral-bus",
+  "capture_sha256": "b71872a2f75372e41f8193fcbc672c1aba929b68c3f8e86026d2972e097feff7",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   3400,
+   2150
+  ],
+  "targets": [
+   "#btn-start",
+   "#session-info",
+   "#frames-wrap",
+   "#slots-area",
+   "#sb-state"
+  ]
+ },
+ "etu1-activite": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-activite.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "neutral-lab",
+  "capture_sha256": "3d4cdc257630c6ed03c6aefc01a570d72658f75887501e24ff8188f83d3055c4",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1300,
+   750
+  ],
+  "targets": [
+   "rect",
+   "rect",
+   "rect"
+  ]
+ },
+ "etu1-barre-outils": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-barre-outils.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "capture": "neutral-cockpit",
+  "capture_sha256": "1f3e75cc9a4c11a584761606c1fd2342640bb217f993ae5d46122ccde7307aab",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1385,
+   225
+  ],
+  "targets": [
+   "#tick-select",
+   "#btn-start",
+   "#btn-stop",
+   "#state-badge",
+   "rect",
+   "rect",
+   "rect"
+  ]
+ },
+ "etu1-dock": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-dock.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "neutral-console",
+  "capture_sha256": "6d71253507f07a34b7ec5c2bf5f44ee24e6fa7c8b34a2a48beac39cd6233910b",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1845,
+   230
+  ],
+  "targets": [
+   "rect",
+   "rect",
+   "rect",
+   "#console-filter"
+  ]
+ },
+ "etu1-enonce": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-enonce.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-open-mission-statement",
+  "capture_sha256": "188a70c3cb1d110dc9c4702057f745f85b767a4f561196d8fcbffd7f19818321",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   835,
+   1175
+  ],
+  "targets": [
+   "#mission-summary",
+   "#mission-requirements"
+  ]
+ },
+ "etu1-sorties-banc": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-sorties-banc.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-open-mission-outputs",
+  "capture_sha256": "03e929911058c821425975597c3001ddd03135a48de1359a8472fb5cb5bc626f",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   835,
+   1025
+  ],
+  "targets": [
+   "#mission-outputs",
+   "#mission-bench"
+  ]
+ },
+ "etu1-bibliotheque": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-bibliotheque.png",
+  "marks": [
+   1
+  ],
+  "capture": "apps-open-mission-library",
+  "capture_sha256": "e5c569653dd26bfda64ad3ff71bf6447f8d8de9b2a644ba8d735fc1c38576d2d",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   840,
+   655
+  ],
+  "targets": [
+   "#mission-library button.lib-doc@2"
+  ]
+ },
+ "etu1-progression-etapes": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-progression-etapes.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-e0-progression",
+  "capture_sha256": "e1093096a6d3e3ad1a30e0ec89427b13eb2f0ce1930137080a9611b586597966",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   795,
+   850
+  ],
+  "targets": [
+   "#progress-steps",
+   "#progress-brief-step",
+   "#progress-order"
+  ]
+ },
+ "etu1-progression-boutons": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-progression-boutons.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-e0-progression",
+  "capture_sha256": "e1093096a6d3e3ad1a30e0ec89427b13eb2f0ce1930137080a9611b586597966",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   795,
+   730
+  ],
+  "targets": [
+   "#progress-fiche-toggle",
+   "#progress-verify",
+   "#progress-blocked"
+  ]
+ },
+ "etu1-delai": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-delai.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-e0-cooldown",
+  "capture_sha256": "e1e4a10830c22b920014f185fded7c4c4ce50c6f9de8f779d89e30d3b4c53ea8",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   795,
+   625
+  ],
+  "targets": [
+   "#progress-verify",
+   "#progress-blocked"
+  ]
+ },
+ "etu1-etape-incident": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-etape-incident.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "apps-e1v0-open",
+  "capture_sha256": "0cd2a3a35e562133c3f9dbb9ec4603301115050cdd0745ecd7ab9d7c79739f0c",
+  "mission": "apps",
+  "run": "docs-20261016-142304",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   795,
+   1430
+  ],
+  "targets": [
+   "#progress-steps",
+   "#progress-brief-step",
+   "#progress-reproduce",
+   "#progress-verify"
+  ]
+ },
+ "etu1-fiche-ouvrir": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-fiche-ouvrir.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-e0-fiche-empty",
+  "capture_sha256": "49ee6dbe26f860911764c982cd4fc0582832cf670ff8b47bb5ed538f63aae2df",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1428,
+   835
+  ],
+  "targets": [
+   "#progress-fiche-toggle",
+   "#tab-fiche"
+  ]
+ },
+ "etu1-fiche-sections": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-fiche-sections.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-e0-fiche-empty",
+  "capture_sha256": "49ee6dbe26f860911764c982cd4fc0582832cf670ff8b47bb5ed538f63aae2df",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1828,
+   1255
+  ],
+  "targets": [
+   "rect",
+   "#progress-fiche .fiche-save"
+  ]
+ },
+ "etu1-fiche-trame": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-fiche-trame.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  "capture": "apps-e0-fiche-fictive-trame",
+  "capture_sha256": "95bd2e7002d9caa7e75ebf4e51e91f20bfcc3b084e829a006163c09556977d30",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1828,
+   1273
+  ],
+  "targets": [
+   "#progress-fiche [data-key='trames.0.id']",
+   "#progress-fiche [data-key='trames.0.format']",
+   "#progress-fiche [data-key='trames.0.dlc']",
+   "#progress-fiche [data-key='trames.0.periode']",
+   "#progress-fiche [data-key='trames.0.protection']",
+   "#progress-fiche [data-key='trames.0.crc.lsb']",
+   "#progress-fiche [data-key='trames.0.compteur.lsb']",
+   "#progress-fiche [data-key='trames.0.vie.lsb']",
+   "#progress-fiche .fiche-save",
+   "#progress-fiche .fiche-dirty"
+  ]
+ },
+ "etu1-fiche-signal": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-fiche-signal.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ],
+  "capture": "apps-e0-fiche-fictive-signal",
+  "capture_sha256": "8f94fb39522ccfda5e63ff56849c0f79cdee52eefd68a7949a215423b932710f",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1828,
+   940
+  ],
+  "targets": [
+   "#progress-fiche [data-key='signaux.0.nom']",
+   "#progress-fiche [data-key='signaux.0.id']",
+   "#progress-fiche [data-key='signaux.0.slots']",
+   "rect",
+   "#progress-fiche [data-key='signaux.0.signe']",
+   "#progress-fiche [data-key='signaux.0.facteur']",
+   "#progress-fiche [data-key='signaux.0.offset']",
+   "#progress-fiche [data-key='signaux.0.code']"
+  ]
+ },
+ "etu1-fiche-supervision": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-fiche-supervision.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "capture": "apps-e0-fiche-fictive-supervision",
+  "capture_sha256": "ab38894f99c53bd2bd11c15f012a6fbec04b23a17b4a289819fbfa8e98aa9be3",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1828,
+   790
+  ],
+  "targets": [
+   "#progress-fiche [data-key='supervision.premier_timeout_ms']",
+   "#progress-fiche [data-key='supervision.timeout_ms']",
+   "#progress-fiche [data-key='supervision.peremption_ms']",
+   "#progress-fiche [data-key='supervision.pertes_consecutives_tolerees']",
+   "#progress-fiche section[data-section='decisions']"
+  ]
+ },
+ "etu1-fiche-erreur": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-fiche-erreur.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "apps-e0-fiche-error",
+  "capture_sha256": "34351921497b200add2e80d11278cc2066da7adafa6131fb6ae12a4e0c243eab",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1617,
+   883
+  ],
+  "targets": [
+   "rect",
+   "rect",
+   "#progress-fiche .fiche-nav-item@1",
+   "#progress-hint"
+  ]
+ },
+ "etu1-fiche-fermeture": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-fiche-fermeture.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-e0-unsaved-guard",
+  "capture_sha256": "4df052c3f0a2c948084960314bfac9699051d6474206fa3e08368a71819ae6eb",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1450,
+   426
+  ],
+  "targets": [
+   "rect",
+   "#fiche-close-discard",
+   "#fiche-close-cancel"
+  ]
+ },
+ "etu1-incident": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu1-incident.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ],
+  "capture": "apps-e1v0-fiche-first",
+  "capture_sha256": "eab77ffaf7c47cc373ff14b98c8b844b677f1065ad1ba6c48b0a13f5ee9f46c3",
+  "mission": "apps",
+  "run": "docs-20261016-142304",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1865,
+   930
+  ],
+  "targets": [
+   "#progress-fiche .incident-target-kind",
+   "#progress-fiche .incident-designation",
+   "#progress-fiche .incident-category",
+   "#progress-fiche .incident-state",
+   "#progress-fiche .incident-quantity",
+   "#progress-fiche .incident-consign",
+   "#progress-fiche .incident-consigned",
+   "#progress-fiche .incident-value-row",
+   "#progress-fiche .fiche-justification"
+  ]
+ },
+ "etu2-bus-session": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-bus-session.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "capture": "neutral-bus",
+  "capture_sha256": "b71872a2f75372e41f8193fcbc672c1aba929b68c3f8e86026d2972e097feff7",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   3400,
+   2150
+  ],
+  "targets": [
+   "#btn-start",
+   "#btn-stop",
+   "#session-info",
+   "rect",
+   "#frame-filter",
+   "#slots-area",
+   "#sb-state"
+  ]
+ },
+ "etu2-bus-trame": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-bus-trame.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "neutral-bus-detail",
+  "capture_sha256": "c146158e21868baf0f37a626edcf566ebf73d4009c26e301b638a89f54bc5327",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2844,
+   1237
+  ],
+  "targets": [
+   "rect",
+   "#frame-detail"
+  ]
+ },
+ "etu2-bus-console": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-bus-console.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "neutral-console",
+  "capture_sha256": "6d71253507f07a34b7ec5c2bf5f44ee24e6fa7c8b34a2a48beac39cd6233910b",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2056,
+   893
+  ],
+  "targets": [
+   "rect",
+   ".tab[data-tab=\"link\"]",
+   ".tab[data-tab=\"diag\"]",
+   "#console-filter"
+  ]
+ },
+ "etu2-lab-vue": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-lab-vue.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "neutral-lab",
+  "capture_sha256": "3d4cdc257630c6ed03c6aefc01a570d72658f75887501e24ff8188f83d3055c4",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   3400,
+   1798
+  ],
+  "targets": [
+   "#phys-palette",
+   "#phys-canvas",
+   "#phys-inspector",
+   "#phys-meter"
+  ]
+ },
+ "etu2-lab-barre": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-lab-barre.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ],
+  "capture": "neutral-lab",
+  "capture_sha256": "3d4cdc257630c6ed03c6aefc01a570d72658f75887501e24ff8188f83d3055c4",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1978,
+   860
+  ],
+  "targets": [
+   "#phys-tool-select",
+   "#phys-tool-wire",
+   "#phys-zoom-out",
+   "#phys-zoom-in",
+   "#phys-fit",
+   "#phys-run",
+   "#phys-stop",
+   "#phys-reset",
+   "#phys-time"
+  ]
+ },
+ "etu2-lab-inspecteur": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-lab-inspecteur.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "neutral-inspector",
+  "capture_sha256": "3b7edd0a0f4f82baf04c89a423cdf6aa673de13ba9eca2ce71efb6a40d313349",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2052,
+   1014
+  ],
+  "targets": [
+   "comp:R1",
+   "#phys-inspector input[aria-label='Désignateur']",
+   "#phys-inspector table.lab-params"
+  ]
+ },
+ "etu2-lab-multimetre": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-lab-multimetre.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "capture": "neutral-meter",
+  "capture_sha256": "7bfec94a4b40266d1480041f90f74e3d8c1e6d6d6286ac90cf7dc2aecec3f513",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2685,
+   1200
+  ],
+  "targets": [
+   "#phys-run",
+   ".meter-function",
+   ".meter-com",
+   "pin:V1.neg",
+   ".meter-vohm",
+   "pin:RV1.w",
+   ".meter-display"
+  ]
+ },
+ "etu2-fil-selection": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-fil-selection.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "neutral-wire-selected",
+  "capture_sha256": "dca84265130eba2038d34a3744659f7da6ceb95002925a56b250f177938d138f",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2804,
+   1219
+  ],
+  "targets": [
+   "wire:V1.pos~S1.p1",
+   "#phys-inspector"
+  ]
+ },
+ "etu2-fil-supprime": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-fil-supprime.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "neutral-wire-deleted",
+  "capture_sha256": "88b2d53570ad10b2ff49fa4cabcbf814dbd4158199c758bc4f78d7ca4e73095f",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   750,
+   475
+  ],
+  "targets": [
+   "pin:V1.pos",
+   "pin:S1.p1"
+  ]
+ },
+ "etu2-fil-trace": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-fil-trace.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "neutral-wire-drawing",
+  "capture_sha256": "ea3370cf2595abd7192019a800b3b28ee3c5a75eaa160b2c1fdcab04d086733a",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   825,
+   875
+  ],
+  "targets": [
+   "#phys-tool-wire",
+   "pin:V1.pos",
+   "pin:S1.p1"
+  ]
+ },
+ "etu2-fil-nouveau": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-fil-nouveau.png",
+  "marks": [
+   1
+  ],
+  "capture": "neutral-wire-new",
+  "capture_sha256": "9e55bbd78ef701237d12fd85f0a3790175d80696d4b8c0f73a98559c15bfb803",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   750,
+   475
+  ],
+  "targets": [
+   "wire:V1.pos~S1.p1"
+  ]
+ },
+ "etu2-consigner": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-consigner.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-e1v0-consigned",
+  "capture_sha256": "8392a3185f0de9fe9db48ccde9a7822b1d50c0c4bfbb09859b4032ffb1f6148d",
+  "mission": "apps",
+  "run": "docs-20261016-142304",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   938,
+   690
+  ],
+  "targets": [
+   "#progress-fiche .incident-consign",
+   "#progress-fiche .incident-consigned"
+  ]
+ },
+ "etu2-reproduire": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-reproduire.png",
+  "marks": [
+   1
+  ],
+  "capture": "apps-e1v0-open",
+  "capture_sha256": "0cd2a3a35e562133c3f9dbb9ec4603301115050cdd0745ecd7ab9d7c79739f0c",
+  "mission": "apps",
+  "run": "docs-20261016-142304",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   725,
+   980
+  ],
+  "targets": [
+   "#progress-reproduce"
+  ]
+ },
+ "etu2-reproduire-dialogue": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-reproduire-dialogue.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-e1v0-reproduce-dialog",
+  "capture_sha256": "6abc66b2eacf2ed7eabd9da8d518b20a5fb819da3dff918ffeb28b3856425ceb",
+  "mission": "apps",
+  "run": "docs-20261016-141216",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   980,
+   390
+  ],
+  "targets": [
+   "#reproduce-confirm",
+   "#reproduce-cancel"
+  ]
+ },
+ "etu2-ide-vue": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-ide-vue.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "capture": "neutral-ide",
+  "capture_sha256": "9ccec52149f2344d62b1323e002d58314a1d8f22d4bb01e7ed6bd207a867d69d",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   3320,
+   1635
+  ],
+  "targets": [
+   "rect",
+   "rect",
+   "#ide-outline",
+   "#ide-message",
+   "rect",
+   "rect",
+   "#ide-cursor"
+  ]
+ },
+ "etu2-ide-boutons": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-ide-boutons.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "capture": "neutral-ide",
+  "capture_sha256": "9ccec52149f2344d62b1323e002d58314a1d8f22d4bb01e7ed6bd207a867d69d",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2288,
+   995
+  ],
+  "targets": [
+   "#ide-save",
+   "#ide-build",
+   "#ide-flash",
+   "#ide-build-flash",
+   "#ide-restore"
+  ]
+ },
+ "etu2-ide-entete": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-ide-entete.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "neutral-ide-header",
+  "capture_sha256": "f3649705017091390201609438929a85363704413699d8fb914cd2a1492a81db",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2685,
+   750
+  ],
+  "targets": [
+   ".ide-file-tabs button.tab[data-file=\"student_decoder.h\"]",
+   "rect"
+  ]
+ },
+ "etu2-ide-erreur": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-ide-erreur.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "neutral-ide-error",
+  "capture_sha256": "ff21453aa7d1a3a5d82fdd0f09bccf1c9098c3e8dde98bd18e5aa42efe30faad",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2050,
+   1900
+  ],
+  "targets": [
+   "#ide-message",
+   "[data-view=\"code\"] .tab[data-tab=\"ide-problems\"]",
+   "rect",
+   "rect"
+  ]
+ },
+ "etu2-ide-compile": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-ide-compile.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "neutral-ide-built",
+  "capture_sha256": "e48d6ce07ac81855e10ac033be4a6f8c611f3c4efa7843b5f57fdef34b94b16f",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2685,
+   1185
+  ],
+  "targets": [
+   "rect",
+   "rect"
+  ]
+ },
+ "etu2-ide-flash": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-ide-flash.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "neutral-ide-flashing",
+  "capture_sha256": "a1b4988814863d204817605763cbd704a00948637d8d605d390b04cff923490e",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2685,
+   1275
+  ],
+  "targets": [
+   "#ide-flash",
+   "#ide-message",
+   "rect"
+  ]
+ },
+ "etu2-ide-flashe": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-ide-flashe.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "capture": "neutral-ide-flashed",
+  "capture_sha256": "1068676f3c2701587a6b895681beb8089d164680261a568ff091cddffde3b21e",
+  "mission": "neutral",
+  "run": "docs-20261016-153846",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   710,
+   750
+  ],
+  "targets": [
+   "rect",
+   "rect",
+   "#ide-match",
+   "rect",
+   "rect"
+  ]
+ },
+ "etu2-verif-bouton": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-verif-bouton.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-e0f-verify-button",
+  "capture_sha256": "56c3942e512c92c9421b11a4cae965a0411bcf070faf117e50fefc6740b28cbe",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   800,
+   1030
+  ],
+  "targets": [
+   "#progress-steps",
+   "#progress-order",
+   "#progress-verify"
+  ]
+ },
+ "etu2-verif-encours": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-verif-encours.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-e0f-running",
+  "capture_sha256": "1cd5b439568eb8ab9a83b5d6f8de4efeb660913f15e6f0ec9658ac783faeeb4c",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2540,
+   1265
+  ],
+  "targets": [
+   "#progress-blocked",
+   "rect"
+  ]
+ },
+ "etu2-verif-echec": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-verif-echec.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "apps-e0f-verdict",
+  "capture_sha256": "55986a7bc110a915fa12474c0f91528f973377305e5f9ec1263d103e56330fbc",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   800,
+   1445
+  ],
+  "targets": [
+   "#progress-feedback .feedback-line@0",
+   "#progress-feedback .feedback-line@1",
+   "#progress-feedback .feedback-line@2",
+   "#progress-feedback .feedback-line@3"
+  ]
+ },
+ "etu2-verif-reussite": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-verif-reussite.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-e0-verdict-pass",
+  "capture_sha256": "d0b7999c49d851a42cd77209982b6763eccd722535a77ce339a54900755f1eff",
+  "mission": "apps",
+  "run": "docs-20261016-114544",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   800,
+   1830
+  ],
+  "targets": [
+   "#progress-feedback .feedback-line@0",
+   "#progress-feedback .feedback-line@1",
+   "#progress-steps"
+  ]
+ },
+ "etu2-e4-ouverte": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-e4-ouverte.png",
+  "marks": [
+   1,
+   2,
+   3
+  ],
+  "capture": "apps-e4-open",
+  "capture_sha256": "68c170d8e076cadbed0095c039d3904df8f1a3e3c7c93d36b4692eb5729dabd0",
+  "mission": "apps",
+  "run": "docs-20261016-141216",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   800,
+   1280
+  ],
+  "targets": [
+   "#progress-steps",
+   "#progress-order",
+   "#progress-verify"
+  ]
+ },
+ "etu2-e4-encours": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-e4-encours.png",
+  "marks": [
+   1,
+   2
+  ],
+  "capture": "apps-e4-running",
+  "capture_sha256": "4c2f4e949056a69027930c53e6bdd267f517f6a8602662f862201c0a830f9003",
+  "mission": "apps",
+  "run": "docs-20261016-141216",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   2540,
+   1165
+  ],
+  "targets": [
+   "#progress-blocked",
+   "rect"
+  ]
+ },
+ "etu2-e4-resultat": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-e4-resultat.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "apps-e4f-result",
+  "capture_sha256": "b10ef97efe9d2317d3b2f7c0c2bc1709619c1bdfb50549762161e37f9d109614",
+  "mission": "apps",
+  "run": "docs-20261016-141216",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   800,
+   1735
+  ],
+  "targets": [
+   "#progress-feedback .feedback-line@0",
+   "#progress-feedback .feedback-line@3",
+   "rect",
+   "rect"
+  ]
+ },
+ "etu2-e5-cloture": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-e5-cloture.png",
+  "marks": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "capture": "apps-e5-closure",
+  "capture_sha256": "2d3cdb08d2e852ffa7751720551438cb73957c518c65d7d6c3c5cf20b4898b40",
+  "mission": "apps",
+  "run": "docs-20261016-141216",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   800,
+   1970
+  ],
+  "targets": [
+   "rect",
+   "#progress-order",
+   "#progress-feedback",
+   "#progress-final"
+  ]
+ },
+ "etu2-e5-lecture": {
+  "path": "/docs/img/tutoriel-0.3-pdf/etu2-e5-lecture.png",
+  "marks": [
+   1
+  ],
+  "capture": "apps-e5-fiche-readonly",
+  "capture_sha256": "8d0ab6dbb00f5e40e8d8d1cc309342151058323e8c6d31f938e222e9fa1aa146",
+  "mission": "apps",
+  "run": "docs-20261016-141216",
+  "exe_sha256": "caef4c519b9e564bd0e2b5bf8b4db01a121b87bfc780ee9ba4fa5a88b70179eb",
+  "size": [
+   1850,
+   374
+  ],
+  "targets": [
+   "#progress-fiche .fiche-note"
+  ]
+ }
+}

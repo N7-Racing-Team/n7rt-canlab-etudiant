@@ -1,0 +1,37 @@
+N7RT CAN Lab - SDK etudiant (NUCLEO-H753ZI)
+==========================================
+
+Le parcours principal se trouve dans la page Code STM32 du CAN Lab.
+Vous ne modifiez que student_decoder.c et student_decoder.h : trois fonctions
+student_init, student_on_frame, student_on_tick et vos declarations.
+Vos fichiers sauvegardes vivent dans le profil local de l'application ; ce
+projet fournit le gabarit public et les entrees protegees du SDK.
+
+Tout le reste (dossier n7rt/, configuration, script de liaison) est fourni et verifie : n'y touchez pas.
+L'API disponible est decrite dans n7rt/include/n7rt.h :
+  n7rt_can_frame_t   la trame recue (id, dlc, len, flags, data[], timestamp_us)
+  n7rt_publish()     publier une valeur pour un slot
+  n7rt_reject()      declarer un slot non exploitable pour cette trame
+  n7rt_now_us()      temps du bus
+  n7rt_log()         une ligne de texte (120 caracteres, 20 lignes/s)
+
+1. Installer separement Python 3.11 ou plus recent, pyserial, la chaine GNU ARM
+   et STM32CubeProgrammer. Le LISEZMOI de l'archive donne la commande pyserial.
+2. Code STM32 : ouvrir un fichier, modifier puis Enregistrer.
+3. Compiler : corriger les diagnostics de Problemes. Le runtime reste
+   precompile ; un depassement de ST_FLASH ou ST_RAM refuse la compilation.
+4. Cockpit : connecter la carte choisie et attendre le runtime verifie. Arreter
+   la session. Code STM32 : Flasher, ou Compiler + flasher. La programmation
+   ecrit seulement la zone etudiante et controle le runtime avant et apres.
+5. Reprendre les essais dans le Cockpit apres reconnexion. Toute modification
+   sauvegardee exige une nouvelle compilation.
+
+Secours encadrant : ce projet s'importe dans STM32CubeIDE 2.0.0 pour compiler
+ou deboguer avec le meme SDK. L'encadrant reporte vos deux fichiers dans
+student/, compile le projet, puis utilise le flasher protege :
+  python tools/stm32/stm32lab.py flash <carte> --student
+La carte doit etre declaree dans le registre local de l'outil. Le flash direct
+Run > Run de CubeIDE ne passe pas par ces controles de programmation.
+La protection du televersement ne constitue pas une sandbox du programme C.
+
+La version fournie de student_decoder.c est un simple test du banc : elle ne decode rien.

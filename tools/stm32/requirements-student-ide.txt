@@ -1,0 +1,2 @@
+# Python 3.11 or newer is installed separately; no interpreter is bundled.
+pyserial>=3.5,<4.0

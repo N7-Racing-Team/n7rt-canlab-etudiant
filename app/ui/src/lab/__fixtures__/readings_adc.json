@@ -1,0 +1,32 @@
+[
+  {
+    "k": "valid",
+    "v": {
+      "volts": 0.1968332833467316,
+      "code": 244,
+      "bits": 12,
+      "vref": 3.3,
+      "sampled_at_ns": 3000000
+    }
+  },
+  {
+    "k": "saturated",
+    "v": {
+      "volts": 4.999993138343064,
+      "code": 4095,
+      "bits": 12,
+      "vref": 3.3,
+      "sampled_at_ns": 3000000
+    }
+  },
+  {
+    "k": "floating"
+  },
+  {
+    "k": "floating"
+  },
+  {
+    "k": "unavailable",
+    "reason": "not_sampled_yet"
+  }
+]

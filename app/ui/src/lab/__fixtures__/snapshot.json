@@ -1,0 +1,1114 @@
+{
+  "doc_id": 2,
+  "rev": 1,
+  "name": "tp1",
+  "dirty": false,
+  "components": [
+    {
+      "id": 1,
+      "kind": "ecu_stm32",
+      "label": "U1",
+      "pos": [
+        0,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "adc_bits": "12",
+        "adc_sample_rate": 1000,
+        "can_mode": "can",
+        "r_out_3v3": 0.05,
+        "r_out_5v": 0.1
+      }
+    },
+    {
+      "id": 2,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        60,
+        0
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 3,
+      "kind": "potentiometer",
+      "label": "RV1",
+      "pos": [
+        120,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      }
+    },
+    {
+      "id": 4,
+      "kind": "resistor",
+      "label": "R1",
+      "pos": [
+        180,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      }
+    },
+    {
+      "id": 5,
+      "kind": "capacitor",
+      "label": "C1",
+      "pos": [
+        240,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      }
+    },
+    {
+      "id": 6,
+      "kind": "can_transceiver",
+      "label": "U2",
+      "pos": [
+        300,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "r_in": 25000.0
+      }
+    },
+    {
+      "id": 7,
+      "kind": "termination",
+      "label": "RT1",
+      "pos": [
+        360,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 120.0
+      }
+    },
+    {
+      "id": 8,
+      "kind": "can_bus",
+      "label": "BUS1",
+      "pos": [
+        420,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "remote_nodes": 1,
+        "remote_r_in": 25000.0,
+        "remote_termination": true
+      }
+    },
+    {
+      "id": 11,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        60,
+        -42
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 14,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        115,
+        -42
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 17,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        245,
+        -42
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 20,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        287,
+        -42
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 23,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        315,
+        -42
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 27,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        120,
+        -44
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 31,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        185,
+        -46
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 38,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        355,
+        -54
+      ],
+      "rot": 0,
+      "params": {}
+    },
+    {
+      "id": 42,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        365,
+        -56
+      ],
+      "rot": 0,
+      "params": {}
+    }
+  ],
+  "wires": [
+    {
+      "id": 9,
+      "a": {
+        "comp": 1,
+        "pin": "v3v3"
+      },
+      "b": {
+        "comp": 3,
+        "pin": "b"
+      },
+      "bends": [
+        [
+          -12,
+          -2
+        ],
+        [
+          -12,
+          -40
+        ],
+        [
+          125,
+          -40
+        ],
+        [
+          125,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 10,
+      "a": {
+        "comp": 1,
+        "pin": "gnd"
+      },
+      "b": {
+        "comp": 11,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          -14,
+          4
+        ],
+        [
+          -14,
+          -42
+        ]
+      ]
+    },
+    {
+      "id": 12,
+      "a": {
+        "comp": 11,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 14,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 13,
+      "a": {
+        "comp": 2,
+        "pin": "gnd"
+      },
+      "b": {
+        "comp": 11,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 15,
+      "a": {
+        "comp": 14,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 17,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 16,
+      "a": {
+        "comp": 3,
+        "pin": "a"
+      },
+      "b": {
+        "comp": 14,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          115,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 18,
+      "a": {
+        "comp": 17,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 20,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 19,
+      "a": {
+        "comp": 5,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 17,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          245,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 21,
+      "a": {
+        "comp": 20,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 23,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 22,
+      "a": {
+        "comp": 6,
+        "pin": "rs"
+      },
+      "b": {
+        "comp": 20,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          287,
+          2
+        ]
+      ]
+    },
+    {
+      "id": 24,
+      "a": {
+        "comp": 23,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 8,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          410,
+          -42
+        ],
+        [
+          410,
+          4
+        ]
+      ]
+    },
+    {
+      "id": 25,
+      "a": {
+        "comp": 6,
+        "pin": "vss"
+      },
+      "b": {
+        "comp": 23,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          300,
+          10
+        ],
+        [
+          315,
+          10
+        ]
+      ]
+    },
+    {
+      "id": 26,
+      "a": {
+        "comp": 1,
+        "pin": "a0"
+      },
+      "b": {
+        "comp": 27,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          10,
+          -4
+        ],
+        [
+          10,
+          -44
+        ]
+      ]
+    },
+    {
+      "id": 28,
+      "a": {
+        "comp": 27,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 4,
+        "pin": "p1"
+      },
+      "bends": [
+        [
+          175,
+          -44
+        ],
+        [
+          175,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 29,
+      "a": {
+        "comp": 3,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 27,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 30,
+      "a": {
+        "comp": 1,
+        "pin": "a1"
+      },
+      "b": {
+        "comp": 31,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          12,
+          -2
+        ],
+        [
+          12,
+          -46
+        ]
+      ]
+    },
+    {
+      "id": 32,
+      "a": {
+        "comp": 31,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 5,
+        "pin": "p1"
+      },
+      "bends": [
+        [
+          235,
+          -46
+        ],
+        [
+          235,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 33,
+      "a": {
+        "comp": 4,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 31,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          185,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 34,
+      "a": {
+        "comp": 1,
+        "pin": "v5"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "vdd"
+      },
+      "bends": [
+        [
+          -10,
+          -4
+        ],
+        [
+          -10,
+          -48
+        ],
+        [
+          300,
+          -48
+        ]
+      ]
+    },
+    {
+      "id": 35,
+      "a": {
+        "comp": 1,
+        "pin": "can_tx"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "txd"
+      },
+      "bends": [
+        [
+          14,
+          2
+        ],
+        [
+          14,
+          -50
+        ],
+        [
+          291,
+          -50
+        ],
+        [
+          291,
+          -4
+        ]
+      ]
+    },
+    {
+      "id": 36,
+      "a": {
+        "comp": 1,
+        "pin": "can_rx"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "rxd"
+      },
+      "bends": [
+        [
+          16,
+          4
+        ],
+        [
+          16,
+          -52
+        ],
+        [
+          289,
+          -52
+        ],
+        [
+          289,
+          -2
+        ]
+      ]
+    },
+    {
+      "id": 37,
+      "a": {
+        "comp": 6,
+        "pin": "canh"
+      },
+      "b": {
+        "comp": 38,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          309,
+          -2
+        ],
+        [
+          309,
+          -54
+        ]
+      ]
+    },
+    {
+      "id": 39,
+      "a": {
+        "comp": 38,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 8,
+        "pin": "canh"
+      },
+      "bends": [
+        [
+          414,
+          -54
+        ],
+        [
+          414,
+          -2
+        ]
+      ]
+    },
+    {
+      "id": 40,
+      "a": {
+        "comp": 7,
+        "pin": "p1"
+      },
+      "b": {
+        "comp": 38,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          355,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 41,
+      "a": {
+        "comp": 6,
+        "pin": "canl"
+      },
+      "b": {
+        "comp": 42,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          311,
+          2
+        ],
+        [
+          311,
+          -56
+        ]
+      ]
+    },
+    {
+      "id": 43,
+      "a": {
+        "comp": 42,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 8,
+        "pin": "canl"
+      },
+      "bends": [
+        [
+          412,
+          -56
+        ],
+        [
+          412,
+          2
+        ]
+      ]
+    },
+    {
+      "id": 44,
+      "a": {
+        "comp": 7,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 42,
+        "pin": "j"
+      },
+      "bends": [
+        [
+          365,
+          0
+        ]
+      ]
+    }
+  ],
+  "states": [
+    [
+      1,
+      {
+        "usb": true
+      }
+    ],
+    [
+      2,
+      {}
+    ],
+    [
+      3,
+      {
+        "position": 0.3
+      }
+    ],
+    [
+      4,
+      {}
+    ],
+    [
+      5,
+      {}
+    ],
+    [
+      6,
+      {}
+    ],
+    [
+      7,
+      {}
+    ],
+    [
+      8,
+      {}
+    ],
+    [
+      11,
+      {}
+    ],
+    [
+      14,
+      {}
+    ],
+    [
+      17,
+      {}
+    ],
+    [
+      20,
+      {}
+    ],
+    [
+      23,
+      {}
+    ],
+    [
+      27,
+      {}
+    ],
+    [
+      31,
+      {}
+    ],
+    [
+      38,
+      {}
+    ],
+    [
+      42,
+      {}
+    ]
+  ],
+  "nets": [
+    {
+      "key": {
+        "comp": 1,
+        "pin": "a0"
+      },
+      "name": "U1.A0",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "a0"
+        },
+        {
+          "comp": 3,
+          "pin": "w"
+        },
+        {
+          "comp": 4,
+          "pin": "p1"
+        },
+        {
+          "comp": 27,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        26,
+        28,
+        29
+      ]
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "a1"
+      },
+      "name": "U1.A1",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "a1"
+        },
+        {
+          "comp": 4,
+          "pin": "p2"
+        },
+        {
+          "comp": 5,
+          "pin": "p1"
+        },
+        {
+          "comp": 31,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        30,
+        32,
+        33
+      ]
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "can_rx"
+      },
+      "name": "U1.PD0",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "can_rx"
+        },
+        {
+          "comp": 6,
+          "pin": "rxd"
+        }
+      ],
+      "wires": [
+        36
+      ]
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "can_tx"
+      },
+      "name": "U1.PD1",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "can_tx"
+        },
+        {
+          "comp": 6,
+          "pin": "txd"
+        }
+      ],
+      "wires": [
+        35
+      ]
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "gnd"
+      },
+      "name": "GND",
+      "ground": true,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "gnd"
+        },
+        {
+          "comp": 2,
+          "pin": "gnd"
+        },
+        {
+          "comp": 3,
+          "pin": "a"
+        },
+        {
+          "comp": 5,
+          "pin": "p2"
+        },
+        {
+          "comp": 6,
+          "pin": "rs"
+        },
+        {
+          "comp": 6,
+          "pin": "vss"
+        },
+        {
+          "comp": 8,
+          "pin": "gnd"
+        },
+        {
+          "comp": 11,
+          "pin": "j"
+        },
+        {
+          "comp": 14,
+          "pin": "j"
+        },
+        {
+          "comp": 17,
+          "pin": "j"
+        },
+        {
+          "comp": 20,
+          "pin": "j"
+        },
+        {
+          "comp": 23,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        10,
+        12,
+        13,
+        15,
+        16,
+        18,
+        19,
+        21,
+        22,
+        24,
+        25
+      ]
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "v3v3"
+      },
+      "name": "U1.3V3",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "v3v3"
+        },
+        {
+          "comp": 3,
+          "pin": "b"
+        }
+      ],
+      "wires": [
+        9
+      ]
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "v5"
+      },
+      "name": "U1.5V",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "v5"
+        },
+        {
+          "comp": 6,
+          "pin": "vdd"
+        }
+      ],
+      "wires": [
+        34
+      ]
+    },
+    {
+      "key": {
+        "comp": 6,
+        "pin": "canh"
+      },
+      "name": "U2.CANH",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 6,
+          "pin": "canh"
+        },
+        {
+          "comp": 7,
+          "pin": "p1"
+        },
+        {
+          "comp": 8,
+          "pin": "canh"
+        },
+        {
+          "comp": 38,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        37,
+        39,
+        40
+      ]
+    },
+    {
+      "key": {
+        "comp": 6,
+        "pin": "canl"
+      },
+      "name": "U2.CANL",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 6,
+          "pin": "canl"
+        },
+        {
+          "comp": 7,
+          "pin": "p2"
+        },
+        {
+          "comp": 8,
+          "pin": "canl"
+        },
+        {
+          "comp": 42,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        41,
+        43,
+        44
+      ]
+    },
+    {
+      "key": {
+        "comp": 6,
+        "pin": "vref"
+      },
+      "name": "U2.VREF",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 6,
+          "pin": "vref"
+        }
+      ],
+      "wires": []
+    }
+  ],
+  "can_undo": false,
+  "can_redo": false,
+  "run": "stop",
+  "sim_time_ns": 0,
+  "disclosure": "exploration"
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://n7rt-canlab.local/schemas/telemetry-envelope.schema.json",
+  "title": "TelemetryEnvelope",
+  "type": "object",
+  "required": ["ts", "node", "type"],
+  "properties": {
+    "ts": {
+      "type": "string",
+      "description": "ISO-8601 timestamp or device-local monotonic string."
+    },
+    "node": {
+      "type": "string",
+      "enum": ["stm32_a", "stm32_b", "arduino_a", "arduino_b"]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["heartbeat", "can_tx", "can_rx", "error", "state", "measure", "debug"]
+    },
+    "message": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^0x[0-9A-Fa-f]+$"
+    },
+    "dlc": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 64
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "maxItems": 64
+    },
+    "level": {
+      "type": "string",
+      "enum": ["info", "warning", "error", "critical"]
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+

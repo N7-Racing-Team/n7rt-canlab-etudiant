@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Rotary Position Sensor RPS-F, Data Sheet",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "200065291",
+    "revision": "en (sans indice)",
+    "date": "2026-01-27",
+    "primary_url": "https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_202669067_rotary_position_sensor_rps-f.pdf",
+    "sha256": "1b9b08c1799c778ac3d37db97ea390b05dfbd83eedcc7e735ccb93da06b15dbc",
+    "missions": [
+      "APPS"
+    ],
+    "local_file": "bosch-motorsport-rps-f-datasheet-2026-01-27.pdf"
+  },
+  {
+    "title": "Accelerator Pedal Assembly Series 552, Datasheet",
+    "publisher": "CTS Corporation",
+    "reference": "Series 552",
+    "revision": "RevB_0524",
+    "date": "2024-05",
+    "primary_url": "https://www.ctscorp.com/Files/DataSheets/Pedals--Foot-Controls/Accelerator-Pedals/CTS-Pedals-Foot-Controls-Acceleratio-Pedals-Series-552-Datasheet.pdf",
+    "sha256": "3120bf67d3dda1606b801629dcd5fa3d7892a11f070652a28c8f88b3c952b39b",
+    "missions": [
+      "APPS"
+    ],
+    "local_file": "cts-series-552-datasheet-revb-0524.pdf"
+  }
+]

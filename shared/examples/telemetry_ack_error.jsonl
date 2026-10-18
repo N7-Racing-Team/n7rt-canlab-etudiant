@@ -1,0 +1,4 @@
+{"ts":"2026-03-07T10:18:20.000Z","node":"stm32_a","type":"can_tx","id":"0x201","dlc":2,"data":[170,85],"meta":{"bitrate":500000}}
+{"ts":"2026-03-07T10:18:20.040Z","node":"stm32_a","type":"error","message":"ACK not detected on frame 0x201","level":"error","meta":{"code":"ACK_ERROR","retry":1}}
+{"ts":"2026-03-07T10:18:20.500Z","node":"stm32_b","type":"state","state":"offline","meta":{"reason":"simulated_bus_absence"}}
+

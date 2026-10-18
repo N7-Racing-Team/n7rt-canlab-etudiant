@@ -1,0 +1,31 @@
+[
+  {
+    "k": "valid",
+    "v": 4.999993138343064
+  },
+  {
+    "k": "floating"
+  },
+  {
+    "k": "no_reference"
+  },
+  {
+    "k": "valid",
+    "v": 2.4997450418240725
+  },
+  {
+    "k": "unavailable",
+    "reason": "unknown_pin"
+  },
+  {
+    "k": "open"
+  },
+  {
+    "k": "valid",
+    "v": 59.85634477254589
+  },
+  {
+    "k": "saturated",
+    "v": 4095.0
+  }
+]

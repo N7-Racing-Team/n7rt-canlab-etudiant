@@ -1,0 +1,323 @@
+{
+  "seq": 8,
+  "doc_id": 0,
+  "rev": 0,
+  "sim_time_ns": 3000000,
+  "run": "run",
+  "preview": false,
+  "disclosure": "mission",
+  "nets": [],
+  "comps": [
+    {
+      "id": 1,
+      "state": {
+        "on": true
+      },
+      "op": {
+        "kind": "supply",
+        "output": "cv"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 2,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 3,
+      "state": {
+        "position": 0.3
+      },
+      "op": {
+        "kind": "pot",
+        "position": 0.3
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 4,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 5,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 6,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 7,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 8,
+      "state": {
+        "on": true
+      },
+      "op": {
+        "kind": "supply",
+        "output": "cv"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 9,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 10,
+      "state": {
+        "usb": true
+      },
+      "op": {
+        "kind": "ecu",
+        "powered": true
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 11,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 12,
+      "state": {
+        "closed": true
+      },
+      "op": {
+        "kind": "contact",
+        "closed": true
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 13,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 14,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 15,
+      "state": {
+        "latched": false,
+        "pressed": false
+      },
+      "op": {
+        "kind": "contact",
+        "closed": false
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 17,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 20,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 23,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 26,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 29,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 32,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 35,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 38,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 41,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 44,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 48,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 52,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 55,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 64,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    },
+    {
+      "id": 68,
+      "state": {},
+      "op": {
+        "kind": "passive"
+      },
+      "pins": [],
+      "measures": []
+    }
+  ],
+  "diagnostics": [],
+  "meter": {
+    "com": {
+      "comp": 3,
+      "pin": "a"
+    },
+    "vohm": {
+      "comp": 3,
+      "pin": "w"
+    },
+    "function": "v_dc",
+    "display": "0.197 V"
+  },
+  "engine": {
+    "lag_frames": 2,
+    "slow": true,
+    "frame_us_p95": 41.5,
+    "substeps_last": 3,
+    "min_dt_ns": 50000,
+    "islands": 4,
+    "restarts": 1
+  }
+}

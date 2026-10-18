@@ -1,0 +1,57 @@
+# Build outputs
+node_modules/
+/app/dist/
+/app/target/
+/app/src-tauri/gen/
+/app/tools/zig-shims/target/
+/dist/
+/firmware/n7rt_student/build/
+/firmware/n7rt_student/dist/
+/firmware/n7rt_student/N7RT_CANLab_Student/Debug/
+/firmware/n7rt_student/N7RT_CANLab_Student/Release/
+/firmware/n7rt_student/N7RT_CANLab_Student/.settings/
+
+# Python
+__pycache__/
+*.py[co]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+*.egg-info/
+
+# Library documents: links only (V-M03, docs/distribution.md §1); local copies stay out of git
+/library/**/*.pdf
+
+# Machine-local files and logs
+/data/
+/tools/stm32/boards.local.json
+hs_err*.log
+*.log
+
+# Never in this repository (docs/distribution.md §1): group packs, run files, instructor material
+*.n7rtpack
+*.n7rtrun
+restricted/
+/instructor/
+/cohorts/
+/missions/
+/firmware/stm32_h753_bringup/
+master.key
+auth.json
+
+# Test caches and temporary editor/build artifacts
+.vitest/
+.vite/
+.cache/
+coverage/
+.nyc_output/
+.tmp/
+.temp/
+*.tmp
+*.temp
+*.orig
+*.rej
+*.bak
+*.swp
+*~

@@ -1,0 +1,16 @@
+{
+  "_doc": "N7RT runtime image validated in S1.2 and distributed in the student SDK. 'stm32lab sdk' takes the runtime region of the runtime build (firmware/stm32_h753_bringup, preset runtime: the runtime sources are in the instructor repository only, never in the student repository) and refuses it unless its SHA-256, size and build id are exactly these. Bump this file only with new hardware evidence.",
+  "runtime_version": "0.1.0",
+  "build_id": "142293fb7dd104fb",
+  "abi": [1, 0],
+  "load_address": "0x08000000",
+  "image_size": 20312,
+  "image_sha256": "dd6adaab1ad8c106d75fc091aca7160bd0691ebb690b04a998c771685963677e",
+  "toolchain": "GNU Tools for STM32 14.3.1 (STM32Cube bundle 14.3.1+st.2), CMake preset runtime",
+  "validated_on": "2026-10-04",
+  "evidence": {
+    "smoke": "data/logs/runtime_smoke_c_20261004-202844.json",
+    "capacity_1000fps": "data/logs/runtime_soak_c_20261004-202945.json",
+    "soak_10min_600fps": "data/logs/runtime_soak_c_20261004-203957.json"
+  }
+}

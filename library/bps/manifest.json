@@ -1,0 +1,80 @@
+[
+  {
+    "title": "Bosch Motorsport Print Catalog 2026",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "printcatalog_2026",
+    "revision": "Édition 2026",
+    "date": "2026-09-16",
+    "primary_url": "https://www.bosch-motorsport.com/media/downloads/catalogs/printcatalog_2026.pdf",
+    "sha256": "065dfcaedf49462c45aedf018fa538415abad121c442d2b93b3905d16d6ae45b",
+    "missions": [
+      "BPS"
+    ],
+    "local_file": "bosch-motorsport-printcatalog-2026-catalog-2026-09-16.pdf"
+  },
+  {
+    "title": "Pressure Sensor Fluid PSC-260 – Data Sheet",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "52484619",
+    "revision": "en, 1",
+    "date": "2026-07-01",
+    "primary_url": "https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_69507595_pressure_sensor_fluid_psc-260.pdf",
+    "sha256": "c0f8db4054283c95ddf67d98227298021f6f21d811d340f25317423805b599d5",
+    "missions": [
+      "BPS"
+    ],
+    "local_file": "bosch-motorsport-psc-260-datasheet-2026-07-01.pdf"
+  },
+  {
+    "title": "Pressure Sensor Fluid PSS-140 – Data Sheet",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "52912139",
+    "revision": "en (sans indice)",
+    "date": "2026-01-27",
+    "primary_url": "https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_351937803_pressure_sensor_fluid_pss-140.pdf",
+    "sha256": "2c8faa0984639991a4f1d89a18d3b8f431dc5c354559d4fd3aa09e822886463b",
+    "missions": [
+      "BPS"
+    ],
+    "local_file": "bosch-motorsport-pss-140-datasheet-2026-01-27.pdf"
+  },
+  {
+    "title": "Pressure Sensor Fluid PSS-250R – Data Sheet",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "52563979",
+    "revision": "en, 1",
+    "date": "2026-01-27",
+    "primary_url": "https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_69587595_pressure_sensor_fluid_pss-250r.pdf",
+    "sha256": "32347b52bf3f3ac5dacfb4260fcc29f5fcd1a1aab441f6c68cff60c0918435e6",
+    "missions": [
+      "BPS"
+    ],
+    "local_file": "bosch-motorsport-pss-250r-datasheet-2026-01-27.pdf"
+  },
+  {
+    "title": "Pressure Sensor Fluid PSS-260 – Data Sheet",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "52878347",
+    "revision": "en (sans indice)",
+    "date": "2026-01-27",
+    "primary_url": "https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_411837451_pressure_sensor_fluid_pss-260.pdf",
+    "sha256": "dd27170d609f34609eba72701f3ab5b0b449fe95f9ae34c320a7424dcb8300c7",
+    "missions": [
+      "BPS"
+    ],
+    "local_file": "bosch-motorsport-pss-260-datasheet-2026-01-27.pdf"
+  },
+  {
+    "title": "OEM pressure sensor for mobile working machines, model MH-4",
+    "publisher": "WIKA Alexander Wiegand SE & Co. KG",
+    "reference": "PE 81.63",
+    "revision": "09/2026",
+    "date": "2026-09",
+    "primary_url": "https://www.wika.com/media/Data-sheets/Pressure/Pressure-sensors/ds_pe8163_en_co.pdf",
+    "sha256": "abbfc3fbc5fb050363a39aef3df781f12991898db3e106bf34af1a30f910f13f",
+    "missions": [
+      "BPS"
+    ],
+    "local_file": "wika-pe8163-datasheet-2026-09.pdf"
+  }
+]

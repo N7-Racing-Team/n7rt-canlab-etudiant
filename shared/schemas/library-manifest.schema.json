@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://n7rt-canlab.local/schemas/library-manifest.schema.json",
+  "title": "LibraryManifest",
+  "description": "Public student library manifest (library/<folder>/manifest.json). One entry per document of the folder, sorted by local_file. The repositories and the student archive carry no PDF (links only): the application opens the local copy when it is present and matches sha256, otherwise primary_url. Bibliographic fields only: no other property is allowed.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["title", "publisher", "reference", "revision", "date", "primary_url", "sha256", "missions", "local_file"],
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1
+      },
+      "publisher": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reference": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Document number or part number as printed by the publisher."
+      },
+      "revision": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Revision label as printed by the publisher."
+      },
+      "date": {
+        "type": ["string", "null"],
+        "pattern": "^[0-9]{4}(-[0-9]{2}(-[0-9]{2})?)?$",
+        "description": "Publication date (YYYY, YYYY-MM or YYYY-MM-DD)."
+      },
+      "primary_url": {
+        "type": ["string", "null"],
+        "format": "uri",
+        "description": "Publisher download URL; null when not recorded."
+      },
+      "sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "missions": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": ["APPS", "WSF", "SAS", "BPS"]
+        }
+      },
+      "local_file": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9.-]*\\.pdf$",
+        "description": "Name of the optional local copy, relative to the manifest folder (never committed)."
+      }
+    },
+    "additionalProperties": false
+  }
+}

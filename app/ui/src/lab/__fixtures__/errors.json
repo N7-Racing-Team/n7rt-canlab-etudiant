@@ -1,0 +1,66 @@
+[
+  {
+    "code": "refused",
+    "refusal": {
+      "code": "stale_revision",
+      "ambiguity": null,
+      "message_fr": "Révision 6 périmée : le circuit est à la révision 1, rechargez-le",
+      "at": null,
+      "items": []
+    }
+  },
+  {
+    "code": "file",
+    "error": {
+      "code": "bad_name"
+    }
+  },
+  {
+    "code": "file",
+    "error": {
+      "code": "name_exists"
+    }
+  },
+  {
+    "code": "file",
+    "error": {
+      "code": "not_found"
+    }
+  },
+  {
+    "code": "file",
+    "error": {
+      "code": "invalid",
+      "violations": [
+        {
+          "code": "format_unknown",
+          "message_fr": "Format « autre » inconnu : n7rt-physlab-circuit attendu",
+          "items": [],
+          "at": null
+        },
+        {
+          "code": "library_mismatch",
+          "message_fr": "Champ library_version absent (version 3 attendue)",
+          "items": [],
+          "at": null
+        }
+      ]
+    }
+  },
+  {
+    "code": "file",
+    "error": {
+      "code": "io",
+      "message": "Accès refusé. (os error 5)"
+    }
+  },
+  {
+    "code": "file",
+    "error": {
+      "code": "no_storage"
+    }
+  },
+  {
+    "code": "engine_unavailable"
+  }
+]

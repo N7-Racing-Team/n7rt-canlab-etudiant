@@ -1,0 +1,527 @@
+{
+  "type": "edit",
+  "rev": 1,
+  "patch": {
+    "components": [
+      [
+        71,
+        null,
+        {
+          "id": 71,
+          "kind": "resistor",
+          "label": "R2",
+          "pos": [
+            0,
+            200
+          ],
+          "rot": 90,
+          "params": {
+            "power_rating": 0.25,
+            "resistance": 10000.0
+          }
+        }
+      ]
+    ],
+    "wires": []
+  },
+  "nets": [
+    {
+      "key": {
+        "comp": 1,
+        "pin": "neg"
+      },
+      "name": "GND",
+      "ground": true,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "neg"
+        },
+        {
+          "comp": 2,
+          "pin": "gnd"
+        },
+        {
+          "comp": 3,
+          "pin": "a"
+        },
+        {
+          "comp": 4,
+          "pin": "p2"
+        },
+        {
+          "comp": 5,
+          "pin": "ref"
+        },
+        {
+          "comp": 6,
+          "pin": "ref"
+        },
+        {
+          "comp": 7,
+          "pin": "ref"
+        },
+        {
+          "comp": 10,
+          "pin": "gnd"
+        },
+        {
+          "comp": 11,
+          "pin": "rs"
+        },
+        {
+          "comp": 11,
+          "pin": "vss"
+        },
+        {
+          "comp": 12,
+          "pin": "p2"
+        },
+        {
+          "comp": 14,
+          "pin": "gnd"
+        },
+        {
+          "comp": 17,
+          "pin": "j"
+        },
+        {
+          "comp": 20,
+          "pin": "j"
+        },
+        {
+          "comp": 23,
+          "pin": "j"
+        },
+        {
+          "comp": 26,
+          "pin": "j"
+        },
+        {
+          "comp": 29,
+          "pin": "j"
+        },
+        {
+          "comp": 32,
+          "pin": "j"
+        },
+        {
+          "comp": 35,
+          "pin": "j"
+        },
+        {
+          "comp": 38,
+          "pin": "j"
+        },
+        {
+          "comp": 41,
+          "pin": "j"
+        },
+        {
+          "comp": 44,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        16,
+        18,
+        19,
+        21,
+        22,
+        24,
+        25,
+        27,
+        28,
+        30,
+        31,
+        33,
+        34,
+        36,
+        37,
+        39,
+        40,
+        42,
+        43,
+        45,
+        46
+      ]
+    },
+    {
+      "key": {
+        "comp": 1,
+        "pin": "pos"
+      },
+      "name": "V1.+",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 1,
+          "pin": "pos"
+        },
+        {
+          "comp": 3,
+          "pin": "b"
+        },
+        {
+          "comp": 5,
+          "pin": "in"
+        },
+        {
+          "comp": 48,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        47,
+        49,
+        50
+      ]
+    },
+    {
+      "key": {
+        "comp": 3,
+        "pin": "w"
+      },
+      "name": "RV1.W",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 3,
+          "pin": "w"
+        },
+        {
+          "comp": 4,
+          "pin": "p1"
+        },
+        {
+          "comp": 7,
+          "pin": "in"
+        },
+        {
+          "comp": 15,
+          "pin": "p1"
+        },
+        {
+          "comp": 52,
+          "pin": "j"
+        },
+        {
+          "comp": 55,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        51,
+        53,
+        54,
+        56,
+        57
+      ]
+    },
+    {
+      "key": {
+        "comp": 6,
+        "pin": "in"
+      },
+      "name": "ADC2.IN",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 6,
+          "pin": "in"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 8,
+        "pin": "neg"
+      },
+      "name": "V2.−",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 8,
+          "pin": "neg"
+        },
+        {
+          "comp": 9,
+          "pin": "p2"
+        }
+      ],
+      "wires": [
+        59
+      ]
+    },
+    {
+      "key": {
+        "comp": 8,
+        "pin": "pos"
+      },
+      "name": "V2.+",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 8,
+          "pin": "pos"
+        },
+        {
+          "comp": 9,
+          "pin": "p1"
+        }
+      ],
+      "wires": [
+        58
+      ]
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "a0"
+      },
+      "name": "U1.A0",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 10,
+          "pin": "a0"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "a1"
+      },
+      "name": "U1.A1",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 10,
+          "pin": "a1"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "can_rx"
+      },
+      "name": "U1.PD0",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 10,
+          "pin": "can_rx"
+        },
+        {
+          "comp": 11,
+          "pin": "rxd"
+        }
+      ],
+      "wires": [
+        61
+      ]
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "can_tx"
+      },
+      "name": "U1.PD1",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 10,
+          "pin": "can_tx"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "v3v3"
+      },
+      "name": "U1.3V3",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 10,
+          "pin": "v3v3"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 10,
+        "pin": "v5"
+      },
+      "name": "U1.5V",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 10,
+          "pin": "v5"
+        },
+        {
+          "comp": 11,
+          "pin": "vdd"
+        }
+      ],
+      "wires": [
+        60
+      ]
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "canh"
+      },
+      "name": "U2.CANH",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 11,
+          "pin": "canh"
+        },
+        {
+          "comp": 13,
+          "pin": "p1"
+        },
+        {
+          "comp": 14,
+          "pin": "canh"
+        },
+        {
+          "comp": 64,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        63,
+        65,
+        66
+      ]
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "canl"
+      },
+      "name": "U2.CANL",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 11,
+          "pin": "canl"
+        },
+        {
+          "comp": 13,
+          "pin": "p2"
+        },
+        {
+          "comp": 14,
+          "pin": "canl"
+        },
+        {
+          "comp": 68,
+          "pin": "j"
+        }
+      ],
+      "wires": [
+        67,
+        69,
+        70
+      ]
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "txd"
+      },
+      "name": "U2.TXD",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 11,
+          "pin": "txd"
+        },
+        {
+          "comp": 12,
+          "pin": "p1"
+        }
+      ],
+      "wires": [
+        62
+      ]
+    },
+    {
+      "key": {
+        "comp": 11,
+        "pin": "vref"
+      },
+      "name": "U2.VREF",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 11,
+          "pin": "vref"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 15,
+        "pin": "p2"
+      },
+      "name": "BP1.2",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 15,
+          "pin": "p2"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 71,
+        "pin": "p1"
+      },
+      "name": "R2.1",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 71,
+          "pin": "p1"
+        }
+      ],
+      "wires": []
+    },
+    {
+      "key": {
+        "comp": 71,
+        "pin": "p2"
+      },
+      "name": "R2.2",
+      "ground": false,
+      "pins": [
+        {
+          "comp": 71,
+          "pin": "p2"
+        }
+      ],
+      "wires": []
+    }
+  ],
+  "can_undo": true,
+  "can_redo": false,
+  "dirty": true
+}

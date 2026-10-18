@@ -1,0 +1,9 @@
+[package]
+name = "n7rt-solver"
+description = "Deterministic linear circuit solver for the N7RT Physical Lab (nodal analysis per island, trapezoidal transient)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

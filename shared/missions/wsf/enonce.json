@@ -1,0 +1,25 @@
+{
+  "format": "n7rt-mission-enonce",
+  "version": 1,
+  "mission": "wsf",
+  "title": "WSF — vitesse des roues",
+  "summary": "Votre carte STM32 joue la partie vitesse des roues du calculateur. Deux capteurs mesurent les roues avant ; les informations arrivent par le bus CAN du véhicule. Retrouvez les trames, décodez et surveillez les signaux, puis publiez les huit grandeurs W1 à W8 à chaque tick de 10 ms.",
+  "requirements": [
+    "Le banc comporte deux capteurs de vitesse, des roues dentées de 60 dents et un rayon effectif de roue de 0,23 m. Les marquages des capteurs sont visibles sur le banc.",
+    "Qualifiez chaque signal avant de l'utiliser : prenez en compte son diagnostic, la fraîcheur du message, sa continuité et sa protection.",
+    "Retrouvez les vitesses par des essais sur le banc : vitesse du véhicule, braquage, alimentation, connecteurs et entrefer des capteurs.",
+    "La vitesse de référence dépend des roues qualifiées ; surveillez la plausibilité gauche/droite et publiez l'autorisation de motricité.",
+    "Publiez une valeur ou un rejet pour chacun des huit slots. La motricité autorisée est toujours publiée.",
+    "Codes de diagnostic publics : 0 OK, 1 démarrage, 2 ouvert, 3 court-circuit, 4 courant hors plage, 5 alimentation. Leur codage sur le bus est à retrouver."
+  ],
+  "slots": [
+    { "slot": 0, "code": "W1", "label": "Vitesse de rotation roue avant gauche", "unit": "tr/min" },
+    { "slot": 1, "code": "W2", "label": "Vitesse de rotation roue avant droite", "unit": "tr/min" },
+    { "slot": 2, "code": "W3", "label": "Vitesse de référence de l'essieu avant", "unit": "km/h" },
+    { "slot": 3, "code": "W4", "label": "Véhicule à l'arrêt", "unit": "0/1" },
+    { "slot": 4, "code": "W5", "label": "Implausibilité gauche/droite", "unit": "0/1" },
+    { "slot": 5, "code": "W6", "label": "Motricité autorisée", "unit": "0/1" },
+    { "slot": 6, "code": "W7", "label": "Diagnostic capteur gauche", "unit": "code" },
+    { "slot": 7, "code": "W8", "label": "Diagnostic capteur droit", "unit": "code" }
+  ]
+}

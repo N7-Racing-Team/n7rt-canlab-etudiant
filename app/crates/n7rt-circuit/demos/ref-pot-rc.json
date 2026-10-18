@@ -1,0 +1,383 @@
+{
+  "format": "n7rt-physlab-circuit",
+  "version": 1,
+  "library_version": 3,
+  "name": "ref-pot-rc",
+  "next_id": 28,
+  "components": [
+    {
+      "id": 1,
+      "kind": "dc_supply",
+      "label": "V1",
+      "pos": [
+        0,
+        8
+      ],
+      "rot": 0,
+      "params": {
+        "current_limit": 0.1,
+        "r_out": 0.01,
+        "voltage": 5.0
+      },
+      "state": {
+        "on": true
+      }
+    },
+    {
+      "id": 2,
+      "kind": "switch",
+      "label": "S1",
+      "pos": [
+        9,
+        0
+      ],
+      "rot": 0,
+      "params": {
+        "r_off": 1000000000.0,
+        "r_on": 0.01
+      },
+      "state": {
+        "closed": true
+      }
+    },
+    {
+      "id": 3,
+      "kind": "potentiometer",
+      "label": "RV1",
+      "pos": [
+        24,
+        0
+      ],
+      "rot": 180,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {
+        "position": 0.3
+      }
+    },
+    {
+      "id": 4,
+      "kind": "resistor",
+      "label": "R1",
+      "pos": [
+        31,
+        10
+      ],
+      "rot": 0,
+      "params": {
+        "power_rating": 0.25,
+        "resistance": 10000.0
+      },
+      "state": {}
+    },
+    {
+      "id": 5,
+      "kind": "capacitor",
+      "label": "C1",
+      "pos": [
+        41,
+        15
+      ],
+      "rot": 90,
+      "params": {
+        "capacitance": 0.00001,
+        "polarized": false,
+        "voltage_rating": 25.0
+      },
+      "state": {}
+    },
+    {
+      "id": 6,
+      "kind": "adc_input",
+      "label": "ADC1",
+      "pos": [
+        31,
+        17
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 5.0
+      },
+      "state": {}
+    },
+    {
+      "id": 7,
+      "kind": "adc_input",
+      "label": "ADC2",
+      "pos": [
+        48,
+        10
+      ],
+      "rot": 0,
+      "params": {
+        "bits": 12,
+        "r_in": "inf",
+        "sample_rate": 1000,
+        "vref": 5.0
+      },
+      "state": {}
+    },
+    {
+      "id": 8,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        0,
+        16
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 9,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        31,
+        4
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 10,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        31,
+        24
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 11,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        41,
+        22
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 12,
+      "kind": "ground",
+      "label": "",
+      "pos": [
+        48,
+        17
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 18,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        24,
+        10
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    },
+    {
+      "id": 22,
+      "kind": "junction",
+      "label": "",
+      "pos": [
+        41,
+        10
+      ],
+      "rot": 0,
+      "params": {},
+      "state": {}
+    }
+  ],
+  "wires": [
+    {
+      "id": 13,
+      "a": {
+        "comp": 1,
+        "pin": "pos"
+      },
+      "b": {
+        "comp": 2,
+        "pin": "p1"
+      },
+      "bends": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 14,
+      "a": {
+        "comp": 2,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 3,
+        "pin": "b"
+      },
+      "bends": []
+    },
+    {
+      "id": 15,
+      "a": {
+        "comp": 3,
+        "pin": "a"
+      },
+      "b": {
+        "comp": 9,
+        "pin": "gnd"
+      },
+      "bends": [
+        [
+          31,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 16,
+      "a": {
+        "comp": 1,
+        "pin": "neg"
+      },
+      "b": {
+        "comp": 8,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 17,
+      "a": {
+        "comp": 3,
+        "pin": "w"
+      },
+      "b": {
+        "comp": 18,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 19,
+      "a": {
+        "comp": 18,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 6,
+        "pin": "in"
+      },
+      "bends": [
+        [
+          24,
+          17
+        ]
+      ]
+    },
+    {
+      "id": 20,
+      "a": {
+        "comp": 18,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 4,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 21,
+      "a": {
+        "comp": 4,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 22,
+        "pin": "j"
+      },
+      "bends": []
+    },
+    {
+      "id": 23,
+      "a": {
+        "comp": 22,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 7,
+        "pin": "in"
+      },
+      "bends": []
+    },
+    {
+      "id": 24,
+      "a": {
+        "comp": 22,
+        "pin": "j"
+      },
+      "b": {
+        "comp": 5,
+        "pin": "p1"
+      },
+      "bends": []
+    },
+    {
+      "id": 25,
+      "a": {
+        "comp": 5,
+        "pin": "p2"
+      },
+      "b": {
+        "comp": 11,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 26,
+      "a": {
+        "comp": 6,
+        "pin": "ref"
+      },
+      "b": {
+        "comp": 10,
+        "pin": "gnd"
+      },
+      "bends": []
+    },
+    {
+      "id": 27,
+      "a": {
+        "comp": 7,
+        "pin": "ref"
+      },
+      "b": {
+        "comp": 12,
+        "pin": "gnd"
+      },
+      "bends": []
+    }
+  ]
+}

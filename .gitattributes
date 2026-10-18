@@ -1,0 +1,31 @@
+# Student repository (n7rt-canlab).
+# Keep byte-pinned files exact. JSON manifests and firmware objects must never be normalized.
+* -text
+*.json -text
+
+# Executable scripts: deterministic checkout even with core.autocrlf=true on Windows.
+*.sh text eol=lf
+*.py text eol=lf
+*.ps1 text eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# Binary files: no text diff, no merge
+*.pdf binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.icns binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.a binary
+*.o binary
+*.elf binary
+*.bin binary
+*.zip binary
+*.exe binary
+*.dll binary
+*.n7rtpack binary

@@ -1,0 +1,1210 @@
+{
+ "document": "tutoriel-etudiant",
+ "mission": null,
+ "figures": [
+  {
+   "id": "etu1-carte-deconnectee",
+   "capture": "neutral-disconnected",
+   "marks": [
+    {
+     "n": 1,
+     "target": [
+      229.9,
+      5.6,
+      354.6,
+      24
+     ],
+     "shape": "pill",
+     "badge": "sw"
+    },
+    {
+     "n": 2,
+     "target": "#btn-connect",
+     "shape": "pill",
+     "badge": "se"
+    },
+    {
+     "n": 3,
+     "target": "#state-message",
+     "shape": "pill"
+    },
+    {
+     "n": 4,
+     "target": "#board-info",
+     "shape": "box"
+    }
+   ],
+   "hide": [],
+   "crop": [
+    40,
+    0,
+    780,
+    358
+   ]
+  },
+  {
+   "id": "etu1-carte-prete",
+   "capture": "neutral-connected",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#state-message",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#board-info",
+     "shape": "box"
+    },
+    {
+     "n": 3,
+     "target": "#btn-disconnect",
+     "shape": "pill",
+     "badge": "se"
+    }
+   ],
+   "hide": [],
+   "crop": [
+    40,
+    0,
+    900,
+    358
+   ]
+  },
+  {
+   "id": "etu1-mission-choix",
+   "capture": "apps-open-student-choice",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#student-mission",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#student-choose",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    [
+     51,
+     458,
+     255,
+     19
+    ]
+   ],
+   "crop": "auto"
+  },
+  {
+   "id": "etu1-mission-confirmer",
+   "capture": "apps-open-student-confirm",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#student-confirm-text",
+     "shape": "box"
+    },
+    {
+     "n": 2,
+     "target": "#student-confirm-yes",
+     "shape": "pill"
+    },
+    {
+     "n": 3,
+     "target": "#student-confirm-no",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    [
+     51,
+     458,
+     255,
+     19
+    ]
+   ],
+   "crop": "auto"
+  },
+  {
+   "id": "etu1-mission-import",
+   "capture": "apps-open-student-import",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#student-import",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#student-code",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    "#student-locked-title"
+   ],
+   "crop": "auto"
+  },
+  {
+   "id": "etu1-mission-code",
+   "capture": "apps-open-student-code",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#student-pack",
+     "shape": "box"
+    },
+    {
+     "n": 2,
+     "target": "#student-code",
+     "shape": "pill"
+    },
+    {
+     "n": 3,
+     "target": "#student-open",
+     "shape": "pill",
+     "badge": "s"
+    }
+   ],
+   "hide": [
+    "#student-pack",
+    [
+     152,
+     455.6,
+     165.6,
+     18
+    ]
+   ],
+   "crop": "auto"
+  },
+  {
+   "id": "etu1-mission-ouverte",
+   "capture": "apps-open-mission-opened",
+   "marks": [
+    {
+     "n": 1,
+     "target": [
+      40,
+      36,
+      262,
+      26
+     ],
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 2,
+     "target": "#progress-steps",
+     "shape": "box"
+    }
+   ],
+   "hide": [
+    [
+     114,
+     38,
+     209,
+     22
+    ],
+    [
+     40,
+     664,
+     290,
+     176
+    ]
+   ],
+   "crop": [
+    30,
+    0,
+    500,
+    300
+   ]
+  },
+  {
+   "id": "etu1-vue-ensemble",
+   "capture": "neutral-bus",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#btn-start",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 2,
+     "target": "#session-info",
+     "shape": "box"
+    },
+    {
+     "n": 3,
+     "target": "#frames-wrap",
+     "shape": "box",
+     "badge": "n"
+    },
+    {
+     "n": 4,
+     "target": "#slots-area",
+     "shape": "box"
+    },
+    {
+     "n": 5,
+     "target": "#sb-state",
+     "shape": "pill",
+     "arrow": true
+    }
+   ],
+   "hide": [
+    [
+     48,
+     455,
+     281,
+     26
+    ]
+   ],
+   "crop": "auto"
+  },
+  {
+   "id": "etu1-activite",
+   "capture": "neutral-lab",
+   "marks": [
+    {
+     "n": 1,
+     "target": [
+      9,
+      45,
+      22,
+      22
+     ],
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 2,
+     "target": [
+      9,
+      85,
+      22,
+      22
+     ],
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 3,
+     "target": [
+      9,
+      125,
+      22,
+      22
+     ],
+     "shape": "pill",
+     "badge": "e"
+    }
+   ],
+   "hide": [],
+   "crop": [
+    0,
+    0,
+    520,
+    300
+   ]
+  },
+  {
+   "id": "etu1-barre-outils",
+   "capture": "neutral-cockpit",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#tick-select",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 2,
+     "target": "#btn-start",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 3,
+     "target": "#btn-stop",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 4,
+     "target": "#state-badge",
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 5,
+     "target": [
+      1268,
+      9.6,
+      16,
+      16
+     ],
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 6,
+     "target": [
+      1296,
+      9.6,
+      16,
+      16
+     ],
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 7,
+     "target": [
+      1324,
+      9.6,
+      16,
+      16
+     ],
+     "shape": "pill",
+     "badge": "s"
+    }
+   ],
+   "hide": [],
+   "crop": [
+    806,
+    0,
+    554,
+    90
+   ]
+  },
+  {
+   "id": "etu1-dock",
+   "capture": "neutral-console",
+   "marks": [
+    {
+     "n": 1,
+     "target": [
+      347,
+      531,
+      142.6,
+      20
+     ],
+     "shape": "pill",
+     "badge": "w"
+    },
+    {
+     "n": 2,
+     "target": [
+      501.6,
+      531,
+      74.9,
+      20
+     ],
+     "shape": "pill",
+     "badge": "n"
+    },
+    {
+     "n": 3,
+     "target": [
+      588.5,
+      531,
+      86.8,
+      20
+     ],
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 4,
+     "target": "#console-filter",
+     "shape": "pill"
+    }
+   ],
+   "hide": [],
+   "crop": [
+    322,
+    486,
+    738,
+    92
+   ]
+  },
+  {
+   "id": "etu1-enonce",
+   "capture": "apps-open-mission-statement",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#mission-summary",
+     "shape": "box",
+     "badge": "sw"
+    },
+    {
+     "n": 2,
+     "target": "#mission-requirements",
+     "shape": "box"
+    }
+   ],
+   "hide": [
+    "#mission-summary",
+    "#mission-requirements",
+    "#mission-outputs"
+   ],
+   "crop": [
+    0,
+    30,
+    334,
+    470
+   ]
+  },
+  {
+   "id": "etu1-sorties-banc",
+   "capture": "apps-open-mission-outputs",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#mission-outputs",
+     "shape": "box"
+    },
+    {
+     "n": 2,
+     "target": "#mission-bench",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    [
+     44,
+     30,
+     284,
+     238
+    ],
+    "#mission-outputs",
+    [
+     44,
+     668,
+     284,
+     172
+    ]
+   ],
+   "crop": [
+    0,
+    262,
+    334,
+    410
+   ]
+  },
+  {
+   "id": "etu1-bibliotheque",
+   "capture": "apps-open-mission-library",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#mission-library button.lib-doc@2",
+     "shape": "box"
+    }
+   ],
+   "hide": [
+    "#mission-library button.lib-doc",
+    [
+     44,
+     249.5,
+     284,
+     590
+    ]
+   ],
+   "crop": [
+    0,
+    36,
+    336,
+    262
+   ]
+  },
+  {
+   "id": "etu1-progression-etapes",
+   "capture": "apps-e0-progression",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-steps",
+     "shape": "box"
+    },
+    {
+     "n": 2,
+     "target": "#progress-brief-step",
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 3,
+     "target": "#progress-order",
+     "shape": "box"
+    }
+   ],
+   "keep": [
+    [
+     40,
+     64,
+     288,
+     600
+    ]
+   ],
+   "crop": [
+    14,
+    60,
+    318,
+    340
+   ]
+  },
+  {
+   "id": "etu1-progression-boutons",
+   "capture": "apps-e0-progression",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-fiche-toggle",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#progress-verify",
+     "shape": "pill"
+    },
+    {
+     "n": 3,
+     "target": "#progress-blocked",
+     "shape": "box"
+    }
+   ],
+   "keep": [
+    [
+     40,
+     64,
+     288,
+     600
+    ]
+   ],
+   "crop": [
+    14,
+    372,
+    318,
+    292
+   ]
+  },
+  {
+   "id": "etu1-delai",
+   "capture": "apps-e0-cooldown",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-verify",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#progress-blocked",
+     "shape": "box"
+    }
+   ],
+   "keep": [
+    [
+     40,
+     36,
+     288,
+     566
+    ]
+   ],
+   "crop": [
+    14,
+    352,
+    318,
+    250
+   ]
+  },
+  {
+   "id": "etu1-etape-incident",
+   "capture": "apps-e1v0-open",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-steps",
+     "shape": "box"
+    },
+    {
+     "n": 2,
+     "target": "#progress-brief-step",
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 3,
+     "target": "#progress-reproduce",
+     "shape": "pill"
+    },
+    {
+     "n": 4,
+     "target": "#progress-verify",
+     "shape": "pill"
+    }
+   ],
+   "keep": [
+    [
+     40,
+     64,
+     288,
+     562
+    ]
+   ],
+   "crop": [
+    14,
+    62,
+    318,
+    572
+   ]
+  },
+  {
+   "id": "etu1-fiche-ouvrir",
+   "capture": "apps-e0-fiche-empty",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-fiche-toggle",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#tab-fiche",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    [
+     114,
+     38,
+     209,
+     22
+    ],
+    [
+     40,
+     664,
+     290,
+     176
+    ],
+    [
+     341,
+     160,
+     714,
+     177
+    ],
+    [
+     1057,
+     36,
+     303,
+     824
+    ]
+   ],
+   "crop": [
+    0,
+    210,
+    571,
+    334
+   ]
+  },
+  {
+   "id": "etu1-fiche-sections",
+   "capture": "apps-e0-fiche-empty",
+   "marks": [
+    {
+     "n": 1,
+     "target": [
+      357,
+      396.8,
+      596.5,
+      52
+     ],
+     "shape": "box",
+     "badge": "w"
+    },
+    {
+     "n": 2,
+     "target": "#progress-fiche .fiche-save",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    [
+     114,
+     38,
+     209,
+     22
+    ],
+    [
+     40,
+     664,
+     290,
+     176
+    ],
+    [
+     341,
+     160,
+     714,
+     177
+    ],
+    [
+     1057,
+     36,
+     303,
+     824
+    ]
+   ],
+   "crop": [
+    325,
+    336,
+    731,
+    502
+   ]
+  },
+  {
+   "id": "etu1-fiche-trame",
+   "capture": "apps-e0-fiche-fictive-trame",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-fiche [data-key='trames.0.id']",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#progress-fiche [data-key='trames.0.format']",
+     "shape": "pill"
+    },
+    {
+     "n": 3,
+     "target": "#progress-fiche [data-key='trames.0.dlc']",
+     "shape": "pill"
+    },
+    {
+     "n": 4,
+     "target": "#progress-fiche [data-key='trames.0.periode']",
+     "shape": "pill"
+    },
+    {
+     "n": 5,
+     "target": "#progress-fiche [data-key='trames.0.protection']",
+     "shape": "pill"
+    },
+    {
+     "n": 6,
+     "target": "#progress-fiche [data-key='trames.0.crc.lsb']",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 7,
+     "target": "#progress-fiche [data-key='trames.0.compteur.lsb']",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 8,
+     "target": "#progress-fiche [data-key='trames.0.vie.lsb']",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 9,
+     "target": "#progress-fiche .fiche-save",
+     "shape": "pill"
+    },
+    {
+     "n": 10,
+     "target": "#progress-fiche .fiche-dirty",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    [
+     114,
+     38,
+     209,
+     22
+    ],
+    [
+     40,
+     664,
+     290,
+     176
+    ],
+    [
+     341,
+     160,
+     714,
+     177
+    ],
+    [
+     1057,
+     36,
+     303,
+     824
+    ]
+   ],
+   "crop": [
+    325,
+    329,
+    731,
+    509
+   ]
+  },
+  {
+   "id": "etu1-fiche-signal",
+   "capture": "apps-e0-fiche-fictive-signal",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-fiche [data-key='signaux.0.nom']",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#progress-fiche [data-key='signaux.0.id']",
+     "shape": "pill"
+    },
+    {
+     "n": 3,
+     "target": "#progress-fiche [data-key='signaux.0.slots']",
+     "shape": "pill"
+    },
+    {
+     "n": 4,
+     "target": [
+      365.8,
+      588.6,
+      254.4,
+      24
+     ],
+     "shape": "box",
+     "badge": "w"
+    },
+    {
+     "n": 5,
+     "target": "#progress-fiche [data-key='signaux.0.signe']",
+     "shape": "pill",
+     "badge": "e"
+    },
+    {
+     "n": 6,
+     "target": "#progress-fiche [data-key='signaux.0.facteur']",
+     "shape": "pill"
+    },
+    {
+     "n": 7,
+     "target": "#progress-fiche [data-key='signaux.0.offset']",
+     "shape": "pill"
+    },
+    {
+     "n": 8,
+     "target": "#progress-fiche [data-key='signaux.0.code']",
+     "shape": "pill"
+    }
+   ],
+   "hide": [
+    [
+     114,
+     38,
+     209,
+     22
+    ],
+    [
+     40,
+     664,
+     290,
+     176
+    ],
+    [
+     341,
+     160,
+     714,
+     177
+    ],
+    [
+     1057,
+     36,
+     303,
+     824
+    ]
+   ],
+   "crop": [
+    325,
+    334,
+    731,
+    376
+   ]
+  },
+  {
+   "id": "etu1-fiche-supervision",
+   "capture": "apps-e0-fiche-fictive-supervision",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-fiche [data-key='supervision.premier_timeout_ms']",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#progress-fiche [data-key='supervision.timeout_ms']",
+     "shape": "pill"
+    },
+    {
+     "n": 3,
+     "target": "#progress-fiche [data-key='supervision.peremption_ms']",
+     "shape": "pill"
+    },
+    {
+     "n": 4,
+     "target": "#progress-fiche [data-key='supervision.pertes_consecutives_tolerees']",
+     "shape": "pill"
+    },
+    {
+     "n": 5,
+     "target": "#progress-fiche section[data-section='decisions']",
+     "shape": "box"
+    }
+   ],
+   "hide": [
+    [
+     114,
+     38,
+     209,
+     22
+    ],
+    [
+     40,
+     664,
+     290,
+     176
+    ],
+    [
+     341,
+     160,
+     714,
+     177
+    ],
+    [
+     1057,
+     36,
+     303,
+     824
+    ]
+   ],
+   "crop": [
+    325,
+    455,
+    731,
+    316
+   ]
+  },
+  {
+   "id": "etu1-fiche-erreur",
+   "capture": "apps-e0-fiche-error",
+   "marks": [
+    {
+     "n": 1,
+     "target": [
+      366,
+      561.6,
+      121.2,
+      20
+     ],
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": [
+      366,
+      590.5,
+      121.2,
+      39.1
+     ],
+     "shape": "box"
+    },
+    {
+     "n": 3,
+     "target": "#progress-fiche .fiche-nav-item@1",
+     "shape": "pill",
+     "badge": "n"
+    },
+    {
+     "n": 4,
+     "target": "#progress-hint",
+     "shape": "pill"
+    }
+   ],
+   "keep": [
+    [
+     341,
+     364,
+     714,
+     90
+    ],
+    [
+     357,
+     480,
+     672,
+     56
+    ],
+    [
+     357,
+     540,
+     135,
+     92
+    ],
+    [
+     44,
+     396,
+     280,
+     84
+    ]
+   ],
+   "crop": "auto"
+  },
+  {
+   "id": "etu1-fiche-fermeture",
+   "capture": "apps-e0-unsaved-guard",
+   "marks": [
+    {
+     "n": 1,
+     "target": [
+      500.5,
+      453,
+      59.2,
+      24
+     ],
+     "shape": "pill",
+     "badge": "w"
+    },
+    {
+     "n": 2,
+     "target": "#fiche-close-discard",
+     "shape": "pill",
+     "badge": "s"
+    },
+    {
+     "n": 3,
+     "target": "#fiche-close-cancel",
+     "shape": "pill"
+    }
+   ],
+   "keep": [
+    "#fiche-close-dialog"
+   ],
+   "crop": [
+    390,
+    345,
+    580,
+    170
+   ]
+  },
+  {
+   "id": "etu1-incident",
+   "capture": "apps-e1v0-fiche-first",
+   "marks": [
+    {
+     "n": 1,
+     "target": "#progress-fiche .incident-target-kind",
+     "shape": "pill"
+    },
+    {
+     "n": 2,
+     "target": "#progress-fiche .incident-designation",
+     "shape": "box"
+    },
+    {
+     "n": 3,
+     "target": "#progress-fiche .incident-category",
+     "shape": "pill"
+    },
+    {
+     "n": 4,
+     "target": "#progress-fiche .incident-state",
+     "shape": "pill"
+    },
+    {
+     "n": 5,
+     "target": "#progress-fiche .incident-quantity",
+     "shape": "box"
+    },
+    {
+     "n": 6,
+     "target": "#progress-fiche .incident-consign",
+     "shape": "pill"
+    },
+    {
+     "n": 7,
+     "target": "#progress-fiche .incident-consigned",
+     "shape": "pill"
+    },
+    {
+     "n": 8,
+     "target": "#progress-fiche .incident-value-row",
+     "shape": "box"
+    },
+    {
+     "n": 9,
+     "target": "#progress-fiche .fiche-justification",
+     "shape": "box"
+    }
+   ],
+   "hide": [
+    "#progress-fiche .incident-target-kind",
+    "#progress-fiche .incident-designation",
+    "#progress-fiche .incident-category",
+    [
+     355,
+     589,
+     337,
+     56
+    ],
+    "#progress-fiche .incident-state",
+    [
+     355,
+     715,
+     337,
+     40
+    ],
+    "#progress-fiche .incident-quantity",
+    "#progress-fiche .incident-unit",
+    [
+     114,
+     38,
+     209,
+     22
+    ],
+    [
+     40,
+     585,
+     290,
+     255
+    ],
+    [
+     341,
+     160,
+     714,
+     177
+    ],
+    [
+     1057,
+     36,
+     303,
+     824
+    ]
+   ],
+   "crop": [
+    326,
+    404,
+    746,
+    372
+   ]
+  }
+ ]
+}

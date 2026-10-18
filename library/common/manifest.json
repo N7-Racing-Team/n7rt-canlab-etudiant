@@ -1,0 +1,82 @@
+[
+  {
+    "title": "MCP2551 High-Speed CAN Transceiver, Data Sheet",
+    "publisher": "Microchip Technology Inc.",
+    "reference": "DS20001667",
+    "revision": "G",
+    "date": "2016",
+    "primary_url": "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/20001667G.pdf",
+    "sha256": "d7c9cc459e1b3763929b96b0a1ee9f1f8d0cee408f9d9d31010825d50fdb0418",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ],
+    "local_file": "microchip-mcp2551-datasheet-rev-g.pdf"
+  },
+  {
+    "title": "AN5348 Introduction to FDCAN peripherals for STM32 MCUs",
+    "publisher": "STMicroelectronics",
+    "reference": "AN5348",
+    "revision": "Rev 6",
+    "date": "2025-12-17",
+    "primary_url": "https://www.st.com/resource/en/application_note/an5348-introduction-to-fdcan-peripherals-for-stm32-mcus-stmicroelectronics.pdf",
+    "sha256": "5e5339a895234e85b372fd96b6574a104f4a3f479e6bc78b58448b736550dba4",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ],
+    "local_file": "st-an5348-application-note-rev6.pdf"
+  },
+  {
+    "title": "RM0433 Reference manual – STM32H742, STM32H743/753 and STM32H750 Value line advanced Arm-based 32-bit MCUs",
+    "publisher": "STMicroelectronics",
+    "reference": "RM0433",
+    "revision": "Rev 8",
+    "date": "2023-01",
+    "primary_url": "https://www.st.com/resource/en/reference_manual/rm0433-stm32h742-stm32h743753-and-stm32h750-value-line-advanced-armbased-32bit-mcus-stmicroelectronics.pdf",
+    "sha256": "9ba54135736a47a302cdc28fdc7ca8f23c6eed5a646fa0a639af6ed2ad71336e",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ],
+    "local_file": "st-rm0433-reference-manual-rev8.pdf"
+  },
+  {
+    "title": "STM32H753xI – 32-bit Arm Cortex-M7 480MHz MCUs, Datasheet – production data",
+    "publisher": "STMicroelectronics",
+    "reference": "DS12117",
+    "revision": "Rev 9",
+    "date": "2023-03-28",
+    "primary_url": "https://www.st.com/resource/en/datasheet/stm32h753vi.pdf",
+    "sha256": "3bf346d8a511843ac6f5397a0e1c59d83e7ed70c7835fde72669fa545f4bd9d7",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ],
+    "local_file": "st-stm32h753xi-datasheet-rev9.pdf"
+  },
+  {
+    "title": "UM2407 User manual – STM32H7 Nucleo-144 boards (MB1364)",
+    "publisher": "STMicroelectronics",
+    "reference": "UM2407",
+    "revision": "Rev 4",
+    "date": "2023-10-12",
+    "primary_url": "https://www.st.com/resource/en/user_manual/um2407-stm32h7-nucleo144-boards-mb1364-stmicroelectronics.pdf",
+    "sha256": "ae12e27ddadadde2db0e703c7999a99172f89e455c1b65acaa884947caed0c76",
+    "missions": [
+      "APPS",
+      "WSF",
+      "SAS",
+      "BPS"
+    ],
+    "local_file": "st-um2407-user-manual-rev4.pdf"
+  }
+]

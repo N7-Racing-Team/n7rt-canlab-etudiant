@@ -1,0 +1,132 @@
+[
+  {
+    "title": "A19530 High-Feature Three-Wire Hall-Effect Transmission Speed and Direction Sensor IC – Datasheet",
+    "publisher": "Allegro MicroSystems",
+    "reference": "A19530-DS (MCO-0000493)",
+    "revision": "Rev. 6",
+    "date": "2026-04-08",
+    "primary_url": "https://www.allegromicro.com/-/media/files/datasheets/a19530-datasheet.pdf",
+    "sha256": "50e1507baa1424cf2491dc757324d55902f9ee448d2cd549626c2acee5aee5a6",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "allegro-a19530-datasheet-rev6.pdf"
+  },
+  {
+    "title": "Two-Wire and Three-Wire Sensor Interfaces",
+    "publisher": "Allegro MicroSystems",
+    "reference": "AN296233 (MCO-0001105)",
+    "revision": "Initial release",
+    "date": "2021-06-08",
+    "primary_url": "https://www.allegromicro.com/-/media/files/application-notes/an296233-two-and-three-wire-sensor-interfaces.pdf",
+    "sha256": "3dd1c86b4b3ee68b0ff990eb1b7caef2c71af8b5bba034e0fbed95c36ab41647",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "allegro-an296233-application-note-2021-06-08.pdf"
+  },
+  {
+    "title": "Fundamental Properties of Speed Sensors",
+    "publisher": "Allegro MicroSystems",
+    "reference": "AN296240 (MCO-0001106)",
+    "revision": "Rev. 3",
+    "date": "2025-03-27",
+    "primary_url": "https://www.allegromicro.com/-/media/files/application-notes/an296240-speed-sensor-fundamentals.pdf",
+    "sha256": "473f0c003d7ae30dbae03a87c96562d3ee3ebdd34a9a102a0fa93265e102a81e",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "allegro-an296240-application-note-rev3.pdf"
+  },
+  {
+    "title": "Speed Sensor Protocols",
+    "publisher": "Allegro MicroSystems",
+    "reference": "AN296246 (MCO-0001126)",
+    "revision": "Initial release",
+    "date": "2021-08-02",
+    "primary_url": "https://www.allegromicro.com/-/media/files/application-notes/an296246-speed-sensor-protocols.pdf",
+    "sha256": "78311ed5e089c4f89e2a3d23d016f37289ab1072ee9a58e5a1ab2bab281b13b4",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "allegro-an296246-application-note-2021-08-02.pdf"
+  },
+  {
+    "title": "ATS682LSH Miniature, Two-Wire, True Zero Speed Differential Peak-Detecting Sensor IC – Datasheet",
+    "publisher": "Allegro MicroSystems",
+    "reference": "ATS682-DS (MCO-0000847)",
+    "revision": "Rev. 4",
+    "date": "2023-05-01",
+    "primary_url": "https://www.allegromicro.com/-/media/files/datasheets/ats682-datasheet.pdf",
+    "sha256": "4761be9cf230d18c5692ab68dee519ffce0a5d8a5765fd9962b2b10750648687",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "allegro-ats682lsh-datasheet-rev4.pdf"
+  },
+  {
+    "title": "Speed Sensor Hall-Effect Mini-HA-P sealed – Data Sheet",
+    "publisher": "Bosch Engineering GmbH (Bosch Motorsport)",
+    "reference": "53355531",
+    "revision": "en, 1",
+    "date": "2026-07-06",
+    "primary_url": "https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_69875339_speed_sensor_hall-effect_mini-ha-p_sealed.pdf",
+    "sha256": "607251c6fe4bb77b6a361aa853795b8b4bf069aa6c487497909273a5d551c8ce",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "bosch-motorsport-mini-ha-p-sealed-datasheet-2026-07-06.pdf"
+  },
+  {
+    "title": "TLE4941plusC Data Sheet",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE4941plusC",
+    "revision": "Revision 1.4",
+    "date": "2020-11-17",
+    "primary_url": "https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle4941plusc-datasheet-en.pdf",
+    "sha256": "cbf84bc9bcc1f3c963b09d0f4cb9c9f979cc907d1c6a2552165cbc78cc8b57b6",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "infineon-tle4941plusc-datasheet-rev1-4.pdf"
+  },
+  {
+    "title": "TLE4942-1C Differential Two-Wire Hall Effect Sensor-IC for Wheel Speed Applications with Direction Detection – Data Sheet",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE4942-1C",
+    "revision": "V4.2",
+    "date": "2018-01",
+    "primary_url": "https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle4942-1c-datasheet-en.pdf",
+    "sha256": "c57c95c03c0f0e80041f5fe23dbd140db1d524c946c7a3af1a46ce08bdbc18e7",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "infineon-tle4942-1c-datasheet-v4-2.pdf"
+  },
+  {
+    "title": "TLE4943C Differential Speed Sensor with AK Protocol – Data Sheet",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE4943C",
+    "revision": "V1.2",
+    "date": "2018-07",
+    "primary_url": "https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle4943c-datasheet-en.pdf",
+    "sha256": "d8e41dfc87aaa896f9874fee01d9620a7db6fdd8021eebc839b46b65a5d6f8f4",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "infineon-tle4943c-datasheet-v1-2.pdf"
+  },
+  {
+    "title": "TLE5041plusC iGMR based Wheel Speed Sensor – Data Sheet",
+    "publisher": "Infineon Technologies AG",
+    "reference": "TLE5041plusC",
+    "revision": "V1.2",
+    "date": "2018-01-18",
+    "primary_url": "https://www.infineon.com/assets/row/public/documents/30/49/infineon-inductive-sensing-controllers-datasheet-en.pdf",
+    "sha256": "9dd59419a9d8959a41473056965b9a2d9aa0f81748cfeb9791c97e231f97468d",
+    "missions": [
+      "WSF"
+    ],
+    "local_file": "infineon-tle5041plusc-datasheet-v1-2.pdf"
+  }
+]

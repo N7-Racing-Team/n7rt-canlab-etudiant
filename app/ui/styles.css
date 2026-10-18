@@ -1,0 +1,6 @@
+/* N7RT CAN Lab — design system entry point (see ui/DESIGN.md). Order matters: tokens first. */
+@import "./styles/tokens.css";
+@import "./styles/base.css";
+@import "./styles/components.css";
+@import "./styles/lab.css";
+@import "./styles/ide.css";

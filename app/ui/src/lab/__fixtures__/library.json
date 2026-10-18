@@ -1,0 +1,2146 @@
+[
+  {
+    "kind": "dc_supply",
+    "name_fr": "Alimentation DC",
+    "prefix": "V",
+    "body": {
+      "x0": -2,
+      "y0": -3,
+      "x1": 2,
+      "y1": 3
+    },
+    "pins": [
+      {
+        "id": "pos",
+        "name": "+",
+        "short": "+",
+        "pos": [
+          0,
+          -4
+        ],
+        "dir": "u",
+        "role": "source",
+        "required": false
+      },
+      {
+        "id": "neg",
+        "name": "−",
+        "short": "−",
+        "pos": [
+          0,
+          4
+        ],
+        "dir": "d",
+        "role": "source",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "voltage",
+        "label_fr": "Tension de consigne",
+        "unit": "V",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 30.0,
+        "default": 5.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "current_limit",
+        "label_fr": "Limite de courant",
+        "unit": "A",
+        "vtype": "number",
+        "min": 0.001,
+        "max": 5.0,
+        "default": 0.1,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "r_out",
+        "label_fr": "Résistance de sortie (modèle)",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 0.001,
+        "max": 10.0,
+        "default": 0.01,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [
+      {
+        "name": "on",
+        "label_fr": "Sortie active",
+        "unit": "",
+        "vtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "default": true,
+        "persistent": true
+      }
+    ],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Alimentation de laboratoire un quadrant (CV/CC) : consigne et limite réglables ; r_out est un paramètre du modèle (N7RT_MODEL)."
+  },
+  {
+    "kind": "ground",
+    "name_fr": "Masse",
+    "prefix": "",
+    "body": {
+      "x0": -2,
+      "y0": 1,
+      "x1": 2,
+      "y1": 2
+    },
+    "pins": [
+      {
+        "id": "gnd",
+        "name": "GND",
+        "short": "GND",
+        "pos": [
+          0,
+          0
+        ],
+        "dir": "u",
+        "role": "ground",
+        "required": false
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Référence 0 V : tous les symboles de masse forment le net GND."
+  },
+  {
+    "kind": "resistor",
+    "name_fr": "Résistance",
+    "prefix": "R",
+    "body": {
+      "x0": -2,
+      "y0": -1,
+      "x1": 2,
+      "y1": 1
+    },
+    "pins": [
+      {
+        "id": "p1",
+        "name": "1",
+        "short": "1",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "short": "2",
+        "pos": [
+          3,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "resistance",
+        "label_fr": "Résistance",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 0.01,
+        "max": 100000000.0,
+        "default": 10000.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "power_rating",
+        "label_fr": "Puissance nominale",
+        "unit": "W",
+        "vtype": "number",
+        "min": 0.0625,
+        "max": 10.0,
+        "default": 0.25,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Résistance linéaire idéale ; surcharge si U²/R dépasse la puissance nominale."
+  },
+  {
+    "kind": "capacitor",
+    "name_fr": "Condensateur",
+    "prefix": "C",
+    "body": {
+      "x0": -2,
+      "y0": -2,
+      "x1": 2,
+      "y1": 2
+    },
+    "pins": [
+      {
+        "id": "p1",
+        "name": "1",
+        "short": "1",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "short": "2",
+        "pos": [
+          3,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "capacitance",
+        "label_fr": "Capacité",
+        "unit": "F",
+        "vtype": "number",
+        "min": 1e-12,
+        "max": 1.0,
+        "default": 0.00001,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "voltage_rating",
+        "label_fr": "Tension nominale",
+        "unit": "V",
+        "vtype": "number",
+        "min": 1.0,
+        "max": 1000.0,
+        "default": 25.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "polarized",
+        "label_fr": "Polarisé (broche 1 = +)",
+        "unit": "",
+        "vtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "default": false,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Condensateur idéal déchargé au RESET. Polarisé : polarité inverse signalée sous −0,5 V, règle pédagogique prudente sans source constructeur (N7RT_MODEL)."
+  },
+  {
+    "kind": "potentiometer",
+    "name_fr": "Potentiomètre",
+    "prefix": "RV",
+    "body": {
+      "x0": -2,
+      "y0": -2,
+      "x1": 2,
+      "y1": 1
+    },
+    "pins": [
+      {
+        "id": "a",
+        "name": "A",
+        "short": "A",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "b",
+        "name": "B",
+        "short": "B",
+        "pos": [
+          3,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "w",
+        "name": "W (curseur)",
+        "short": "W",
+        "pos": [
+          0,
+          -3
+        ],
+        "dir": "u",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "resistance",
+        "label_fr": "Résistance totale",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 10.0,
+        "max": 10000000.0,
+        "default": 10000.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "power_rating",
+        "label_fr": "Puissance nominale",
+        "unit": "W",
+        "vtype": "number",
+        "min": 0.05,
+        "max": 5.0,
+        "default": 0.25,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [
+      {
+        "name": "position",
+        "label_fr": "Position du curseur (0 = A)",
+        "unit": "",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.5,
+        "persistent": true
+      }
+    ],
+    "actuators": [
+      {
+        "kind": "drag_pot",
+        "zone": {
+          "x0": -2,
+          "y0": -2,
+          "x1": 2,
+          "y1": -1
+        }
+      }
+    ],
+    "placeable": true,
+    "sources_fr": "Potentiomètre linéaire 3 bornes : R_AW = α·R, R_WB = (1−α)·R, position k/1000, plancher numérique de 1 mΩ par segment (N7RT_MODEL). Surcharge si le courant d'un segment dépasse √(P/R) : règle de conception N7RT_MODEL, non vérifiée sur une fiche."
+  },
+  {
+    "kind": "push_button",
+    "name_fr": "Bouton poussoir",
+    "prefix": "BP",
+    "body": {
+      "x0": -2,
+      "y0": -3,
+      "x1": 2,
+      "y1": 1
+    },
+    "pins": [
+      {
+        "id": "p1",
+        "name": "1",
+        "short": "1",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "short": "2",
+        "pos": [
+          3,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "contact",
+        "label_fr": "Contact",
+        "unit": "",
+        "vtype": "choice",
+        "min": 0.0,
+        "max": 0.0,
+        "default": "no",
+        "choices": [
+          "no",
+          "nc"
+        ],
+        "editable": true
+      },
+      {
+        "name": "mode",
+        "label_fr": "Fonctionnement",
+        "unit": "",
+        "vtype": "choice",
+        "min": 0.0,
+        "max": 0.0,
+        "default": "momentary",
+        "choices": [
+          "momentary",
+          "latching"
+        ],
+        "editable": true
+      },
+      {
+        "name": "r_on",
+        "label_fr": "Résistance de contact",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 0.001,
+        "max": 10.0,
+        "default": 0.1,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "r_off",
+        "label_fr": "Résistance d'isolement",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 1000000.0,
+        "max": 1000000000000.0,
+        "default": 100000000.0,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [
+      {
+        "name": "pressed",
+        "label_fr": "Appuyé",
+        "unit": "",
+        "vtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "default": false,
+        "persistent": false
+      },
+      {
+        "name": "latched",
+        "label_fr": "Verrouillé",
+        "unit": "",
+        "vtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "default": false,
+        "persistent": true
+      }
+    ],
+    "actuators": [
+      {
+        "kind": "press_button",
+        "zone": {
+          "x0": -1,
+          "y0": -3,
+          "x1": 1,
+          "y1": -2
+        }
+      }
+    ],
+    "placeable": true,
+    "sources_fr": "Omron B3F (A070-E1-08, p. 3) : résistance de contact 100 mΩ max, isolement 100 MΩ min (DATASHEET)."
+  },
+  {
+    "kind": "switch",
+    "name_fr": "Interrupteur",
+    "prefix": "S",
+    "body": {
+      "x0": -2,
+      "y0": -2,
+      "x1": 2,
+      "y1": 1
+    },
+    "pins": [
+      {
+        "id": "p1",
+        "name": "1",
+        "short": "1",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "short": "2",
+        "pos": [
+          3,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "r_on",
+        "label_fr": "Résistance de contact",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 0.001,
+        "max": 10.0,
+        "default": 0.01,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "r_off",
+        "label_fr": "Résistance d'isolement",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 1000000.0,
+        "max": 1000000000000.0,
+        "default": 1000000000.0,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [
+      {
+        "name": "closed",
+        "label_fr": "Fermé",
+        "unit": "",
+        "vtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "default": false,
+        "persistent": true
+      }
+    ],
+    "actuators": [
+      {
+        "kind": "toggle_switch",
+        "zone": {
+          "x0": -1,
+          "y0": -2,
+          "x1": 1,
+          "y1": 0
+        }
+      }
+    ],
+    "placeable": true,
+    "sources_fr": "NKK série M, M2011 (catalogue p. A52) : contact 10 mΩ max (argent), isolement 1 000 MΩ min (DATASHEET)."
+  },
+  {
+    "kind": "adc_input",
+    "name_fr": "Entrée ADC",
+    "prefix": "ADC",
+    "body": {
+      "x0": -2,
+      "y0": -2,
+      "x1": 2,
+      "y1": 2
+    },
+    "pins": [
+      {
+        "id": "in",
+        "name": "IN",
+        "short": "IN",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "analog_in",
+        "required": true
+      },
+      {
+        "id": "ref",
+        "name": "REF (masse locale)",
+        "short": "REF",
+        "pos": [
+          0,
+          3
+        ],
+        "dir": "d",
+        "role": "ground_pin",
+        "required": true
+      }
+    ],
+    "params": [
+      {
+        "name": "vref",
+        "label_fr": "Tension de référence",
+        "unit": "V",
+        "vtype": "number",
+        "min": 1.0,
+        "max": 5.0,
+        "default": 3.3,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "bits",
+        "label_fr": "Résolution",
+        "unit": "bit",
+        "vtype": "int",
+        "min": 8.0,
+        "max": 16.0,
+        "default": 12,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "r_in",
+        "label_fr": "Résistance d'entrée (∞ = idéale)",
+        "unit": "Ω",
+        "vtype": "number_or_inf",
+        "min": 1000.0,
+        "max": 1000000000000.0,
+        "default": "inf",
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "sample_rate",
+        "label_fr": "Fréquence d'échantillonnage",
+        "unit": "Hz",
+        "vtype": "int",
+        "min": 1.0,
+        "max": 1000.0,
+        "default": 1000,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Convertisseur générique : code = floor(V·2^bits/Vref) (architecture §10.5) ; échantillonneur-bloqueur en fin de pas de 1 ms. Entrée idéale (∞) par défaut : non reliée, elle est flottante. Une r_in finie est une vraie résistance entre IN et REF."
+  },
+  {
+    "kind": "ecu_stm32",
+    "name_fr": "ECU STM32 (NUCLEO-H753ZI)",
+    "prefix": "U",
+    "body": {
+      "x0": -7,
+      "y0": -6,
+      "x1": 7,
+      "y1": 6
+    },
+    "pins": [
+      {
+        "id": "v5",
+        "name": "5V (CN8-9)",
+        "short": "5V",
+        "pos": [
+          -8,
+          -4
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": false
+      },
+      {
+        "id": "v3v3",
+        "name": "3V3 (CN8-7)",
+        "short": "3V3",
+        "pos": [
+          -8,
+          -2
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": false
+      },
+      {
+        "id": "gnd",
+        "name": "GND (CN9-23)",
+        "short": "GND",
+        "pos": [
+          -8,
+          4
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "a0",
+        "name": "A0 PA3 (CN9-1)",
+        "short": "A0",
+        "pos": [
+          8,
+          -4
+        ],
+        "dir": "r",
+        "role": "analog_in",
+        "required": false
+      },
+      {
+        "id": "a1",
+        "name": "A1 PC0 (CN9-3)",
+        "short": "A1",
+        "pos": [
+          8,
+          -2
+        ],
+        "dir": "r",
+        "role": "analog_in",
+        "required": false
+      },
+      {
+        "id": "can_tx",
+        "name": "PD1 CAN_TX (CN9-27)",
+        "short": "PD1",
+        "pos": [
+          8,
+          2
+        ],
+        "dir": "r",
+        "role": "logic_out",
+        "required": false
+      },
+      {
+        "id": "can_rx",
+        "name": "PD0 CAN_RX (CN9-25)",
+        "short": "PD0",
+        "pos": [
+          8,
+          4
+        ],
+        "dir": "r",
+        "role": "logic_in",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "adc_bits",
+        "label_fr": "Résolution ADC",
+        "unit": "",
+        "vtype": "choice",
+        "min": 0.0,
+        "max": 0.0,
+        "default": "12",
+        "choices": [
+          "8",
+          "10",
+          "12",
+          "14",
+          "16"
+        ],
+        "editable": true
+      },
+      {
+        "name": "adc_sample_rate",
+        "label_fr": "Fréquence d'échantillonnage ADC",
+        "unit": "Hz",
+        "vtype": "int",
+        "min": 1.0,
+        "max": 1000.0,
+        "default": 1000,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "can_mode",
+        "label_fr": "Broches FDCAN",
+        "unit": "",
+        "vtype": "choice",
+        "min": 0.0,
+        "max": 0.0,
+        "default": "can",
+        "choices": [
+          "can",
+          "hi_z"
+        ],
+        "editable": true
+      },
+      {
+        "name": "r_out_5v",
+        "label_fr": "Résistance de sortie 5V (modèle)",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 0.001,
+        "max": 10.0,
+        "default": 0.1,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "r_out_3v3",
+        "label_fr": "Résistance de sortie 3V3 (modèle)",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 0.001,
+        "max": 10.0,
+        "default": 0.05,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [
+      {
+        "name": "usb",
+        "label_fr": "Carte alimentée (USB)",
+        "unit": "",
+        "vtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "default": true,
+        "persistent": true
+      }
+    ],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "UM2407 Rev 4 (tables 19-20 : broches ; p. 20 : 5V limité à 500 mA, 300 mA pour les shields) ; ST1L05 (3V3, limite ≥ 1,3 A) ; DS12117 Rev 9 (seuils 0,3/0,7·VDD, sortie ≥ VDD − 0,4 V à 8 mA, broches FT ≤ min(VDD, VDDA, VDD33USB, VBAT) + 4,0 V, ADC 8 à 16 bits). Résistances de sortie des rails : paramètres du modèle (N7RT_MODEL)."
+  },
+  {
+    "kind": "can_transceiver",
+    "name_fr": "Transceiver CAN (MCP2551)",
+    "prefix": "U",
+    "body": {
+      "x0": -6,
+      "y0": -7,
+      "x1": 6,
+      "y1": 7
+    },
+    "pins": [
+      {
+        "id": "txd",
+        "name": "1 TXD",
+        "short": "TXD",
+        "pos": [
+          -7,
+          -4
+        ],
+        "dir": "l",
+        "role": "logic_in",
+        "required": false
+      },
+      {
+        "id": "vss",
+        "name": "2 VSS",
+        "short": "VSS",
+        "pos": [
+          0,
+          8
+        ],
+        "dir": "d",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "vdd",
+        "name": "3 VDD",
+        "short": "VDD",
+        "pos": [
+          0,
+          -8
+        ],
+        "dir": "u",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "rxd",
+        "name": "4 RXD",
+        "short": "RXD",
+        "pos": [
+          -7,
+          -2
+        ],
+        "dir": "l",
+        "role": "logic_out",
+        "required": false
+      },
+      {
+        "id": "vref",
+        "name": "5 VREF",
+        "short": "VREF",
+        "pos": [
+          7,
+          4
+        ],
+        "dir": "r",
+        "role": "source",
+        "required": false
+      },
+      {
+        "id": "canl",
+        "name": "6 CANL",
+        "short": "CANL",
+        "pos": [
+          7,
+          2
+        ],
+        "dir": "r",
+        "role": "canl",
+        "required": false
+      },
+      {
+        "id": "canh",
+        "name": "7 CANH",
+        "short": "CANH",
+        "pos": [
+          7,
+          -2
+        ],
+        "dir": "r",
+        "role": "canh",
+        "required": false
+      },
+      {
+        "id": "rs",
+        "name": "8 Rs",
+        "short": "Rs",
+        "pos": [
+          -7,
+          2
+        ],
+        "dir": "l",
+        "role": "analog_in",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "r_in",
+        "label_fr": "R_IN (entrée mode commun)",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 10000.0,
+        "max": 50000.0,
+        "default": 25000.0,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Microchip DS20001667G Rev G (MCP2551) : VDD 4,5-5,5 V, max absolu 7,0 V ; POR 3,8-4,3 / 3,4-4,0 V (seuils retenus 4,05 / 3,70 V : N7RT_MODEL) ; IDD récessif ≤ 10 mA (R_DD = 500 Ω, pessimiste) ; R_IN 5-50 kΩ et R_DIFF 20-100 kΩ (réseau permanent) ; pull-up TXD 25 kΩ nominal ; VIL 0,8 V / VIH 2,0 V ; RXD ≥ 0,7·VDD à 8 mA (r_out 187,5 Ω) ; VREF 0,45-0,55·VDD à ±50 µA (r_out 5 kΩ) ; bandes de Rs ; minuterie de dominant permanent 1,25-4 ms. Composant NRND (MCP2561 recommandé)."
+  },
+  {
+    "kind": "can_bus",
+    "name_fr": "Bus CAN (reste du véhicule)",
+    "prefix": "BUS",
+    "body": {
+      "x0": -3,
+      "y0": -3,
+      "x1": 9,
+      "y1": 5
+    },
+    "pins": [
+      {
+        "id": "canh",
+        "name": "CANH",
+        "short": "CANH",
+        "pos": [
+          -4,
+          -2
+        ],
+        "dir": "l",
+        "role": "canh",
+        "required": false
+      },
+      {
+        "id": "canl",
+        "name": "CANL",
+        "short": "CANL",
+        "pos": [
+          -4,
+          2
+        ],
+        "dir": "l",
+        "role": "canl",
+        "required": false
+      },
+      {
+        "id": "gnd",
+        "name": "GND (masse des nœuds distants)",
+        "short": "GND",
+        "pos": [
+          -4,
+          4
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      }
+    ],
+    "params": [
+      {
+        "name": "remote_nodes",
+        "label_fr": "Nœuds distants alimentés",
+        "unit": "",
+        "vtype": "int",
+        "min": 0.0,
+        "max": 30.0,
+        "default": 1,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "remote_r_in",
+        "label_fr": "R_IN des nœuds distants",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 10000.0,
+        "max": 50000.0,
+        "default": 25000.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "remote_termination",
+        "label_fr": "Terminaison 120 Ω à l'extrémité distante",
+        "unit": "",
+        "vtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "default": true,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Modèle du reste du bus : n transceivers alimentés par leur carte à 5,0 V, chaque ligne reliée par R_IN/n à un nœud de polarisation à VDD/2 = 2,5 V (DS20001667G), terminaison distante 120 Ω (ISO 11898-2). Hypothèses N7RT_MODEL."
+  },
+  {
+    "kind": "termination",
+    "name_fr": "Terminaison 120 Ω",
+    "prefix": "RT",
+    "body": {
+      "x0": -2,
+      "y0": -1,
+      "x1": 2,
+      "y1": 1
+    },
+    "pins": [
+      {
+        "id": "p1",
+        "name": "1",
+        "short": "1",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "short": "2",
+        "pos": [
+          3,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [
+      {
+        "name": "resistance",
+        "label_fr": "Résistance",
+        "unit": "Ω",
+        "vtype": "number",
+        "min": 120.0,
+        "max": 120.0,
+        "default": 120.0,
+        "choices": [],
+        "editable": false
+      },
+      {
+        "name": "power_rating",
+        "label_fr": "Puissance nominale",
+        "unit": "W",
+        "vtype": "number",
+        "min": 0.25,
+        "max": 0.25,
+        "default": 0.25,
+        "choices": [],
+        "editable": false
+      }
+    ],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Terminaison nominale 120 Ω (ISO 11898-2), 0,25 W."
+  },
+  {
+    "kind": "ecu_apps",
+    "name_fr": "ECU APPS (boîte noire)",
+    "prefix": "U",
+    "body": {
+      "x0": -7,
+      "y0": -10,
+      "x1": 7,
+      "y1": 10
+    },
+    "pins": [
+      {
+        "id": "lv_in",
+        "name": "LV_IN (alimentation LV)",
+        "short": "LV_IN",
+        "pos": [
+          8,
+          -8
+        ],
+        "dir": "r",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "gnd",
+        "name": "GND (masse)",
+        "short": "GND",
+        "pos": [
+          8,
+          -6
+        ],
+        "dir": "r",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "v5_1",
+        "name": "5V_1 (alimentation du capteur 1)",
+        "short": "5V_1",
+        "pos": [
+          -8,
+          -9
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": false
+      },
+      {
+        "id": "sig_1",
+        "name": "SIG_1 (signal 1)",
+        "short": "SIG_1",
+        "pos": [
+          -8,
+          -5
+        ],
+        "dir": "l",
+        "role": "analog_in",
+        "required": false
+      },
+      {
+        "id": "gnd_s1",
+        "name": "GND_S1 (masse du capteur 1)",
+        "short": "GND_S1",
+        "pos": [
+          -8,
+          -3
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": false
+      },
+      {
+        "id": "v5_2",
+        "name": "5V_2 (alimentation du capteur 2)",
+        "short": "5V_2",
+        "pos": [
+          -8,
+          2
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": false
+      },
+      {
+        "id": "sig_2",
+        "name": "SIG_2 (signal 2)",
+        "short": "SIG_2",
+        "pos": [
+          -8,
+          6
+        ],
+        "dir": "l",
+        "role": "analog_in",
+        "required": false
+      },
+      {
+        "id": "gnd_s2",
+        "name": "GND_S2 (masse du capteur 2)",
+        "short": "GND_S2",
+        "pos": [
+          -8,
+          8
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": false
+      },
+      {
+        "id": "can_h",
+        "name": "CAN_H",
+        "short": "CAN_H",
+        "pos": [
+          8,
+          3
+        ],
+        "dir": "r",
+        "role": "canh",
+        "required": false
+      },
+      {
+        "id": "can_l",
+        "name": "CAN_L",
+        "short": "CAN_L",
+        "pos": [
+          8,
+          7
+        ],
+        "dir": "r",
+        "role": "canl",
+        "required": false
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "ECU synthétique N7RT : boîte noire, aucun microcontrôleur réel n'est modélisé ; seuls ses connecteurs sont visibles (LV_IN, GND, 5V_1, SIG_1, GND_S1, 5V_2, SIG_2, GND_S2, CAN_H, CAN_L ; GND_S1 et GND_S2 reliées à GND dans l'ECU). Son conditionnement interne (consommation, reset, rails capteur limités, diviseurs, filtres, mesures, ADC) n'est pas publié. Interface CAN : côté bus du modèle MCP2551 (DS20001667G), récessif, alimentée hors reset seulement."
+  },
+  {
+    "kind": "mlx90377",
+    "name_fr": "Capteur de position double puce",
+    "prefix": "U",
+    "body": {
+      "x0": -6,
+      "y0": -10,
+      "x1": 6,
+      "y1": 10
+    },
+    "pins": [
+      {
+        "id": "vdd1",
+        "name": "VDD1 (broche 3, puce 1)",
+        "short": "VDD1",
+        "pos": [
+          7,
+          -9
+        ],
+        "dir": "r",
+        "role": "power_in",
+        "required": false
+      },
+      {
+        "id": "vss1",
+        "name": "VSS1 (broche 2, puce 1)",
+        "short": "VSS1",
+        "pos": [
+          7,
+          -3
+        ],
+        "dir": "r",
+        "role": "ground_pin",
+        "required": false
+      },
+      {
+        "id": "out1",
+        "name": "OUT1 (broche 15, puce 1)",
+        "short": "OUT1",
+        "pos": [
+          7,
+          -5
+        ],
+        "dir": "r",
+        "role": "source",
+        "required": false
+      },
+      {
+        "id": "vdd2",
+        "name": "VDD2 (broche 11, puce 2)",
+        "short": "VDD2",
+        "pos": [
+          7,
+          2
+        ],
+        "dir": "r",
+        "role": "power_in",
+        "required": false
+      },
+      {
+        "id": "vss2",
+        "name": "VSS2 (broche 10, puce 2)",
+        "short": "VSS2",
+        "pos": [
+          7,
+          8
+        ],
+        "dir": "r",
+        "role": "ground_pin",
+        "required": false
+      },
+      {
+        "id": "out2",
+        "name": "OUT2 (broche 6, puce 2)",
+        "short": "OUT2",
+        "pos": [
+          7,
+          6
+        ],
+        "dir": "r",
+        "role": "source",
+        "required": false
+      }
+    ],
+    "params": [],
+    "states": [
+      {
+        "name": "position",
+        "label_fr": "Course de la pédale (0 = repos, 1 = pleine course)",
+        "unit": "",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 1.0,
+        "default": 0.0,
+        "persistent": true
+      }
+    ],
+    "actuators": [
+      {
+        "kind": "drag_pot",
+        "zone": {
+          "x0": -2,
+          "y0": -1,
+          "x1": 2,
+          "y1": 1
+        }
+      }
+    ],
+    "placeable": true,
+    "sources_fr": "Pièce réelle marquée 377ADB, deux puces indépendantes : brochage, isolation entre puces, seuil de démarrage, consommation, charge et fuite de sortie, sortie analogique ratiométrique (%VDD) avec écrêtages programmables et circuit recommandé tirés de la fiche du fabricant de cette pièce. Modèle par puce : consommation, porte de démarrage, source ratiométrique écrêtée, fuite en haute impédance, découplages (N7RT_MODEL) ; limitation du courant de sortie et délai de démarrage non modélisés. Curseur : course de la pédale."
+  },
+  {
+    "kind": "junction",
+    "name_fr": "Jonction",
+    "prefix": "",
+    "body": {
+      "x0": 0,
+      "y0": 0,
+      "x1": 0,
+      "y1": 0
+    },
+    "pins": [
+      {
+        "id": "j",
+        "name": "J",
+        "short": "J",
+        "pos": [
+          0,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": false,
+    "sources_fr": "Point de net créé en reliant un fil au milieu d'un autre ; supprimé par le nettoyage."
+  },
+  {
+    "kind": "ecu_wsf",
+    "name_fr": "ECU vitesse de roues",
+    "prefix": "U",
+    "body": {
+      "x0": -7,
+      "y0": -9,
+      "x1": 7,
+      "y1": 9
+    },
+    "pins": [
+      {
+        "id": "lv_in",
+        "name": "LV_IN",
+        "short": "LV",
+        "pos": [
+          8,
+          -8
+        ],
+        "dir": "r",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "gnd",
+        "name": "GND",
+        "short": "GND",
+        "pos": [
+          8,
+          -6
+        ],
+        "dir": "r",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "ws_l_sup",
+        "name": "Alimentation gauche",
+        "short": "L+",
+        "pos": [
+          -8,
+          -5
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": true
+      },
+      {
+        "id": "ws_l_in",
+        "name": "Retour gauche",
+        "short": "L−",
+        "pos": [
+          -8,
+          -3
+        ],
+        "dir": "l",
+        "role": "analog_in",
+        "required": true
+      },
+      {
+        "id": "ws_r_sup",
+        "name": "Alimentation droite",
+        "short": "R+",
+        "pos": [
+          -8,
+          5
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": true
+      },
+      {
+        "id": "ws_r_in",
+        "name": "Retour droite",
+        "short": "R−",
+        "pos": [
+          -8,
+          7
+        ],
+        "dir": "l",
+        "role": "analog_in",
+        "required": true
+      },
+      {
+        "id": "can_h",
+        "name": "CAN_H",
+        "short": "H",
+        "pos": [
+          8,
+          3
+        ],
+        "dir": "r",
+        "role": "canh",
+        "required": true
+      },
+      {
+        "id": "can_l",
+        "name": "CAN_L",
+        "short": "L",
+        "pos": [
+          8,
+          7
+        ],
+        "dir": "r",
+        "role": "canl",
+        "required": true
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "ecu_sas",
+    "name_fr": "ECU angle de volant",
+    "prefix": "U",
+    "body": {
+      "x0": -4,
+      "y0": -5,
+      "x1": 4,
+      "y1": 5
+    },
+    "pins": [
+      {
+        "id": "lv_in",
+        "name": "LV_IN",
+        "short": "LV",
+        "pos": [
+          -5,
+          -4
+        ],
+        "dir": "l",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "gnd",
+        "name": "GND",
+        "short": "GND",
+        "pos": [
+          -5,
+          4
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "s5v",
+        "name": "Alimentation capteur",
+        "short": "5V",
+        "pos": [
+          -5,
+          -2
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": true
+      },
+      {
+        "id": "sgnd",
+        "name": "Retour capteur",
+        "short": "S−",
+        "pos": [
+          -5,
+          2
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "sent",
+        "name": "SENT",
+        "short": "SENT",
+        "pos": [
+          -5,
+          0
+        ],
+        "dir": "l",
+        "role": "logic_in",
+        "required": true
+      },
+      {
+        "id": "can_h",
+        "name": "CAN_H",
+        "short": "H",
+        "pos": [
+          5,
+          3
+        ],
+        "dir": "r",
+        "role": "canh",
+        "required": true
+      },
+      {
+        "id": "can_l",
+        "name": "CAN_L",
+        "short": "L",
+        "pos": [
+          5,
+          4
+        ],
+        "dir": "r",
+        "role": "canl",
+        "required": true
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "ecu_bps",
+    "name_fr": "ECU pression de freinage",
+    "prefix": "U",
+    "body": {
+      "x0": -4,
+      "y0": -5,
+      "x1": 4,
+      "y1": 5
+    },
+    "pins": [
+      {
+        "id": "lv_in",
+        "name": "LV_IN",
+        "short": "LV",
+        "pos": [
+          -5,
+          -4
+        ],
+        "dir": "l",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "gnd",
+        "name": "GND",
+        "short": "GND",
+        "pos": [
+          -5,
+          4
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "v5_f",
+        "name": "Alimentation avant",
+        "short": "F+",
+        "pos": [
+          -5,
+          -2
+        ],
+        "dir": "l",
+        "role": "source",
+        "required": true
+      },
+      {
+        "id": "sig_f",
+        "name": "Signal avant",
+        "short": "SIG F",
+        "pos": [
+          -5,
+          0
+        ],
+        "dir": "l",
+        "role": "analog_in",
+        "required": true
+      },
+      {
+        "id": "gnd_f",
+        "name": "Retour avant",
+        "short": "F−",
+        "pos": [
+          -5,
+          2
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "v5_r",
+        "name": "Alimentation arrière",
+        "short": "R+",
+        "pos": [
+          5,
+          -2
+        ],
+        "dir": "r",
+        "role": "source",
+        "required": true
+      },
+      {
+        "id": "sig_r",
+        "name": "Signal arrière",
+        "short": "SIG R",
+        "pos": [
+          5,
+          0
+        ],
+        "dir": "r",
+        "role": "analog_in",
+        "required": true
+      },
+      {
+        "id": "gnd_r",
+        "name": "Retour arrière",
+        "short": "R−",
+        "pos": [
+          5,
+          2
+        ],
+        "dir": "r",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "sw_in",
+        "name": "Contact frein",
+        "short": "SW",
+        "pos": [
+          0,
+          -6
+        ],
+        "dir": "u",
+        "role": "logic_in",
+        "required": true
+      },
+      {
+        "id": "sw_ret",
+        "name": "Retour contact",
+        "short": "SW−",
+        "pos": [
+          0,
+          6
+        ],
+        "dir": "d",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "can_h",
+        "name": "CAN_H",
+        "short": "H",
+        "pos": [
+          5,
+          3
+        ],
+        "dir": "r",
+        "role": "canh",
+        "required": true
+      },
+      {
+        "id": "can_l",
+        "name": "CAN_L",
+        "short": "L",
+        "pos": [
+          5,
+          4
+        ],
+        "dir": "r",
+        "role": "canl",
+        "required": true
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "ats682lsh",
+    "name_fr": "Capteur de vitesse de roue",
+    "prefix": "U",
+    "body": {
+      "x0": -3,
+      "y0": -3,
+      "x1": 3,
+      "y1": 3
+    },
+    "pins": [
+      {
+        "id": "vcc",
+        "name": "Alimentation",
+        "short": "V+",
+        "pos": [
+          4,
+          -2
+        ],
+        "dir": "r",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "gnd",
+        "name": "Retour",
+        "short": "V−",
+        "pos": [
+          4,
+          2
+        ],
+        "dir": "r",
+        "role": "ground_pin",
+        "required": true
+      }
+    ],
+    "params": [
+      {
+        "name": "air_gap_mm",
+        "label_fr": "Entrefer",
+        "unit": "mm",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 20.0,
+        "default": 0.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "tolerance_corner",
+        "label_fr": "Tolérance du capteur",
+        "unit": "",
+        "vtype": "number",
+        "min": -1.0,
+        "max": 1.0,
+        "default": 0.0,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "tle5014",
+    "name_fr": "Capteur d'angle SENT",
+    "prefix": "U",
+    "body": {
+      "x0": -4,
+      "y0": -5,
+      "x1": 4,
+      "y1": 5
+    },
+    "pins": [
+      {
+        "id": "vdd",
+        "name": "Alimentation",
+        "short": "V+",
+        "pos": [
+          -5,
+          -2
+        ],
+        "dir": "l",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "gnd",
+        "name": "Retour",
+        "short": "GND",
+        "pos": [
+          -5,
+          2
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "out",
+        "name": "Sortie SENT",
+        "short": "OUT",
+        "pos": [
+          5,
+          0
+        ],
+        "dir": "r",
+        "role": "logic_out",
+        "required": true
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "pss260",
+    "name_fr": "Capteur de pression",
+    "prefix": "U",
+    "body": {
+      "x0": -4,
+      "y0": -5,
+      "x1": 4,
+      "y1": 5
+    },
+    "pins": [
+      {
+        "id": "us",
+        "name": "Alimentation",
+        "short": "V+",
+        "pos": [
+          -5,
+          -2
+        ],
+        "dir": "l",
+        "role": "power_in",
+        "required": true
+      },
+      {
+        "id": "gnd",
+        "name": "Retour",
+        "short": "GND",
+        "pos": [
+          -5,
+          2
+        ],
+        "dir": "l",
+        "role": "ground_pin",
+        "required": true
+      },
+      {
+        "id": "sig",
+        "name": "Signal",
+        "short": "SIG",
+        "pos": [
+          5,
+          0
+        ],
+        "dir": "r",
+        "role": "source",
+        "required": true
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "pressure_switch",
+    "name_fr": "Contact de pression",
+    "prefix": "S",
+    "body": {
+      "x0": -2,
+      "y0": -1,
+      "x1": 2,
+      "y1": 1
+    },
+    "pins": [
+      {
+        "id": "p1",
+        "name": "1",
+        "short": "1",
+        "pos": [
+          -3,
+          0
+        ],
+        "dir": "l",
+        "role": "passive",
+        "required": false
+      },
+      {
+        "id": "p2",
+        "name": "2",
+        "short": "2",
+        "pos": [
+          3,
+          0
+        ],
+        "dir": "r",
+        "role": "passive",
+        "required": false
+      }
+    ],
+    "params": [],
+    "states": [],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "front_axle",
+    "name_fr": "Train avant",
+    "prefix": "M",
+    "body": {
+      "x0": -4,
+      "y0": -5,
+      "x1": 4,
+      "y1": 5
+    },
+    "pins": [],
+    "params": [],
+    "states": [
+      {
+        "name": "speed_mps",
+        "label_fr": "Vitesse véhicule",
+        "unit": "m/s",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 100.0,
+        "default": 0.0,
+        "persistent": true
+      },
+      {
+        "name": "steering_deg",
+        "label_fr": "Angle de volant",
+        "unit": "°",
+        "vtype": "number",
+        "min": -360.0,
+        "max": 360.0,
+        "default": 0.0,
+        "persistent": true
+      }
+    ],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "steering_column",
+    "name_fr": "Colonne de direction",
+    "prefix": "M",
+    "body": {
+      "x0": -4,
+      "y0": -5,
+      "x1": 4,
+      "y1": 5
+    },
+    "pins": [],
+    "params": [
+      {
+        "name": "min_angle_deg",
+        "label_fr": "Butée minimale",
+        "unit": "°",
+        "vtype": "number",
+        "min": -360.0,
+        "max": 360.0,
+        "default": -360.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "max_angle_deg",
+        "label_fr": "Butée maximale",
+        "unit": "°",
+        "vtype": "number",
+        "min": -360.0,
+        "max": 360.0,
+        "default": 360.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "max_rate_deg_per_s",
+        "label_fr": "Vitesse mécanique maximale",
+        "unit": "°/s",
+        "vtype": "number",
+        "min": 1.0,
+        "max": 10000.0,
+        "default": 360.0,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [
+      {
+        "name": "angle_deg",
+        "label_fr": "Angle de volant",
+        "unit": "°",
+        "vtype": "number",
+        "min": -360.0,
+        "max": 360.0,
+        "default": 0.0,
+        "persistent": true
+      }
+    ],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  },
+  {
+    "kind": "brake_hydraulics",
+    "name_fr": "Commande de freinage",
+    "prefix": "M",
+    "body": {
+      "x0": -4,
+      "y0": -5,
+      "x1": 4,
+      "y1": 5
+    },
+    "pins": [],
+    "params": [
+      {
+        "name": "beta",
+        "label_fr": "Rapport hydraulique arrière/avant",
+        "unit": "",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 2.0,
+        "default": 1.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "min_pressure_bar",
+        "label_fr": "Pression minimale",
+        "unit": "bar",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 250.0,
+        "default": 0.0,
+        "choices": [],
+        "editable": true
+      },
+      {
+        "name": "max_pressure_bar",
+        "label_fr": "Pression maximale",
+        "unit": "bar",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 250.0,
+        "default": 250.0,
+        "choices": [],
+        "editable": true
+      }
+    ],
+    "states": [
+      {
+        "name": "pressure_bar",
+        "label_fr": "Pression avant commandée",
+        "unit": "bar",
+        "vtype": "number",
+        "min": 0.0,
+        "max": 250.0,
+        "default": 0.0,
+        "persistent": true
+      }
+    ],
+    "actuators": [],
+    "placeable": true,
+    "sources_fr": "Composant physique générique paramétré par le banc ; paramètres internes cachés en mission."
+  }
+]

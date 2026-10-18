@@ -1,0 +1,12 @@
+[package]
+name = "n7rt-link"
+description = "N7RT-Link v0 codec (COBS + CRC-32 framing, typed messages, stream receiver)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+
+[dev-dependencies]
+serde_json = { workspace = true }

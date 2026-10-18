@@ -1,0 +1,12 @@
+N7RT CAN Lab, SDK etudiant 0.1.0 (runtime 0.1.0, ABI 1.0)
+==========================================================
+
+NE RIEN MODIFIER dans ce dossier n7rt/ : il est verifie a chaque build et sur la carte.
+
+  include/n7rt.h              API etudiante : trame recue, publication, rejet, temps, log
+  lib/n7rt_runtime.o          runtime N7RT precompile (place a 0x08000000, jamais recompile)
+  lib/libn7rt_glue.a          liaison runtime <-> votre code (en-tete a 0x08040000)
+  ld/N7RT_H753_student.ld     carte memoire : votre code a partir de 0x08040000, vos donnees en DTCM
+  manifest.json               versions et empreintes SHA-256 de ces fichiers
+
+Votre code : student/student_decoder.c et student/student_decoder.h, rien d'autre.

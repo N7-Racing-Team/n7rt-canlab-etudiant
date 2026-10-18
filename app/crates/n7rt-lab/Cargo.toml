@@ -1,0 +1,29 @@
+[package]
+name = "n7rt-lab"
+description = "N7RT CAN Lab core: board discovery, N7RT-Link engine, Virtual CAN generator, metrics"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+n7rt-link = { workspace = true }
+n7rt-solver = { workspace = true }
+n7rt-circuit = { workspace = true }
+n7rt-vehicle = { workspace = true }
+n7rt-seal = { workspace = true }
+# Instructor tools: the console tool's library (same packs, groups.json and judgement as n7rt-tool).
+n7rt-tool = { path = "../n7rt-tool" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serialport = { version = "4.10", default-features = true }
+sha2 = "0.10"
+hmac = { workspace = true }
+getrandom = "0.3"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Devices_Communication", "Win32_Foundation", "Win32_System_Time"] }
+
+[build-dependencies]
+serde_json = { workspace = true }
+sha2 = "0.10"
