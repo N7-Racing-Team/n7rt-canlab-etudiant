@@ -40,7 +40,7 @@ def resources(tmp_path, monkeypatch):
                 *("tools/stm32/" + name for name in B.STUDENT_HELPERS),
                 "tools/stm32/requirements-student-ide.txt", "firmware/n7rt_student/runtime-release.json",
                 "app/CODEMIRROR-LICENSES.txt",
-                "tools/release/templates/LISEZMOI.txt", "DEMARRER_ICI.md"]
+                "tools/release/templates/LISEZMOI.txt", "DEMARRER_ICI.md", "DEMARRER_ICI.html"]
     for relative in required:
         target = root / relative
         target.parent.mkdir(parents=True, exist_ok=True)

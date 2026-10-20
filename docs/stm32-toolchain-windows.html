@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Outils de compilation et de programmation sous Windows (CAN Lab 0.3)</title>
+<style>
+:root { --bg: #ffffff; --fg: #1d1f24; --muted: #5b616e; --line: #d9dce3; --accent: #5b2bb5; --code-bg: #f3f2f7;
+  --note-bg: #f1ecfb; --warn-bg: #fff4e5; --warn-line: #c77700; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #16171b; --fg: #e6e7ea; --muted: #a2a7b3; --line: #33363e; --accent: #b79bf2; --code-bg: #22242a;
+    --note-bg: #241d33; --warn-bg: #2d2416; --warn-line: #e0a040; }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 "Segoe UI", system-ui, sans-serif; }
+.layout { display: flex; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 24px 16px 64px; }
+nav.toc { flex: 0 0 260px; position: sticky; top: 16px; align-self: flex-start; max-height: calc(100vh - 32px);
+  overflow: auto; font-size: 14px; border-right: 1px solid var(--line); padding-right: 16px; }
+nav.toc p { margin: 0 0 8px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+nav.toc ol { list-style: none; margin: 0; padding: 0; }
+nav.toc li { margin: 0 0 6px; }
+nav.toc a { color: var(--fg); text-decoration: none; }
+nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+main { flex: 1 1 auto; min-width: 0; }
+h1 { font-size: 30px; line-height: 1.25; margin: 0 0 16px; }
+h2 { font-size: 24px; margin: 48px 0 12px; padding-top: 12px; border-top: 2px solid var(--line); }
+h3 { font-size: 19px; margin: 32px 0 8px; }
+h4 { font-size: 16px; margin: 24px 0 8px; }
+a { color: var(--accent); }
+code { font-family: Consolas, "Cascadia Mono", monospace; font-size: .92em; background: var(--code-bg);
+  padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+pre { position: relative; background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px;
+  padding: 12px 14px; overflow-x: auto; }
+pre code { background: none; padding: 0; font-size: 14px; overflow-wrap: normal; }
+pre button { position: absolute; top: 6px; right: 6px; font: 12px "Segoe UI", sans-serif; padding: 2px 8px;
+  border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--fg); cursor: pointer; }
+.table { overflow-x: auto; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: var(--code-bg); }
+blockquote { margin: 16px 0; padding: 8px 16px; background: var(--note-bg); border-left: 4px solid var(--accent);
+  border-radius: 0 6px 6px 0; }
+blockquote.warn { background: var(--warn-bg); border-left-color: var(--warn-line); }
+blockquote p { margin: 6px 0; }
+li { margin: 4px 0; }
+.top { font-size: 14px; }
+@media (max-width: 860px) { .layout { display: block; } nav.toc { position: static; max-height: none;
+  border-right: 0; border-bottom: 1px solid var(--line); padding: 0 0 12px; margin-bottom: 16px; } }
+@media print { nav.toc, pre button, .top { display: none; } .layout { display: block; } }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc" aria-label="Sommaire"><p>Sommaire</p><ol><li><a href="#1-python">1. Python</a></li><li><a href="#2-arm-gnu-toolchain-arm-none-eabi-gcc">2. Arm GNU Toolchain (arm-none-eabi-gcc)</a></li><li><a href="#3-stm32cubeprogrammer-stm32_programmer_cli">3. STM32CubeProgrammer (STM32_Programmer_CLI)</a></li><li><a href="#4-où-can-lab-cherche-les-outils-et-le-path">4. Où CAN Lab cherche les outils, et le PATH</a></li><li><a href="#5-diagnostic">5. Diagnostic</a></li><li><a href="#6-messages-de-code-stm32">6. Messages de Code STM32</a></li></ol></nav>
+<main>
+<h1 id="outils-de-compilation-et-de-programmation-sous-windows-can-lab-03">Outils de compilation et de programmation sous Windows (CAN Lab 0.3)</h1>
+<p>La page <strong>Code STM32</strong> de CAN Lab compile votre décodeur et programme la carte NUCLEO-H753ZI avec trois outils que vous installez vous-même, une seule fois :</p>
+<div class="table"><table><thead><tr><th>Outil</th><th>Rôle</th><th>Version vérifiée</th></tr></thead><tbody><tr><td><strong>Python</strong> 3.11 ou plus récent</td><td>lance le petit programme (le « helper », <code>tools\stm32\student_ide.py</code>) qui pilote la compilation et la programmation</td><td>3.12.10</td></tr><tr><td><strong>Arm GNU Toolchain</strong> (cible <code>arm-none-eabi</code>)</td><td>compilateur C pour le microcontrôleur de la carte : <code>arm-none-eabi-gcc</code></td><td>14.3.rel1</td></tr><tr><td><strong>STM32CubeProgrammer</strong></td><td>programme la carte par sa sonde ST-LINK : <code>STM32_Programmer_CLI</code> ; installe aussi le pilote USB du ST-LINK</td><td>2.23.0</td></tr></tbody></table></div>
+<p>Sans eux, l'application s'ouvre et le Cockpit, le Physical Lab et la fiche fonctionnent : seuls <strong>Compiler</strong> et <strong>Flasher</strong> sont refusés, avec un message qui nomme l'outil manquant et renvoie à ce document.</p>
+<p>Le même parcours, avec l'explication du <code>PATH</code> et la suite du TP, est au chapitre 2 de <a href="../DEMARRER_ICI.html">DEMARRER_ICI.md</a> (copie lisible hors ligne : <code>DEMARRER_ICI.html</code>, à la racine de l'archive).</p>
+<p>Toutes les commandes ci-dessous se tapent dans <strong>PowerShell</strong>. Pour l'ouvrir dans le dossier de CAN Lab : dans l'Explorateur, ouvrez le dossier décompressé (celui qui contient <code>n7rt-can-lab.exe</code>), clic droit dans une zone vide, <strong>Ouvrir dans le Terminal</strong> (Windows 11), ou tapez <code>powershell</code> dans la barre d'adresse puis Entrée (Windows 10).</p>
+<h2 id="1-python">1. Python</h2>
+<ol><li>Téléchargez l'installateur Windows 64 bits sur <a href="https://www.python.org/downloads/windows/">https://www.python.org/downloads/windows/</a> (« Windows installer (64-bit) » d'une version 3.12 ou 3.13 ; toute version 3.11 ou plus récente fonctionne).</li><li>Au premier écran de l'installateur, <strong>cochez « Add python.exe to PATH »</strong>, puis <strong>Install Now</strong>. Les droits administrateur ne sont pas nécessaires.</li><li><strong>Fermez CAN Lab s'il est ouvert, puis relancez-le</strong> : une application ne voit un nouveau programme du <code>PATH</code> qu'après son redémarrage.</li><li>Dans un nouveau PowerShell, vérifiez :</li></ol>
+<pre><code>python --version</code></pre>
+<p>Réponse attendue : <code>Python 3.11.x</code> ou plus récent. Si PowerShell ouvre le Microsoft Store ou répond « Python est introuvable », c'est l'alias Windows qui répond à la place de Python : Python n'est pas installé, ou pas dans le <code>PATH</code>. Réinstallez en cochant la case de l'étape 2 (bouton <strong>Modify</strong>, puis <strong>Add Python to environment variables</strong>), ou désactivez l'alias : <strong>Paramètres → Applications → Paramètres avancés des applications → Alias d'exécution d'application</strong>, décochez les deux lignes « Programme d'installation d'application python.exe / python3.exe ».</p>
+<ol start="5"><li>Toujours dans le dossier de CAN Lab, installez la dépendance du helper (elle sert au diagnostic de la section 5) :</li></ol>
+<pre><code>python -m pip install -r .\requirements-student-ide.txt</code></pre>
+<h2 id="2-arm-gnu-toolchain-arm-none-eabi-gcc">2. Arm GNU Toolchain (<code>arm-none-eabi-gcc</code>)</h2>
+<ol><li>Ouvrez <a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads</a>.</li><li>Dans la rubrique <strong>Windows (mingw-w64-x86_64) hosted cross toolchains</strong>, partie <strong>AArch32 bare-metal target (arm-none-eabi)</strong>, téléchargez l'installateur <code>.exe</code> (par exemple <code>arm-gnu-toolchain-14.3.rel1-mingw-w64-x86_64-arm-none-eabi.exe</code>). Ne prenez pas une chaîne <code>aarch64-none-elf</code> ni <code>arm-none-linux-gnueabihf</code> : ce ne sont pas les bonnes cibles.</li><li>Lancez-le et gardez le dossier proposé : <code>C:\Program Files (x86)\Arm GNU Toolchain arm-none-eabi\&lt;version&gt;\</code>. L'installation demande les droits administrateur.</li><li>Au dernier écran, cochez <strong>Add path to environment variable</strong> (recommandé, pas obligatoire : voir la section 4).</li></ol>
+<p>Vérification :</p>
+<pre><code>arm-none-eabi-gcc --version</code></pre>
+<p>Réponse attendue : une première ligne <code>arm-none-eabi-gcc.exe (Arm GNU Toolchain 14.3.Rel1 …) 14.3.1 …</code> ou une autre version 11 ou plus récente.</p>
+<p>Sans droits administrateur : téléchargez à la place l'archive <code>.zip</code> de la même ligne, décompressez-la dans un dossier à vous (par exemple <code>C:\Users\&lt;vous&gt;\arm-gnu-toolchain\</code>) et ajoutez son sous-dossier <code>bin</code> au <code>PATH</code> (section 4) : un dossier choisi par vous n'est trouvé que par le <code>PATH</code>.</p>
+<h2 id="3-stm32cubeprogrammer-stm32_programmer_cli">3. STM32CubeProgrammer (<code>STM32_Programmer_CLI</code>)</h2>
+<ol><li>Ouvrez <a href="https://www.st.com/en/development-tools/stm32cubeprog.html">https://www.st.com/en/development-tools/stm32cubeprog.html</a>, <strong>Get Software</strong>, et prenez la version Windows 64 bits (<code>STM32CubePrg-W64</code>). Le site de ST demande un compte myST gratuit, ou une adresse e-mail à laquelle il envoie le lien. Si votre encadrant vous fournit l'installateur, utilisez celui-là.</li><li>Décompressez l'archive téléchargée, lancez <code>SetupSTM32CubeProgrammer_win64.exe</code> (droits administrateur), gardez le dossier proposé : <code>C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\</code>.</li><li>Acceptez l'installation des <strong>pilotes ST-LINK</strong> quand l'installateur la propose : sans eux, Windows ne reconnaît pas la sonde de la carte.</li></ol>
+<p>Vérification (le chemin entre guillemets marche même sans <code>PATH</code>) :</p>
+<pre><code>&amp; "C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" --version</code></pre>
+<p>Réponse attendue : une ligne <code>STM32CubeProgrammer version: 2.x.y</code>.</p>
+<p>Si vous avez déjà <strong>STM32CubeIDE</strong> (dans <code>C:\ST\STM32CubeIDE_&lt;version&gt;\</code>) ou <strong>STM32CubeCLT</strong> (<code>C:\ST\STM32CubeCLT_&lt;version&gt;\</code>), ils contiennent un compilateur et un <code>STM32_Programmer_CLI</code> que CAN Lab trouve aussi : rien d'autre à installer.</p>
+<h2 id="4-où-can-lab-cherche-les-outils-et-le-path">4. Où CAN Lab cherche les outils, et le <code>PATH</code></h2>
+<p>Depuis la version 0.3.1, le helper trouve les outils installés aux <strong>emplacements par défaut</strong> sans aucune configuration. Pour chaque outil, il prend le premier trouvé dans cet ordre :</p>
+<ol><li>une variable d'environnement qui donne le chemin exact de l'exécutable : <code>STM32LAB_GCC</code> (pour <code>arm-none-eabi-gcc.exe</code>), <code>STM32LAB_PROGRAMMER</code> (pour <code>STM32_Programmer_CLI.exe</code>) ;</li><li>les outils STM32Cube de VS Code (<code>%LOCALAPPDATA%\stm32cube\bundles</code>) ;</li><li><code>C:\ST\STM32CubeCLT_*</code>, puis les outils intégrés à <code>C:\ST\STM32CubeIDE_*</code> ;</li><li>le <code>PATH</code> de CAN Lab, puis le <code>PATH</code> tel qu'il est enregistré dans Windows (une modification du <code>PATH</code> est donc vue sans relancer CAN Lab) ;</li><li>les dossiers par défaut des installateurs : <code>Program Files</code> et <code>Program Files (x86)</code>, <code>Arm GNU Toolchain arm-none-eabi\&lt;version&gt;\bin</code> (la version la plus récente) et <code>STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin</code>.</li></ol>
+<p>Le <code>PATH</code> n'est donc utile que pour un outil installé ailleurs (archive <code>.zip</code>, dossier personnalisé). Pour y ajouter un dossier :</p>
+<ul><li><strong>par les menus</strong> : touche Windows, tapez « variables d'environnement », ouvrez <strong>Modifier les variables d'environnement pour votre compte</strong>, sélectionnez <strong>Path</strong> dans le cadre du haut, <strong>Modifier</strong>, <strong>Nouveau</strong>, collez le dossier <code>bin</code> de l'outil (par exemple <code>C:\Program Files (x86)\Arm GNU Toolchain arm-none-eabi\14.3 rel1\bin</code>), puis <strong>OK</strong> dans les deux fenêtres ;</li><li><strong>par PowerShell</strong> (remplacez le dossier par le vôtre ; la commande ajoute le dossier au <code>PATH</code> de votre compte, sans droits administrateur) :</li></ul>
+<pre><code>$bin = "C:\Users\&lt;vous&gt;\arm-gnu-toolchain\bin"
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";" + $bin, "User")</code></pre>
+<p>N'utilisez jamais <code>setx PATH "%PATH%;…"</code> : cette commande tronque le <code>PATH</code> à 1024 caractères et y recopie le <code>PATH</code> du système.</p>
+<p>Ouvrez ensuite un <strong>nouveau</strong> PowerShell pour vérifier : une fenêtre déjà ouverte garde l'ancien <code>PATH</code>. Python, lui, est lancé par CAN Lab avec le <code>PATH</code> du démarrage de l'application : après avoir installé Python ou modifié son <code>PATH</code>, <strong>relancez CAN Lab</strong>.</p>
+<h2 id="5-diagnostic">5. Diagnostic</h2>
+<p>Dans PowerShell, depuis le dossier de CAN Lab. Chaque commande dit où est l'outil que Windows trouve, ou rien s'il ne le trouve pas :</p>
+<pre><code>python --version
+where.exe python
+where.exe arm-none-eabi-gcc
+where.exe STM32_Programmer_CLI</code></pre>
+<p>(<code>where.exe</code>, avec <code>.exe</code> : dans PowerShell, <code>where</code> seul est une autre commande.)</p>
+<p>Ce que <strong>CAN Lab</strong> trouve réellement, avec la même recherche que <strong>Compiler</strong> et <strong>Flasher</strong> (section 4) :</p>
+<pre><code>python .\tools\stm32\student_ide.py inventory</code></pre>
+<p>La réponse est une ligne JSON. <code>"gcc": {"available": true, "path": "…arm-none-eabi-gcc.exe"}</code> et <code>"programmer": {"available": true, "path": "…STM32_Programmer_CLI.exe"}</code> : les deux outils sont trouvés. <code>"available": false</code> : installez l'outil (sections 2 et 3). Carte branchée, la liste <code>"probes"</code> montre la sonde ST-LINK, avec <code>"board": "NUCLEO-H753ZI"</code> ; une liste vide, carte branchée : câble USB de charge seule, autre port USB, ou pilote ST-LINK absent (réinstallez STM32CubeProgrammer en acceptant les pilotes). <code>"error": "No module named 'serial'"</code> : refaites la dernière commande de la section 1.</p>
+<p>La sonde vue par STM32CubeProgrammer lui-même :</p>
+<pre><code>&amp; "C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -l st</code></pre>
+<p>Réponse attendue, carte branchée : un bloc <code>ST-Link Probe 0 :</code> avec <code>ST-LINK SN</code>, <code>ST-LINK FW</code> et <code>Board Name : NUCLEO-H753ZI</code>. Fermez CAN Lab avant cette commande si la carte y est connectée.</p>
+<h2 id="6-messages-de-code-stm32">6. Messages de Code STM32</h2>
+<div class="table"><table><thead><tr><th>Message</th><th>Cause</th><th>Que faire</th></tr></thead><tbody><tr><td>« Python introuvable : installez Python 3.11 ou plus récent… »</td><td><code>python</code> n'est pas dans le <code>PATH</code> de CAN Lab, ou seul l'alias du Microsoft Store répond</td><td>Section 1, puis <strong>fermez et relancez CAN Lab</strong></td></tr><tr><td>« Python 3.x trop ancien… »</td><td>la commande <code>python</code> lance une version antérieure à 3.11</td><td>Installez une version récente (section 1) ; <code>where.exe python</code> montre laquelle est trouvée en premier</td></tr><tr><td>« Compilateur arm-none-eabi-gcc introuvable… »</td><td>aucun compilateur aux emplacements de la section 4</td><td>Section 2, puis <strong>Compiler</strong> de nouveau</td></tr><tr><td>« STM32_Programmer_CLI introuvable… »</td><td>aucun STM32CubeProgrammer aux emplacements de la section 4</td><td>Section 3, puis <strong>Flasher</strong> de nouveau</td></tr><tr><td>« L'outil de compilation (Python) s'est arrêté sans réponse… »</td><td>Python a démarré mais le helper n'a pas pu répondre (installation de Python incomplète, archive mal décompressée)</td><td>Commande <code>inventory</code> de la section 5 : son message d'erreur dit ce qui manque. Vérifiez que <code>tools\stm32\</code> est bien à côté de <code>n7rt-can-lab.exe</code></td></tr><tr><td>« [Errno 2] No such file or directory: … »</td><td>un fichier de l'archive manque : dossier extrait dans Téléchargements ou un dossier temporaire, en partie vidé par le nettoyage automatique de Windows (les fichiers de l'archive sont datés du 01/01/1980), ou fichiers déplacés</td><td>Supprimez ce dossier et extrayez de nouveau <strong>toute</strong> l'archive dans <code>Documents</code></td></tr><tr><td>« Projet étudiant introuvable : placez le SDK et les outils à côté de l'application. »</td><td>l'exécutable a été lancé depuis l'archive sans la décompresser, ou déplacé seul</td><td>Décompressez <strong>toute</strong> l'archive (<strong>Extraire tout</strong>) et lancez <code>n7rt-can-lab.exe</code> depuis le dossier obtenu</td></tr><tr><td>« ST-LINK inaccessible ou délai dépassé ; reconnectez la carte. »</td><td>sonde débranchée, utilisée par un autre programme (STM32CubeProgrammer ou STM32CubeIDE ouvert), ou pilote absent</td><td>Fermez les autres outils ST, rebranchez la carte, vérifiez avec <code>-l st</code> (section 5)</td></tr><tr><td>« Le runtime de la carte diffère du SDK ; seul un encadrant peut le réinstaller. »</td><td>la carte n'a pas le runtime N7RT de cette version</td><td>Rendez la carte à votre encadrant : vous ne pouvez pas installer le runtime vous-même</td></tr></tbody></table></div>
+<p>Les erreurs de <strong>votre code C</strong> (point-virgule manquant, variable inconnue…) ne sont pas des problèmes d'installation : elles s'affichent dans <strong>Problèmes</strong> avec le fichier et la ligne.</p>
+<p class="top"><a href="#">Haut de page</a> · copie HTML de <code>docs/stm32-toolchain-windows.md</code></p>
+</main>
+</div>
+<script>
+document.querySelectorAll("pre").forEach(function (pre) {
+  var b = document.createElement("button");
+  b.type = "button"; b.textContent = "Copier";
+  b.addEventListener("click", function () {
+    var text = pre.querySelector("code").innerText;
+    function done() { b.textContent = "Copié"; setTimeout(function () { b.textContent = "Copier"; }, 1500); }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); done(); } catch (e) { b.textContent = "Sélectionnez et copiez"; }
+      document.body.removeChild(t);
+    }
+  });
+  pre.appendChild(b);
+});
+</script>
+</body>
+</html>

@@ -47,6 +47,8 @@ export class StudentIde {
   private nextPoll = 0;
   private lock = new Compartment();
   private consoleLines: string[] = [];
+  /** The operation of the last result shown ("build" | "flash"): names the problems located in no file. */
+  private lastOperation = "build";
   private error = "";
   private lastResultKey = "";
   private stateEpoch = 0;
@@ -294,13 +296,16 @@ export class StudentIde {
 
   private showResult(result: ToolResult | null): void {
     if (!result) return;
+    this.lastOperation = result.operation;
     this.appendConsole(result.message ?? (result.ok ? "Opération réussie." : "Opération échouée."));
     for (const d of result.diagnostics.slice(0, 100)) this.appendConsole(this.diagnosticText(d));
     if (result.artifact) this.appendConsole(`CRC étudiant ${crc(result.artifact.student_crc32)} · ${result.artifact.flash_bytes} octets de flash · ${result.artifact.ram_bytes} octets de RAM`);
   }
 
   private diagnosticText(d: Diagnostic): string {
-    return `${d.file ?? "Compilation"}${d.line ? `:${d.line}${d.column ? `:${d.column}` : ""}` : ""} · ${d.severity} · ${d.message}`;
+    // a problem located in no file belongs to the operation that reported it (a missing tool, the ST-LINK)
+    const where = d.file ?? (this.lastOperation === "flash" ? "Programmation" : "Compilation");
+    return `${where}${d.line ? `:${d.line}${d.column ? `:${d.column}` : ""}` : ""} · ${d.severity} · ${d.message}`;
   }
 
   private applyDiagnostics(): void {

@@ -53,7 +53,8 @@ FILES = [
     "docs/missions-four-r1.md", "docs/missions-four-manual-acceptance.md",
     "docs/release-notes-0.2-four-missions.md",
     "docs/N7RT_CANLab_0.3_Tutoriel_Etudiant.pdf", "docs/README_CANLab_0.3.md", "docs/demarrage-5-minutes.md",
-    "docs/known-issues-0.3.md", "docs/stm32-toolchain-windows.md", "DEMARRER_ICI.md",
+    "docs/known-issues-0.3.md", "docs/stm32-toolchain-windows.md",
+    "docs/stm32-toolchain-windows.html", "DEMARRER_ICI.md", "DEMARRER_ICI.html", "tools/docs/build_guide_html.py",
 ]
 
 # Directory trees: (root, file patterns relative to the root; None = every file).

@@ -327,6 +327,7 @@ def flash_image(elf: Path, serial: str, uid: str, expected_sha256: str | None = 
     if _linked(elf) or not elf.is_file() or elf.stat().st_size > 8 * 1024 * 1024:
         raise IdeError("Image de compilation absente ou invalide.")
     bin_dir = _require("gcc").parent
+    _require("programmer")  # before the probe list, which would otherwise fail on the bench tool's English message
     _sdk_check(bin_dir)
     with tempfile.TemporaryDirectory(prefix="n7rt-student-flash-") as name:
         tmp = Path(name)

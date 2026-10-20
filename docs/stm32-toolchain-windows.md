@@ -10,11 +10,13 @@ La page **Code STM32** de CAN Lab compile votre décodeur et programme la carte 
 
 Sans eux, l'application s'ouvre et le Cockpit, le Physical Lab et la fiche fonctionnent : seuls **Compiler** et **Flasher** sont refusés, avec un message qui nomme l'outil manquant et renvoie à ce document.
 
+Le même parcours, avec l'explication du `PATH` et la suite du TP, est au chapitre 2 de [DEMARRER_ICI.md](../DEMARRER_ICI.md) (copie lisible hors ligne : `DEMARRER_ICI.html`, à la racine de l'archive).
+
 Toutes les commandes ci-dessous se tapent dans **PowerShell**. Pour l'ouvrir dans le dossier de CAN Lab : dans l'Explorateur, ouvrez le dossier décompressé (celui qui contient `n7rt-can-lab.exe`), clic droit dans une zone vide, **Ouvrir dans le Terminal** (Windows 11), ou tapez `powershell` dans la barre d'adresse puis Entrée (Windows 10).
 
 ## 1. Python
 
-1. Téléchargez l'installateur Windows 64 bits sur <https://www.python.org/downloads/windows/> (« Windows installer (64-bit) », version 3.11, 3.12 ou plus récente).
+1. Téléchargez l'installateur Windows 64 bits sur <https://www.python.org/downloads/windows/> (« Windows installer (64-bit) » d'une version 3.12 ou 3.13 ; toute version 3.11 ou plus récente fonctionne).
 2. Au premier écran de l'installateur, **cochez « Add python.exe to PATH »**, puis **Install Now**. Les droits administrateur ne sont pas nécessaires.
 3. **Fermez CAN Lab s'il est ouvert, puis relancez-le** : une application ne voit un nouveau programme du `PATH` qu'après son redémarrage.
 4. Dans un nouveau PowerShell, vérifiez :
@@ -84,6 +86,8 @@ $bin = "C:\Users\<vous>\arm-gnu-toolchain\bin"
 [Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";" + $bin, "User")
 ```
 
+N'utilisez jamais `setx PATH "%PATH%;…"` : cette commande tronque le `PATH` à 1024 caractères et y recopie le `PATH` du système.
+
 Ouvrez ensuite un **nouveau** PowerShell pour vérifier : une fenêtre déjà ouverte garde l'ancien `PATH`. Python, lui, est lancé par CAN Lab avec le `PATH` du démarrage de l'application : après avoir installé Python ou modifié son `PATH`, **relancez CAN Lab**.
 
 ## 5. Diagnostic
@@ -124,6 +128,7 @@ Réponse attendue, carte branchée : un bloc `ST-Link Probe 0 :` avec `ST-LINK S
 | « Compilateur arm-none-eabi-gcc introuvable… » | aucun compilateur aux emplacements de la section 4 | Section 2, puis **Compiler** de nouveau |
 | « STM32_Programmer_CLI introuvable… » | aucun STM32CubeProgrammer aux emplacements de la section 4 | Section 3, puis **Flasher** de nouveau |
 | « L'outil de compilation (Python) s'est arrêté sans réponse… » | Python a démarré mais le helper n'a pas pu répondre (installation de Python incomplète, archive mal décompressée) | Commande `inventory` de la section 5 : son message d'erreur dit ce qui manque. Vérifiez que `tools\stm32\` est bien à côté de `n7rt-can-lab.exe` |
+| « [Errno 2] No such file or directory: … » | un fichier de l'archive manque : dossier extrait dans Téléchargements ou un dossier temporaire, en partie vidé par le nettoyage automatique de Windows (les fichiers de l'archive sont datés du 01/01/1980), ou fichiers déplacés | Supprimez ce dossier et extrayez de nouveau **toute** l'archive dans `Documents` |
 | « Projet étudiant introuvable : placez le SDK et les outils à côté de l'application. » | l'exécutable a été lancé depuis l'archive sans la décompresser, ou déplacé seul | Décompressez **toute** l'archive (**Extraire tout**) et lancez `n7rt-can-lab.exe` depuis le dossier obtenu |
 | « ST-LINK inaccessible ou délai dépassé ; reconnectez la carte. » | sonde débranchée, utilisée par un autre programme (STM32CubeProgrammer ou STM32CubeIDE ouvert), ou pilote absent | Fermez les autres outils ST, rebranchez la carte, vérifiez avec `-l st` (section 5) |
 | « Le runtime de la carte diffère du SDK ; seul un encadrant peut le réinstaller. » | la carte n'a pas le runtime N7RT de cette version | Rendez la carte à votre encadrant : vous ne pouvez pas installer le runtime vous-même |
