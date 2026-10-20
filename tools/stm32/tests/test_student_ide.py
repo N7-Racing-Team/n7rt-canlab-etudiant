@@ -254,3 +254,17 @@ def test_archive_root_sdk_builds_outside_source_tree(tmp_path, pin_location):
     assert done.returncode == 0 and result["ok"], result
     assert result["artifact"]["student_crc32"] == 0x5CBC80B3
     assert (workspace / "build/student.bin").stat().st_size == 260
+
+
+@pytest.mark.parametrize("key, operation", [("gcc", "build"), ("programmer", "flash")])
+def test_missing_tool_is_explained_in_french_with_the_shipped_guide(project, monkeypatch, capsys, key, operation):
+    real = ide.lab.find_tool
+    monkeypatch.setattr(ide.lab, "find_tool", lambda k: None if k == key else real(k))
+    if operation == "flash":
+        monkeypatch.setattr(ide, "flash", lambda *a: ide._programmer("-l"))
+    args = ["--workspace", str(project)] + (["--serial", "0", "--uid", "0", "--expected-sha256", "0"]
+                                             if operation == "flash" else [])
+    assert ide.main([operation, *args]) == 1
+    error = json.loads(capsys.readouterr().out)["error"]
+    assert error == ide.MISSING_TOOL[key] and "introuvable" in error
+    assert (Path(__file__).resolve().parents[3] / "docs/stm32-toolchain-windows.md").is_file()

@@ -27,6 +27,11 @@ const MAX_OUTPUT: usize = 4 * 1024 * 1024;
 const BUSY: &str = "Une compilation ou un chargement est en cours : attendez sa fin.";
 const FILE_ERROR: &str = "Fichier étudiant inaccessible : vérifiez les droits du dossier de l'application.";
 const TOOL_ERROR: &str = "Outil de compilation indisponible : installez les prérequis du projet étudiant.";
+// `python` absent from the PATH the application started with, or only the Microsoft Store alias (exit code 9009).
+const PYTHON_MISSING: &str = "Python introuvable : installez Python 3.11 ou plus récent en cochant « Add python.exe to PATH », \
+    puis fermez et relancez CAN Lab. Voir DEMARRER_ICI.md (prérequis) dans le dossier de l'application.";
+const TOOL_SILENT: &str = "L'outil de compilation (Python) s'est arrêté sans réponse : vérifiez Python 3.11 ou plus récent \
+    avec les commandes de docs/stm32-toolchain-windows.md (section Diagnostic), puis relancez l'opération.";
 
 #[derive(Debug, Clone, Default, Deserialize, Serialize)]
 pub struct Diagnostic {
@@ -361,7 +366,7 @@ fn sanitize_json(value: &mut serde_json::Value, workspace: &Path, root: &Path) {
 
 fn decode_report(bytes: &[u8], operation: &str, workspace: &Path, root: &Path, success: bool) -> Result<ToolResult, String> {
     if bytes.len() > MAX_OUTPUT { return Err("Sortie de compilation trop volumineuse.".into()); }
-    let mut report: ToolResult = serde_json::from_slice(bytes).map_err(|_| "Réponse de l'outil illisible : vérifiez ses prérequis.".to_owned())?;
+    let mut report: ToolResult = serde_json::from_slice(bytes).map_err(|_| TOOL_SILENT.to_owned())?;
     if report.operation != operation || (report.ok && !success) { return Err("L'outil n'a pas terminé correctement.".into()); }
     if operation == "build" && report.ok {
         let artifact = report.artifact.as_ref().ok_or("La compilation n'a produit aucune image étudiante validée.")?;
@@ -411,7 +416,8 @@ fn run_tool(root: &Path, workspace: &Path, operation: &str, extra: &[String]) ->
         use std::os::windows::process::CommandExt;
         command.creation_flags(0x08000000); // CREATE_NO_WINDOW
     }
-    let mut child = command.spawn().map_err(|_| TOOL_ERROR.to_owned())?;
+    let mut child = command.spawn()
+        .map_err(|e| if e.kind() == std::io::ErrorKind::NotFound { PYTHON_MISSING } else { TOOL_ERROR }.to_owned())?;
     let stdout = child.stdout.take().ok_or(TOOL_ERROR)?;
     let stderr = child.stderr.take().ok_or(TOOL_ERROR)?;
     let output = thread::spawn(move || capture(stdout));
@@ -429,8 +435,16 @@ fn run_tool(root: &Path, workspace: &Path, operation: &str, extra: &[String]) ->
         }
     };
     let bytes = output.join().map_err(|_| TOOL_ERROR.to_owned())?;
-    let _ = errors.join(); // Never show raw stderr (may contain a private machine path).
-    decode_report(&bytes, operation, workspace, root, status?.success())
+    let errors = errors.join().unwrap_or_default(); // Never shown (may contain a private machine path): only classified.
+    let status = status?;
+    if bytes.iter().all(u8::is_ascii_whitespace) { return Err(silent_failure(status.code(), &errors).into()); }
+    decode_report(&bytes, operation, workspace, root, status.success())
+}
+
+/// The helper printed no report: Python itself is missing (Store alias) or stopped before the helper could answer.
+fn silent_failure(code: Option<i32>, stderr: &[u8]) -> &'static str {
+    let text = String::from_utf8_lossy(stderr);
+    if code == Some(9009) || text.contains("Microsoft Store") { PYTHON_MISSING } else { TOOL_SILENT }
 }
 
 #[derive(Debug)]
@@ -551,6 +565,15 @@ mod tests {
     fn report() -> ToolResult {
         ToolResult { ok: true, operation: "build".into(), diagnostics: vec![], checks: vec![], message: None, log: None,
             artifact: Some(Artifact { sha256: "a".repeat(64), student_crc32: 123, flash_bytes: 1024, ram_bytes: 128 }) }
+    }
+
+    #[test]
+    fn a_silent_helper_says_what_to_check() {
+        assert_eq!(silent_failure(Some(9009), b""), PYTHON_MISSING);
+        let store = "Python est introuvable ; exécutez sans arguments pour installer depuis le Microsoft Store";
+        assert_eq!(silent_failure(Some(1), store.as_bytes()), PYTHON_MISSING);
+        assert_eq!(silent_failure(Some(1), b"SyntaxError: invalid syntax"), TOOL_SILENT);
+        assert!(TOOL_SILENT.contains("docs/stm32-toolchain-windows.md") && PYTHON_MISSING.contains("DEMARRER_ICI.md"));
     }
 
     #[test]

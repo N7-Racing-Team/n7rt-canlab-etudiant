@@ -73,6 +73,13 @@ TOOLS = {
     "programmer": ("STM32_Programmer_CLI", "programmer", "STM32CubeProgrammer/bin",
                    "com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer."),
 }
+# tool -> default directories of the standalone Windows installers, under %ProgramFiles% and %ProgramFiles(x86)%:
+# (install directory, "*" = one per version, newest first; its bin directory). Arm GNU Toolchain (and its former
+# name GNU Arm Embedded Toolchain), STM32CubeProgrammer.
+INSTALLER_DIRS = {
+    "gcc": (("Arm GNU Toolchain arm-none-eabi/*", "bin"), ("GNU Arm Embedded Toolchain/*", "bin")),
+    "programmer": (("STMicroelectronics/STM32Cube/STM32CubeProgrammer", "bin"),),
+}
 
 EXPECTED_DEV_ID = 0x450          # STM32H742/743/750/753 line
 UID_ADDR = "0x1FF1E800"          # 96-bit unique ID, RM0433
@@ -113,6 +120,29 @@ def _tool_candidates(key: str):
     found = shutil.which(exe)
     if found:
         yield "PATH", Path(found)
+    found = shutil.which(exe, path=_registry_path()) if os.name == "nt" else None
+    if found:
+        yield "PATH (registry)", Path(found)
+    roots = {os.environ.get(v) for v in ("ProgramFiles", "ProgramFiles(x86)", "ProgramW6432")} - {None, ""}
+    for root in sorted(roots):
+        for pattern, bin_dir in INSTALLER_DIRS.get(key, ()):
+            for d in _newest_first(Path(root).glob(pattern)):
+                yield f"{Path(root).name}/{pattern.split('/')[0]}", d / bin_dir / exe
+
+
+def _registry_path() -> str:
+    """The user and system PATH as currently saved: a PATH edited after this process (or the application that
+    started it) was launched is seen without a restart."""
+    import winreg
+    parts = []
+    for hive, key in ((winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment"),
+                      (winreg.HKEY_CURRENT_USER, r"Environment")):
+        try:
+            with winreg.OpenKey(hive, key) as k:
+                parts.append(os.path.expandvars(str(winreg.QueryValueEx(k, "Path")[0])))
+        except OSError:
+            pass
+    return os.pathsep.join(parts)
 
 
 _tool_cache: dict[str, tuple[str, Path] | None] = {}

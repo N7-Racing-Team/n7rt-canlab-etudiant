@@ -55,6 +55,7 @@ export function closeDialog(id: string, title: string, message: string, offer: b
   cancel.type = "button"; cancel.id = `${id}-cancel`;
   cancel.addEventListener("click", () => dialog.close("cancel"));
   if (offer) {
+    dialog.classList.add("dialog--wide"); // three buttons side by side
     const discard = el("button", "btn btn--danger", "Fermer sans enregistrer");
     discard.type = "button"; discard.id = `${id}-discard`;
     // the second click of a double click on a previous dialog (same size, same buttons) never discards this one

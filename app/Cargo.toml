@@ -3,7 +3,7 @@ resolver = "2"
 members = ["crates/n7rt-link", "crates/n7rt-solver", "crates/n7rt-circuit", "crates/n7rt-lab", "crates/n7rt-vehicle", "crates/n7rt-seal", "crates/n7rt-tool", "src-tauri"]
 
 [workspace.package]
-version = "0.3.0"
+version = "0.3.1"
 edition = "2021"
 license = "LicenseRef-N7RT-Proprietary"
 publish = false

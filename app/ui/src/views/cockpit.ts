@@ -79,6 +79,8 @@ export class Cockpit implements View {
   private mission: MissionView | null = null;
   private missionKey = "";
   private labels = new Map<number, SlotLabel>();
+  /** The session whose frames are shown normally: the running one, else the one of the newest frame. */
+  private current: number | null = null;
 
   constructor(private perf: UiPerf, private shell: Shell, private store: Store) {}
 
@@ -222,6 +224,7 @@ export class Cockpit implements View {
     if (store.dirty.status && store.status) this.renderStatus(store);
     if (store.dirty.stats && store.stats) this.renderStats(store);
     if (store.dirty.rows) this.renderRows(store.newRows);
+    if (store.dirty.status || store.dirty.rows) this.markPastRows(store);
     if (store.dirty.slots) this.renderSlots(store);
     if (store.dirty.logs) this.renderLogs(store);
     if (store.dirty.errors) this.renderErrors(store);
@@ -440,8 +443,34 @@ export class Cockpit implements View {
     c[9].textContent = r.outcome === "result" ? String(r.cycles) : "";
     c[10].textContent = r.rtt_us !== null ? msText(r.rtt_us, 2) : "";
     this.shown.set(tr, r);
+    this.markPast(tr, r);
     const sel = this.selected !== null && rowKey(this.selected) === rowKey(r);
     if (tr.classList.contains("selected") !== sel) tr.classList.toggle("selected", sel);
+  }
+
+  /** A frame of another session than the current one is greyed, with its session as title: the session column is
+   * hidden on narrow windows, and a new session does not clear the table. */
+  private markPast(tr: HTMLTableRowElement, r: FrameRow): void {
+    const past = this.current !== null && r.session_id !== this.current;
+    if (tr.classList.contains("past") !== past) tr.classList.toggle("past", past);
+    const title = past ? `Session précédente (${sessionText(r.session_id)})` : "";
+    if (tr.title !== title) tr.title = title;
+  }
+
+  private markPastRows(store: Store): void {
+    const newest = store.rows.length ? store.rows[store.rows.length - 1].session_id : null;
+    const current = store.status?.session?.id ?? newest;
+    if (current !== this.current) {
+      this.current = current;
+      for (const tr of Array.from($("#frames tbody").children) as HTMLTableRowElement[]) {
+        const row = this.shown.get(tr);
+        if (row) this.markPast(tr, row);
+      }
+    }
+    // sessions never interleave: the oldest kept frame tells whether an earlier session is still in the table
+    const past = current !== null && store.rows.length > 0 && store.rows[0].session_id !== current;
+    const legend = $("#frames-past");
+    if (legend.hidden !== !past) legend.hidden = !past;
   }
 
   private select(r: FrameRow): void {

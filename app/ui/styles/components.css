@@ -279,6 +279,9 @@
 }
 .grid-table tbody tr:hover td { background: var(--bg-hover); }
 .grid-table tbody tr.selected td { background: var(--accent-sel); }
+/* a frame of an earlier session (the session column may be hidden): greyed, legend in the head */
+#frames tbody tr.past td { color: var(--text-3); }
+.frames-past[hidden] { display: none; }
 .grid-table tbody tr.selected td:first-child { box-shadow: none; border-left: 2px solid var(--accent); }
 .grid-table .num { text-align: right; }
 .grid-table .dim { color: var(--text-3); }
@@ -432,7 +435,8 @@
 .dialog--wide { width: 560px; }
 .dialog::backdrop { background: var(--bg-app); opacity: 0.7; }
 .dialog-title { font-size: var(--fs-s); font-weight: var(--fw-semibold); color: var(--text-2); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
-.dialog-actions { justify-content: flex-end; }
+/* buttons wrap rather than overflow the dialog's left edge (nowrap labels, flex-end) */
+.dialog-actions { justify-content: flex-end; flex-wrap: wrap; }
 .dialog-table { max-height: 240px; overflow: auto; border: var(--bw) solid var(--line); }
 .dialog-table[hidden] { display: none; }
 .packs-table th:nth-child(1) { width: 72px; }

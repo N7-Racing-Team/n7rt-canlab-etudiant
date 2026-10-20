@@ -1,7 +1,11 @@
 N7RT CAN Lab - archive étudiant (Windows 10/11, 64 bits)
 ========================================================
 
+COMMENCEZ PAR DEMARRER_ICI.md : le parcours complet en autonomie (prérequis, carte NUCLEO,
+compilation, programmation, pack et code du groupe, étapes E0 à E5, sauvegarde, dépannage).
+
 Contenu
+  DEMARRER_ICI.md          le guide de démarrage, à lire en premier
   n7rt-can-lab.exe         l'application, édition publique (garder WebView2Loader.dll et library\ à côté)
   WebView2Loader.dll       composant WebView2 de l'application
   N7RT_CANLab_Student\     le SDK public et le projet de secours STM32CubeIDE
@@ -22,7 +26,8 @@ Contenu
 2. Code STM32 : écrire, compiler et programmer
    Installer séparément Python 3.11 ou plus récent (commande python), la chaîne GNU ARM
    contenant arm-none-eabi-gcc et STM32CubeProgrammer. Aucun Python ni compilateur n'est
-   embarqué. Depuis ce dossier, installer la dépendance du helper :
+   embarqué. Installation, PATH et diagnostic : docs\stm32-toolchain-windows.md.
+   Depuis ce dossier, installer la dépendance du helper :
      python -m pip install -r .\requirements-student-ide.txt
    Ouvrir « Code STM32 », modifier student_decoder.c ou student_decoder.h et « Enregistrer ».
    Cliquer « Compiler » et corriger les diagnostics de « Problèmes ».

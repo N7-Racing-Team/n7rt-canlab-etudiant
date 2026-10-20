@@ -67,6 +67,15 @@ export function cursorPosition(source: string, offset: number): { line: number; 
 }
 
 /** An outline of student's function declarations, never a file browser. */
+/** The banner of a failed build or flash: the generic text when the compiler located problems in the student files,
+ * else the first line of the helper's own message (a missing tool or Python, the ST-LINK), which says what to do. */
+export function failureText(result: { message?: string; diagnostics: { file?: string | null }[] } | null | undefined,
+  fallback: string): string {
+  if (!result || result.diagnostics.some((d) => d.file)) return fallback;
+  const first = (result.message ?? "").split("\n")[0].trim();
+  return first || fallback;
+}
+
 export function outline(source: string): { name: string; line: number }[] {
   const plain = tokenize(source).map((t) => t.kind === "comment" || t.kind === "string" || t.kind === "preprocessor" ? t.text.replace(/[^\n]/g, " ") : t.text).join("");
   const rows: { name: string; line: number }[] = [];

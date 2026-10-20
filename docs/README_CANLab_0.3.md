@@ -13,8 +13,11 @@ encadrants et ne figurent jamais dans l'archive étudiante.
 
 ## Pour les étudiants
 
-Commencez par `docs\demarrage-5-minutes.md` (cinq minutes), puis gardez le tutoriel PDF ouvert pendant la première
-séance. Les problèmes connus et leurs contournements sont dans `docs\known-issues-0.3.md`.
+Commencez par `DEMARRER_ICI.md`, à la racine de l'archive : le parcours complet en autonomie, du téléchargement à la
+clôture, avec les prérequis, la sauvegarde et le dépannage. `docs\demarrage-5-minutes.md` le résume sur une page ;
+gardez le tutoriel PDF ouvert pendant la première séance. L'installation et le diagnostic de Python, du compilateur et
+de STM32CubeProgrammer sont dans `docs\stm32-toolchain-windows.md`. Les problèmes connus et leurs contournements sont
+dans `docs\known-issues-0.3.md`.
 
 ## Pour les encadrants
 

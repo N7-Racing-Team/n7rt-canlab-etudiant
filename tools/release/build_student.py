@@ -75,6 +75,8 @@ STUDENT_DOCS = (
     # the student tutorial is the PDF (docs/pdf/, tools/docs/build_pdf.py); the documentation index lists the five
     # documents of the release (the four instructor guides are only in the instructor archive)
     "N7RT_CANLab_0.3_Tutoriel_Etudiant.pdf", "README_CANLab_0.3.md", "demarrage-5-minutes.md", "known-issues-0.3.md",
+    # installation and diagnostic of the build tools, at the path the Code STM32 messages give
+    "stm32-toolchain-windows.md",
 )
 STUDENT_IMAGE_PATTERNS = [f"{folder}/*.{extension}"
                           for folder in ("can-lab-ui", "physical-lab", "inapp-student-ide")
@@ -325,6 +327,7 @@ def student_sources(exe: Path) -> dict[str, Path]:
     sources.update(tree(ROOT / "library", "library", ["README.md", "links.json", "*/manifest.json"]))
     sources.update(tree(ROOT / "shared/missions", "shared/missions", ["*/enonce.json"]))
     sources["LISEZMOI.txt"] = TEMPLATES / "LISEZMOI.txt"
+    sources["DEMARRER_ICI.md"] = ROOT / "DEMARRER_ICI.md"
     missing = [name for name, path in sources.items() if not path.is_file()]
     if missing:
         fail("missing student archive resources: " + ", ".join(sorted(missing)))

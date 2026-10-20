@@ -15,7 +15,7 @@ import type { MissionView, Status } from "../types";
 import { closeDialog, ficheUnsaved, settleFiche, type CloseChoice } from "../views/unsaved";
 import { ide, type Diagnostic, type IdeView, type ToolResult } from "./api";
 import { flashRefusal } from "./controls";
-import { FILES, compilerPositionOffset, cursorPosition, outline, positionOffset, type StudentFile } from "./model";
+import { FILES, compilerPositionOffset, cursorPosition, failureText, outline, positionOffset, type StudentFile } from "./model";
 
 const MAX_SOURCE_BYTES = 256 * 1024;
 const PHASE = { idle: "Prêt", building: "Compilation en cours…", flashing: "Programmation de la zone étudiante…", reconnecting: "Reconnexion et vérification de la carte…" };
@@ -261,7 +261,7 @@ export class StudentIde {
           this.appendConsole("Compilation de la source enregistrée…");
           this.view = await ide.build();
           this.showResult(this.view.build);
-          if (!this.view.build?.ok) { this.error = "Compilation échouée. Corrigez les problèmes indiqués."; return; }
+          if (!this.view.build?.ok) { this.error = failureText(this.view.build, "Compilation échouée. Corrigez les problèmes indiqués."); return; }
         }
         if (operation === "flash" || operation === "both") {
           const refusal = flashRefusal(this.view, this.modified, this.board, this.checking);
@@ -269,7 +269,7 @@ export class StudentIde {
           this.appendConsole("Flash de la zone étudiante, puis reconnexion…");
           this.view = await ide.flash();
           this.showResult(this.view.flash);
-          if (!this.view.flash?.ok) this.error = "Programmation ou vérification échouée. Consultez la console.";
+          if (!this.view.flash?.ok) this.error = failureText(this.view.flash, "Programmation ou vérification échouée. Consultez la console.");
         }
       }
       this.applyDiagnostics();

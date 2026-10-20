@@ -168,3 +168,44 @@ def test_reboot_detector_continuity() -> None:
     for i in range(4):
         d.feed(_beat(100_000 + 1000 * i), 10.0 + i)
     assert d.continuity(20.0) == {"uptime_ms": 103_000, "uptime_gain_ms": 3000, "host_elapsed_ms": 3000}
+
+
+@pytest.mark.parametrize("key, folder", [
+    ("gcc", "Arm GNU Toolchain arm-none-eabi/14.3 rel1/bin"),
+    ("gcc", "GNU Arm Embedded Toolchain/10 2021.10/bin"),
+    ("programmer", "STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin"),
+])
+def test_standalone_installers_are_found_without_path(tmp_path, monkeypatch, key, folder) -> None:
+    exe = tmp_path / "Program Files (x86)" / folder / (lab.TOOLS[key][0] + lab.EXE)
+    exe.parent.mkdir(parents=True)
+    exe.write_bytes(b"")
+    for name in ("ProgramFiles", "ProgramW6432", "LOCALAPPDATA", f"STM32LAB_{key.upper()}"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("ProgramFiles(x86)", str(tmp_path / "Program Files (x86)"))
+    monkeypatch.setenv("CUBE_BUNDLE_PATH", str(tmp_path / "bundles"))
+    monkeypatch.setattr(lab, "ST_ROOT", tmp_path / "ST")
+    monkeypatch.setattr(lab.shutil, "which", lambda *a, **k: None)
+    monkeypatch.setattr(lab, "_tool_cache", {})
+    assert lab.find_tool(key)[1] == exe
+
+
+def test_newest_installed_toolchain_wins(tmp_path, monkeypatch) -> None:
+    for version in ("12.2 rel1", "14.3 rel1", "13.3 rel1"):
+        exe = tmp_path / "Arm GNU Toolchain arm-none-eabi" / version / "bin" / ("arm-none-eabi-gcc" + lab.EXE)
+        exe.parent.mkdir(parents=True)
+        exe.write_bytes(b"")
+    monkeypatch.setenv("ProgramFiles", str(tmp_path))
+    monkeypatch.delenv("ProgramFiles(x86)", raising=False)
+    monkeypatch.delenv("ProgramW6432", raising=False)
+    monkeypatch.delenv("STM32LAB_GCC", raising=False)
+    monkeypatch.setenv("CUBE_BUNDLE_PATH", str(tmp_path / "bundles"))
+    monkeypatch.setattr(lab, "ST_ROOT", tmp_path / "ST")
+    monkeypatch.setattr(lab.shutil, "which", lambda *a, **k: None)
+    monkeypatch.setattr(lab, "_tool_cache", {})
+    assert lab.find_tool("gcc")[1].parts[-3] == "14.3 rel1"
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Windows registry")
+def test_registry_path_is_read_fresh() -> None:
+    # the saved user/system PATH, not this process's copy: a PATH edited after launch is seen
+    assert "Windows" in lab._registry_path()

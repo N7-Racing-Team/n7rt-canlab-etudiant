@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { compilerPositionOffset, cursorPosition, findMatches, outline, positionOffset, tokenize } from "./model";
+import { compilerPositionOffset, cursorPosition, failureText, findMatches, outline, positionOffset, tokenize } from "./model";
 
 describe("C editor", () => {
   it("preserves exact source text, including hostile markup, unicode and multiline comments", () => {
@@ -41,5 +41,20 @@ describe("C editor", () => {
     expect(compilerPositionOffset("é😀x", 1, 2)).toBe(0);
     expect(compilerPositionOffset("é😀x", 1, 4)).toBe(1);
     expect(compilerPositionOffset("é😀x", -1, -1)).toBe(0);
+  });
+});
+
+describe("failed build or flash banner", () => {
+  const generic = "Compilation échouée. Corrigez les problèmes indiqués.";
+  it("names the missing tool instead of pointing at the student's code", () => {
+    const missing = "Compilateur arm-none-eabi-gcc introuvable : installez Arm GNU Toolchain (arm-none-eabi).";
+    expect(failureText({ message: missing, diagnostics: [{ file: null }] }, generic)).toBe(missing);
+    expect(failureText({ message: "ST-LINK : commande refusée.\n    Error: no probe", diagnostics: [] }, generic))
+      .toBe("ST-LINK : commande refusée.");
+  });
+  it("keeps the generic text when the compiler located problems, or without a message", () => {
+    expect(failureText({ message: "Compilation refusée.", diagnostics: [{ file: "student_decoder.c" }] }, generic)).toBe(generic);
+    expect(failureText({ diagnostics: [] }, generic)).toBe(generic);
+    expect(failureText(null, generic)).toBe(generic);
   });
 });

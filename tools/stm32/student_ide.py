@@ -20,6 +20,13 @@ import tempfile
 import zlib
 from pathlib import Path
 
+if sys.version_info < (3, 11):  # the application shows this report instead of a Python traceback
+    print(json.dumps({"ok": False, "operation": sys.argv[1] if len(sys.argv) > 1 else "", "diagnostics": [],
+                      "checks": [], "error": f"Python {sys.version_info[0]}.{sys.version_info[1]} trop ancien : "
+                      "installez Python 3.11 ou plus récent, puis fermez et relancez CAN Lab (voir DEMARRER_ICI.md)."},
+                     ensure_ascii=False))
+    sys.exit(1)
+
 import n7rt_sdk as sdk
 import stm32lab as lab
 
@@ -40,6 +47,22 @@ CFLAGS = ["-mcpu=cortex-m7", "-mthumb", "-mfpu=fpv5-d16", "-mfloat-abi=hard",
 
 class IdeError(Exception):
     pass
+
+
+# A missing tool names what to install and the guide shipped with the application (path relative to its folder).
+MISSING_TOOL = {
+    "gcc": "Compilateur arm-none-eabi-gcc introuvable : installez Arm GNU Toolchain (arm-none-eabi), "
+           "puis relancez la compilation. Installation et diagnostic : docs/stm32-toolchain-windows.md.",
+    "programmer": "STM32_Programmer_CLI introuvable : installez STM32CubeProgrammer, puis relancez le chargement. "
+                  "Installation et diagnostic : docs/stm32-toolchain-windows.md.",
+}
+
+
+def _require(key: str) -> Path:
+    found = lab.find_tool(key)
+    if not found:
+        raise IdeError(MISSING_TOOL[key])
+    return found[1]
 
 
 def _digest(data: bytes) -> str:
@@ -219,7 +242,7 @@ def build(path: Path) -> dict:
             raise IdeError("Un fichier de compilation ne peut pas être un lien.")
         artifact.unlink(missing_ok=True)
     files = _sources(workspace)
-    bin_dir = lab.require_tool("gcc").parent
+    bin_dir = _require("gcc").parent
     checks = _sdk_check(bin_dir)
     gcc = sdk._tool(bin_dir, "gcc")
     with tempfile.TemporaryDirectory(prefix=".ide-build-", dir=workspace) as name:
@@ -255,7 +278,7 @@ def build(path: Path) -> dict:
 
 def _programmer(*args: str) -> str:
     try:
-        done = _execute([lab.require_tool("programmer"), *args], timeout=45)
+        done = _execute([_require("programmer"), *args], timeout=45)
     except (OSError, subprocess.TimeoutExpired) as exc:
         raise IdeError("ST-LINK inaccessible ou délai dépassé ; reconnectez la carte.") from exc
     out = done.stdout + done.stderr
@@ -303,7 +326,7 @@ def flash_image(elf: Path, serial: str, uid: str, expected_sha256: str | None = 
         raise IdeError("Identité ST-LINK/MCU invalide ; aucun téléversement.")
     if _linked(elf) or not elf.is_file() or elf.stat().st_size > 8 * 1024 * 1024:
         raise IdeError("Image de compilation absente ou invalide.")
-    bin_dir = lab.require_tool("gcc").parent
+    bin_dir = _require("gcc").parent
     _sdk_check(bin_dir)
     with tempfile.TemporaryDirectory(prefix="n7rt-student-flash-") as name:
         tmp = Path(name)
