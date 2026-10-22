@@ -32,7 +32,7 @@ Contenu
      python -m pip install -r .\requirements-student-ide.txt
    Ouvrir « Code STM32 », modifier student_decoder.c ou student_decoder.h et « Enregistrer ».
    Cliquer « Compiler » et corriger les diagnostics de « Problèmes ».
-   Dans le Cockpit, choisir et connecter une NUCLEO-H753ZI sur ST-LINK (CN1), attendre la
+   Dans le Cockpit, choisir et connecter la carte (NUCLEO-H753ZI ou NUCLEO-G0B1RE) sur ST-LINK, attendre la
    vérification du runtime et arrêter la session. Revenir à Code STM32 et « Flasher » ou
    « Compiler + flasher ». La carte est reconnectée après programmation de la zone étudiante.
    Toute modification sauvegardée exige une nouvelle compilation. Vos deux fichiers restent

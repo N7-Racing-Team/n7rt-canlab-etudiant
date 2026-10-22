@@ -1,6 +1,6 @@
 # Outils de compilation et de programmation sous Windows (CAN Lab 0.3)
 
-La page **Code STM32** de CAN Lab compile votre décodeur et programme la carte NUCLEO-H753ZI avec trois outils que vous installez vous-même, une seule fois :
+La page **Code STM32** de CAN Lab compile votre décodeur et programme la carte (NUCLEO-H753ZI ou NUCLEO-G0B1RE) avec trois outils que vous installez vous-même, une seule fois :
 
 | Outil | Rôle | Version vérifiée |
 |---|---|---|
@@ -109,7 +109,7 @@ Ce que **CAN Lab** trouve réellement, avec la même recherche que **Compiler** 
 python .\tools\stm32\student_ide.py inventory
 ```
 
-La réponse est une ligne JSON. `"gcc": {"available": true, "path": "…arm-none-eabi-gcc.exe"}` et `"programmer": {"available": true, "path": "…STM32_Programmer_CLI.exe"}` : les deux outils sont trouvés. `"available": false` : installez l'outil (sections 2 et 3). Carte branchée, la liste `"probes"` montre la sonde ST-LINK, avec `"board": "NUCLEO-H753ZI"` ; une liste vide, carte branchée : câble USB de charge seule, autre port USB, ou pilote ST-LINK absent (réinstallez STM32CubeProgrammer en acceptant les pilotes). `"error": "No module named 'serial'"` : refaites la dernière commande de la section 1.
+La réponse est une ligne JSON. `"gcc": {"available": true, "path": "…arm-none-eabi-gcc.exe"}` et `"programmer": {"available": true, "path": "…STM32_Programmer_CLI.exe"}` : les deux outils sont trouvés. `"available": false` : installez l'outil (sections 2 et 3). Carte branchée, la liste `"probes"` montre la sonde ST-LINK, avec `"board": "NUCLEO-H753ZI"` ou `"NUCLEO-G0B1RE"` ; une liste vide, carte branchée : câble USB de charge seule, autre port USB, ou pilote ST-LINK absent (réinstallez STM32CubeProgrammer en acceptant les pilotes). `"error": "No module named 'serial'"` : refaites la dernière commande de la section 1.
 
 La sonde vue par STM32CubeProgrammer lui-même :
 
@@ -117,7 +117,7 @@ La sonde vue par STM32CubeProgrammer lui-même :
 & "C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe" -l st
 ```
 
-Réponse attendue, carte branchée : un bloc `ST-Link Probe 0 :` avec `ST-LINK SN`, `ST-LINK FW` et `Board Name : NUCLEO-H753ZI`. Fermez CAN Lab avant cette commande si la carte y est connectée.
+Réponse attendue, carte branchée : un bloc `ST-Link Probe 0 :` avec `ST-LINK SN`, `ST-LINK FW` et `Board Name : NUCLEO-H753ZI` (ou `NUCLEO-G0B1RE`). Fermez CAN Lab avant cette commande si la carte y est connectée.
 
 ## 6. Messages de Code STM32
 

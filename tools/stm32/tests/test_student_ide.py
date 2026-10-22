@@ -60,8 +60,17 @@ def test_gcc_build_template_keeps_runtime_out_of_upload(compiled):
     assert artifact["ram_bytes"] == 8192
     assert (path / "build/student.bin").stat().st_size == 260
     assert (path / "build/student.bin").read_bytes()[:4] == b"N7ST"
-    assert artifact["load_address"] == "0x08040000"
-    assert all(check["ok"] for check in artifact["checks"])
+    targets = artifact["targets"]
+    assert set(targets) == {"h753", "g0b1"}
+    assert targets["h753"]["student_crc32"] == 0x5CBC80B3 and targets["h753"]["flash_bytes"] == 260
+    g0 = targets["g0b1"]
+    assert (path / "build/student-g0b1.bin").stat().st_size == g0["flash_bytes"]
+    assert (path / "build/student-g0b1.bin").read_bytes()[:4] == b"N7ST"
+    assert g0["student_crc32"] != 0x5CBC80B3 and g0["board"] == "NUCLEO-G0B1RE" and g0["dev_id"] == 0x467
+    for image in targets.values():
+        assert image["load_address"] == "0x08040000"
+        assert all(check["ok"] for check in image["checks"])
+    assert artifact["sha256"] == ide._build_id(targets)
 
 
 @pytest.mark.parametrize("source", [
@@ -182,23 +191,27 @@ def test_wrong_artifact_digest_refuses_flash_before_hardware(compiled, tmp_path,
         ide.flash(path, SERIAL, UID, "0" * 64)
 
 
+@pytest.mark.parametrize("family", ["h753", "g0b1"])
 @pytest.mark.parametrize("failure", ["uid", "runtime", "write", "verification", "after", "none"])
 @needs_tools
-def test_flash_guards_and_exact_student_only_write(compiled, tmp_path, monkeypatch, failure):
+def test_flash_guards_and_exact_student_only_write(compiled, tmp_path, monkeypatch, failure, family):
     path, digest = copy_compiled(compiled, tmp_path)
+    fam = ide.sdk.family(family)
+    size = compiled[1]["artifact"]["targets"][family]["flash_bytes"]
     calls = []
     monkeypatch.setattr(ide.lab, "list_probes", lambda: [{"sn": SERIAL}])
     monkeypatch.setattr(ide.lab, "read_target", lambda sn: {
-        "dev_id": ide.lab.EXPECTED_DEV_ID, "uid": "FFFFFFFF-FFFFFFFF-FFFFFFFF" if failure == "uid" else UID})
-    monkeypatch.setattr(ide, "_runtime_hash", lambda sn, tmp, label:
+        "dev_id": fam.dev_id, "uid": "FFFFFFFF-FFFFFFFF-FFFFFFFF" if failure == "uid" else UID})
+    monkeypatch.setattr(ide, "_runtime_hash", lambda sn, tmp, label, f:
                         "0" * 64 if failure == "runtime" or (failure == "after" and label == "after")
-                        else ide.sdk.release()["image_sha256"])
+                        else ide.sdk.release(f)["image_sha256"])
     def programmer(*args):
         calls.append(args)
         if "-w" in args:
             assert "-e" not in args and "-ob" not in args and "-rst" not in args
             binary = Path(args[args.index("-w") + 1])
-            assert binary.name == "student.bin" and binary.stat().st_size == 260
+            assert binary.name == "student.bin" and binary.stat().st_size == size
+            assert binary.read_bytes() == (path / "build" / ide._elf_name(fam)).with_suffix(".bin").read_bytes()
             assert args[args.index("-w") + 2] == "0x08040000"
             if failure == "write":
                 raise ide.IdeError("write failed")
@@ -210,11 +223,26 @@ def test_flash_guards_and_exact_student_only_write(compiled, tmp_path, monkeypat
             ide.flash(path, SERIAL, UID, digest)
     else:
         result = ide.flash(path, SERIAL, UID, digest)
-        assert result["ok"] and result["runtime_unchanged"]
+        assert result["ok"] and result["runtime_unchanged"] and result["board"] == fam.board
+        assert result["artifact"]["student_crc32"] == compiled[1]["artifact"]["targets"][family]["student_crc32"]
     writes = [c for c in calls if "-w" in c]
     resets = [c for c in calls if "-rst" in c]
     assert len(writes) == (0 if failure in ("uid", "runtime") else 1)
     assert bool(resets) == (failure == "none")
+
+
+@needs_tools
+def test_unsupported_board_or_build_without_its_image_refuses_flash(compiled, tmp_path, monkeypatch):
+    path, digest = copy_compiled(compiled, tmp_path)
+    monkeypatch.setattr(ide.lab, "list_probes", lambda: [{"sn": SERIAL}])
+    monkeypatch.setattr(ide, "_programmer", lambda *a: pytest.fail("programmer started"))
+    monkeypatch.setattr(ide.lab, "read_target", lambda sn: {"dev_id": 0x413, "uid": UID})
+    with pytest.raises(ide.IdeError, match="non prise en charge"):
+        ide.flash(path, SERIAL, UID, digest)
+    monkeypatch.setattr(ide.lab, "read_target", lambda sn: {"dev_id": ide.sdk.G0B1.dev_id, "uid": UID})
+    (path / "build/student-g0b1.elf").unlink()
+    with pytest.raises(ide.IdeError, match="NUCLEO-G0B1RE"):
+        ide.flash(path, SERIAL, UID, digest)
 
 
 def test_main_error_is_machine_readable_json(project, capsys):
@@ -240,9 +268,10 @@ def test_archive_root_sdk_builds_outside_source_tree(tmp_path, pin_location):
         shutil.copyfile(Path(ide.__file__).parent / name, scripts / name)
     shutil.copytree(ide.sdk.PROJECT, package / ide.sdk.PROJECT_NAME,
                     ignore=shutil.ignore_patterns(ide.sdk.CONFIG, ".settings", "build"))
-    pin = package / pin_location
-    pin.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(ide.sdk.RELEASE_FILE, pin)
+    for fam in ide.sdk.FAMILIES:  # every board's pin, at the location under test
+        pin = package / pin_location.replace("runtime-release.json", fam.release_name)
+        pin.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(fam.release_file, pin)
     workspace = tmp_path / "profile"
     workspace.mkdir()
     for name in ide.SOURCE_NAMES:
@@ -254,6 +283,7 @@ def test_archive_root_sdk_builds_outside_source_tree(tmp_path, pin_location):
     assert done.returncode == 0 and result["ok"], result
     assert result["artifact"]["student_crc32"] == 0x5CBC80B3
     assert (workspace / "build/student.bin").stat().st_size == 260
+    assert (workspace / "build/student-g0b1.bin").is_file()
 
 
 @pytest.mark.parametrize("key, operation", [("gcc", "build"), ("programmer", "flash")])

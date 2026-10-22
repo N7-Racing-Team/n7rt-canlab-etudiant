@@ -50,6 +50,8 @@ TEMP_FILES = ("*.tmp", "*.temp", "*.orig", "*.rej", "*.bak", "*.swp", "*~")
 COMPILED_RESOURCES = (
     "firmware/n7rt_student/runtime-release.json",
     "firmware/n7rt_student/N7RT_CANLab_Student/n7rt/lib/n7rt_runtime.o",
+    "firmware/n7rt_student/runtime-release-g0b1.json",
+    "firmware/n7rt_student/N7RT_CANLab_Student/n7rt_g0b1/lib/n7rt_runtime.o",
     "firmware/n7rt_student/N7RT_CANLab_Student/student/student_decoder.c",
     "firmware/n7rt_student/N7RT_CANLab_Student/student/student_decoder.h",
     "shared/missions/apps/enonce.json",
@@ -62,6 +64,8 @@ SDK_RELEASE_FILES = (
     ".project", ".cproject", ".gitignore", "N7RT_CANLab_Student.launch", "LISEZMOI_ETUDIANT.txt",
     "student/student_decoder.c", "student/student_decoder.h", "n7rt/manifest.json", "n7rt/LISEZMOI.txt",
     "n7rt/include/n7rt.h", "n7rt/lib/n7rt_runtime.o", "n7rt/lib/libn7rt_glue.a", "n7rt/ld/N7RT_H753_student.ld",
+    "n7rt_g0b1/manifest.json", "n7rt_g0b1/LISEZMOI.txt", "n7rt_g0b1/include/n7rt.h", "n7rt_g0b1/lib/n7rt_runtime.o",
+    "n7rt_g0b1/lib/libn7rt_glue.a", "n7rt_g0b1/ld/N7RT_G0B1_student.ld",
 )
 STUDENT_HELPERS = ("student_ide.py", "n7rt_sdk.py", "stm32lab.py", "flash_decoder.py", "boards.json")
 STUDENT_DOCS = (
@@ -319,6 +323,7 @@ def student_sources(exe: Path) -> dict[str, Path]:
         sources[loader.name] = loader
     sources.update({f"{SDK.name}/{name}": SDK / name for name in SDK_RELEASE_FILES})
     sources["runtime-release.json"] = ROOT / "firmware/n7rt_student/runtime-release.json"
+    sources["runtime-release-g0b1.json"] = ROOT / "firmware/n7rt_student/runtime-release-g0b1.json"
     sources.update({f"tools/stm32/{name}": ROOT / "tools/stm32" / name for name in STUDENT_HELPERS})
     sources["requirements-student-ide.txt"] = ROOT / "tools/stm32/requirements-student-ide.txt"
     sources["CODEMIRROR-LICENSES.txt"] = ROOT / "app/CODEMIRROR-LICENSES.txt"

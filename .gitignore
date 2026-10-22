@@ -37,6 +37,7 @@ restricted/
 /cohorts/
 /missions/
 /firmware/stm32_h753_bringup/
+/firmware/stm32_g0b1_runtime/
 master.key
 auth.json
 

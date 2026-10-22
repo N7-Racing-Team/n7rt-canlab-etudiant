@@ -14,6 +14,7 @@
 
 import { e2e, mission } from "./bridge";
 import { $ } from "./dom";
+import { imageFor } from "./ide/api";
 import { activeIde } from "./ide/view";
 import { physView } from "./lab/view";
 import type { Edit, WorldQuantity } from "./lab/types";
@@ -347,10 +348,13 @@ export async function runProgression(ctx: ProgressionContext): Promise<void> {
     if (!editor.state?.build?.ok) fail(editor.failure || "compilation IDE échouée");
     await operate("#ide-flash");
     if (!editor.state?.flash?.ok) fail(editor.failure || "programmation IDE échouée");
-    const crc = editor.state.build.artifact?.student_crc32;
+    const artifact = editor.state.build.artifact;
     await until("CRC de la carte = compilation", () => {
-      const loaded = status().board?.student_crc32;
-      return !!loaded && parseInt(loaded.replace(/^0x/i, ""), 16) === crc && status().state === "READY";
+      // the image of the board as it reconnects: its family is unknown until its HELLO_ACK
+      const board = status().board;
+      const crc = board?.family ? imageFor(artifact, board.family)?.student_crc32 : undefined;
+      return !!board?.student_crc32 && crc !== undefined && parseInt(board.student_crc32.replace(/^0x/i, ""), 16) === crc
+        && status().state === "READY";
     }, 20000);
     await until("l'IDE confirme le CRC", () => $("#ide-match").textContent === "La carte exécute la compilation actuelle.", 5000);
     ctx.watchBoard();

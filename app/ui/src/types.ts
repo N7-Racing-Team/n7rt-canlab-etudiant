@@ -25,6 +25,10 @@ export interface PortInfo {
 }
 
 export interface BoardIdentity {
+  /** "NUCLEO-H753ZI", "NUCLEO-G0B1RE", or "" for an unsupported microcontroller. */
+  board: string;
+  /** "h753", "g0b1", or "". */
+  family: string;
   runtime: string;
   build_id: string;
   abi: string;

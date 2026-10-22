@@ -167,6 +167,28 @@ Smoke, sonde à 1 000/s et soak V1 ont été refaits sur l'image corrigée, qui 
 - débranchement USB physique : seule la fermeture et la réouverture du port ont été testées ;
 - build CubeIDE du bring-up : les modifications de `src/` sont gardées par `#if`, mais le build headless CubeIDE n'a pas été relancé.
 
+## Cible NUCLEO-G0B1RE (2026-10-21)
+
+Même runtime 0.1.0, même N7RT-Link v0 et même ABI 1.0 sur une NUCLEO-G0B1RE (STM32G0B1RET6, Cortex-M0+ à 64 MHz,
+sans FPU). Les sources portables (cœur, codec, SHA-256, glue étudiante, étudiant de test) sont celles de la H753, sans
+modification ; seule la couche carte change (sources dans le dépôt encadrant, `firmware/stm32_g0b1_runtime`). Pin :
+`firmware/n7rt_student/runtime-release-g0b1.json` (build `082918d78ef5becd`, 15 532 o).
+
+| Point | NUCLEO-H753ZI | NUCLEO-G0B1RE |
+|---|---|---|
+| Runtime / étudiant (flash) | 0x08000000 / 0x08040000, 768 Ko | 0x08000000 (banque 1) / 0x08040000 (banque 2), 256 Ko |
+| RAM étudiante | 0x20000000 (DTCM), 128 Ko | 0x2000C000, 96 Ko |
+| Liaison | USART3 (PD8/PD9), ST-LINK V3E | USART2 (PA2/PA3), ST-LINK V2-1 |
+| Verrou du runtime | BASEPRI | masquage NVIC de l'IRQ du heartbeat (pas de BASEPRI sur M0+) |
+| Compteur de cycles | DWT | TIM2 32 bits à 64 MHz |
+| Rapport de faute | CFSR, HFSR, MMFAR, BFAR, PC, LR, xPSR | PC, LR, xPSR (registres d'état absents : 0) |
+| `reset_flags` | RCC_RSR (logiciel = bit 24) | RCC_CSR (logiciel = bit 28) |
+| Préchargement flash | sans objet | **désactivé** : errata G0B1 2.2.10, un appel du code étudiant (banque 2) vers l'API (banque 1) exécutait des instructions corrompues |
+
+Sur la carte G : smoke 19/19, sonde à 1 000 trames/s pendant 1 min sans perte. Soak V1 (600 trames/s, 8 publications
+par trame) : voir le pin pour la preuve retenue et `known-issues-0.3.md` pour les pertes rares observées sur la liaison
+ST-LINK V2-1.
+
 ## Suite : S1.3
 
 Fait le 2026-10-04 : ce runtime, inchangé, est distribué dans le SDK étudiant. Voir [n7rt-student-sdk-v0.md](n7rt-student-sdk-v0.md).

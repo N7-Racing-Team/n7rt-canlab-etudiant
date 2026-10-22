@@ -1,12 +1,15 @@
-"""N7RT student SDK for NUCLEO-H753ZI (S1.3), used by stm32lab (sdk, build/flash/smoke-test --student).
+"""N7RT student SDK (S1.3), used by stm32lab (sdk, build/flash/smoke-test --student) and the editor.
 
-- generate(): package the S1.2 runtime release (pinned in firmware/n7rt_student/runtime-release.json)
-  into the CubeIDE template project: precompiled runtime object, ABI-tagged glue, public header,
+One SDK per board family, side by side in the template project: n7rt/ for NUCLEO-H753ZI (Cortex-M7),
+n7rt_g0b1/ for NUCLEO-G0B1RE (Cortex-M0+). The student source is the same for both.
+
+- generate(): package a runtime release (pinned in firmware/n7rt_student/runtime-release*.json)
+  into the template project: precompiled runtime object, ABI-tagged glue, public header,
   generated linker script, manifest. The runtime bytes are taken from the validated build, never
   recompiled; the generator refuses any image whose SHA-256 differs from the pin.
 - check_sdk(): the SDK files agree with each other and with the pin (no secret, no runtime source).
-- cubeide_build(): real STM32CubeIDE headless clean build of the template project.
-- student_image_report(): placement and integrity of the image CubeIDE produced.
+- cubeide_build(): real STM32CubeIDE headless clean build of the template project (H753 only).
+- student_image_report(): placement and integrity of a student image.
 """
 from __future__ import annotations
 
@@ -20,6 +23,7 @@ import subprocess
 import tempfile
 import zipfile
 import zlib
+from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -29,12 +33,8 @@ SOURCE_SDK_DIR = ROOT / "firmware" / "n7rt_student"
 # project at the archive root. Both layouts contain the same public SDK.
 SDK_DIR = (SOURCE_SDK_DIR if (SOURCE_SDK_DIR / PROJECT_NAME).is_dir()
            else ROOT if (ROOT / PROJECT_NAME).is_dir() else SOURCE_SDK_DIR)
-RELEASE_FILE = next((p for p in (SDK_DIR / "runtime-release.json",
-                               SOURCE_SDK_DIR / "runtime-release.json", ROOT / "runtime-release.json")
-                     if p.is_file()), SDK_DIR / "runtime-release.json")
 PROJECT = SDK_DIR / PROJECT_NAME
 CONFIG = "Debug"  # never "N7RT": it would be the same folder as n7rt/ on case-insensitive file systems
-N7RT = PROJECT / "n7rt"
 DIST = SDK_DIR / "dist"
 RUNTIME_HEADER = ROOT / "firmware" / "stm32_h753_bringup" / "runtime" / "include" / "n7rt.h"
 SDK_VERSION = "0.1.0"
@@ -42,28 +42,89 @@ EXE = ".exe" if os.name == "nt" else ""
 
 RUNTIME_BASE = 0x08000000
 STUDENT_HEADER = 0x08040000
-STUDENT_FLASH = (0x08040000, 0x08100000)
-STUDENT_RAM = (0x20000000, 0x20020000)
 API_TABLE = 0x08000400
-RUNTIME_SP = 0x24004000
 STUDENT_MAGIC = 0x5453374E
 HEAP_SIZE = 8 * 1024
 STUDENT_FILES = ("student/student_decoder.c", "student/student_decoder.h")
-GENERATED = ("include/n7rt.h", "lib/n7rt_runtime.o", "lib/libn7rt_glue.a", "ld/N7RT_H753_student.ld",
-             "LISEZMOI.txt")
 FORBIDDEN = ("dbc", "mapping", "seed", "secret", "answer", "solution", "expected_value", "scale", "offset")
+
+
+@dataclass(frozen=True)
+class Family:
+    """A supported board: its MCU identity, student memory map and SDK folder. Same ABI v1 for all:
+    runtime at 0x08000000, API table at 0x08000400, student header at 0x08040000."""
+    key: str
+    board: str
+    mcu: str
+    chip: str                      # part number of the linker script header
+    runtime_ram_label: str
+    dev_id: int                    # DBGMCU_IDCODE.DEV_ID
+    uid_addr: int                  # 96-bit unique ID
+    cpu_flags: tuple[str, ...]
+    student_flash: tuple[int, int]
+    student_ram: tuple[int, int]
+    ram_label: str
+    runtime_sp: int                # initial SP of the runtime vector table
+    sdk_dir: str
+    linker_script: str
+    release_name: str
+    sw_reset_bit: int              # software reset flag in the reset_flags of HELLO_ACK
+
+    @property
+    def n7rt(self) -> Path:
+        return PROJECT / self.sdk_dir
+
+    @property
+    def generated(self) -> tuple[str, ...]:
+        return ("include/n7rt.h", "lib/n7rt_runtime.o", "lib/libn7rt_glue.a", f"ld/{self.linker_script}",
+                "LISEZMOI.txt")
+
+    @property
+    def release_file(self) -> Path:
+        return next((p for p in (SDK_DIR / self.release_name, SOURCE_SDK_DIR / self.release_name,
+                                 ROOT / self.release_name) if p.is_file()), SDK_DIR / self.release_name)
+
+
+H753 = Family("h753", "NUCLEO-H753ZI", "STM32H753", "STM32H753ZI", "AXI SRAM", 0x450, 0x1FF1E800,
+              ("-mcpu=cortex-m7", "-mthumb", "-mfpu=fpv5-d16", "-mfloat-abi=hard"),
+              (0x08040000, 0x08100000), (0x20000000, 0x20020000), "DTCM 128 KB", 0x24004000,
+              "n7rt", "N7RT_H753_student.ld", "runtime-release.json", 1 << 24)  # RCC_RSR.SFTRSTF
+G0B1 = Family("g0b1", "NUCLEO-G0B1RE", "STM32G0B1", "STM32G0B1RE", "first 48 KB of SRAM", 0x467, 0x1FFF7590,
+              ("-mcpu=cortex-m0plus", "-mthumb", "-mfloat-abi=soft"),
+              (0x08040000, 0x08080000), (0x2000C000, 0x20024000), "SRAM 96 KB", 0x20002000,
+              "n7rt_g0b1", "N7RT_G0B1_student.ld", "runtime-release-g0b1.json", 1 << 28)  # RCC_CSR.SFTRSTF
+FAMILIES = (H753, G0B1)
+
+# H753 names kept for the bench tools written before the G0B1.
+N7RT = H753.n7rt
+RELEASE_FILE = H753.release_file
+STUDENT_FLASH = H753.student_flash
+STUDENT_RAM = H753.student_ram
+RUNTIME_SP = H753.runtime_sp
+GENERATED = H753.generated
 
 
 class SdkError(Exception):
     pass
 
 
+def family(key: str) -> Family:
+    found = next((f for f in FAMILIES if f.key == key), None)
+    if found is None:
+        raise SdkError(f"unknown board family '{key}' (known: {', '.join(f.key for f in FAMILIES)})")
+    return found
+
+
+def family_for_dev_id(dev_id: int) -> Family | None:
+    return next((f for f in FAMILIES if f.dev_id == dev_id), None)
+
+
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def release() -> dict:
-    return json.loads(RELEASE_FILE.read_text(encoding="utf-8"))
+def release(fam: Family = H753) -> dict:
+    return json.loads(fam.release_file.read_text(encoding="utf-8"))
 
 
 def version_tag(rel: dict) -> str:
@@ -102,20 +163,22 @@ def _sdk_header(rel: dict) -> str:
     return head + text[: -len(tail)] + block + tail
 
 
-def _linker_script(rel: dict, reset: int) -> str:
+def _linker_script(rel: dict, reset: int, fam: Family = H753) -> str:
     major, minor = rel["abi"]
     size = rel["image_size"]
     tag = version_tag(rel)
+    flash_kb = (fam.student_flash[1] - fam.student_flash[0]) // 1024
+    ram_kb = (fam.student_ram[1] - fam.student_ram[0]) // 1024
     return f"""\
 /*
- * N7RT student image, STM32H753ZI. Generated by `stm32lab sdk` (SDK {SDK_VERSION}, runtime {rel['runtime_version']},
+ * N7RT student image, {fam.chip}. Generated by `stm32lab sdk` (SDK {SDK_VERSION}, runtime {rel['runtime_version']},
  * ABI {major}.{minor}). Do not edit: the runtime reads the student header at 0x08040000 and the student
  * calls the runtime through its API table at 0x{API_TABLE:08X} (docs/can-lab-architecture.md 4.2).
  *
  *   RT_FLASH 0x08000000  precompiled runtime, exactly {size} bytes (SHA-256 {rel['image_sha256'][:16]}...)
- *   ST_FLASH 0x08040000  student header (64 B), student code and constants, 768 KB
- *   ST_RAM   0x20000000  student .data / .bss / heap ({HEAP_SIZE // 1024} KB), DTCM 128 KB
- * The runtime RAM (AXI SRAM) is not declared: nothing of the student image can be placed there.
+ *   ST_FLASH 0x08040000  student header (64 B), student code and constants, {flash_kb} KB
+ *   ST_RAM   0x{fam.student_ram[0]:08X}  student .data / .bss / heap ({HEAP_SIZE // 1024} KB), {fam.ram_label}
+ * The runtime RAM ({fam.runtime_ram_label}) is not declared: nothing of the student image can be placed there.
  */
 ENTRY(n7rt_runtime_reset)            /* 0x{reset:08X}: the runtime Reset_Handler */
 EXTERN(n7rt_student_header)
@@ -125,8 +188,8 @@ __n7rt_heap_size = {HEAP_SIZE};
 MEMORY
 {{
   RT_FLASH (rx) : ORIGIN = 0x08000000, LENGTH = {size}
-  ST_FLASH (rx) : ORIGIN = 0x08040000, LENGTH = 768K
-  ST_RAM   (rw) : ORIGIN = 0x20000000, LENGTH = 128K
+  ST_FLASH (rx) : ORIGIN = 0x08040000, LENGTH = {flash_kb}K
+  ST_RAM   (rw) : ORIGIN = 0x{fam.student_ram[0]:08X}, LENGTH = {ram_kb}K
 }}
 
 SECTIONS
@@ -188,7 +251,7 @@ ASSERT(DEFINED(n7rt_runtime_{tag}), "N7RT: n7rt/lib/n7rt_runtime.o is not runtim
 ASSERT(DEFINED(n7rt_runtime_abi_{major}) && DEFINED(n7rt_glue_abi_{major}), "N7RT: runtime, glue and linker script do not share ABI {major}")
 ASSERT(ADDR(.n7rt_runtime) == 0x08000000 && SIZEOF(.n7rt_runtime) == {size}, "N7RT: the runtime image must sit unchanged at 0x08000000 ({size} bytes)")
 ASSERT(ADDR(.n7rt_student_header) == 0x08040000 && SIZEOF(.n7rt_student_header) == 64, "N7RT: student header missing or misplaced (n7rt/lib/libn7rt_glue.a)")
-ASSERT(__n7rt_student_image_end <= 0x08100000, "N7RT: student image overflows its flash region")
+ASSERT(__n7rt_student_image_end <= 0x{fam.student_flash[1]:08X}, "N7RT: student image overflows its flash region")
 """
 
 
@@ -196,29 +259,30 @@ README = """\
 N7RT CAN Lab, SDK etudiant {sdk} (runtime {rt}, ABI {abi})
 ==========================================================
 
-NE RIEN MODIFIER dans ce dossier n7rt/ : il est verifie a chaque build et sur la carte.
+NE RIEN MODIFIER dans ce dossier {sdk_dir}/ : il est verifie a chaque build et sur la carte ({board}).
 
   include/n7rt.h              API etudiante : trame recue, publication, rejet, temps, log
   lib/n7rt_runtime.o          runtime N7RT precompile (place a 0x08000000, jamais recompile)
   lib/libn7rt_glue.a          liaison runtime <-> votre code (en-tete a 0x08040000)
-  ld/N7RT_H753_student.ld     carte memoire : votre code a partir de 0x08040000, vos donnees en DTCM
+  ld/{ld:<26}  carte memoire : votre code a partir de 0x08040000, vos donnees en {ram}
   manifest.json               versions et empreintes SHA-256 de ces fichiers
 
 Votre code : student/student_decoder.c et student/student_decoder.h, rien d'autre.
 """
 
 
-def generate(bin_dir: Path, runtime_image: bytes, build_id: str, student_archive: Path) -> dict:
+def generate(bin_dir: Path, runtime_image: bytes, build_id: str, student_archive: Path, fam: Family = H753) -> dict:
     """bin_dir: toolchain used for the runtime (GCC bundle); runtime_image: runtime region of the
     S1.2 build; student_archive: the S1.2 libn7rt_student.a (its glue object is reused as is)."""
-    rel = release()
+    rel = release(fam)
+    N7RT = fam.n7rt
     if len(runtime_image) != rel["image_size"] or sha256(runtime_image) != rel["image_sha256"]:
         raise SdkError(f"runtime image {len(runtime_image)} B / {sha256(runtime_image)[:16]} is not the validated "
-                       f"release {rel['image_size']} B / {rel['image_sha256'][:16]} (runtime-release.json)")
+                       f"release {rel['image_size']} B / {rel['image_sha256'][:16]} ({fam.release_name})")
     if build_id != rel["build_id"]:
         raise SdkError(f"runtime build id {build_id} differs from the release {rel['build_id']}")
     sp, reset = struct.unpack_from("<II", runtime_image, 0)
-    if sp != RUNTIME_SP or not (reset & 1) or not RUNTIME_BASE <= reset < RUNTIME_BASE + len(runtime_image):
+    if sp != fam.runtime_sp or not (reset & 1) or not RUNTIME_BASE <= reset < RUNTIME_BASE + len(runtime_image):
         raise SdkError(f"unexpected vector table: SP 0x{sp:08X}, reset 0x{reset:08X}")
     major, _ = rel["abi"]
     tag = version_tag(rel)
@@ -238,7 +302,7 @@ def generate(bin_dir: Path, runtime_image: bytes, build_id: str, student_archive
             f"    .global n7rt_runtime_abi_{major}\n    .set n7rt_runtime_abi_{major}, {major}\n"
             f"    .global n7rt_runtime_reset\n    .set n7rt_runtime_reset, 0x{reset:08X}\n",
             encoding="utf-8", newline="\n")
-        _run([gcc, "-c", "-mcpu=cortex-m7", "-mthumb", "-mfpu=fpv5-d16", "-mfloat-abi=hard",
+        _run([gcc, "-c", *fam.cpu_flags,
               "-x", "assembler-with-cpp", "n7rt_runtime.S", "-o", "n7rt_runtime.o"], cwd=tmp)
         shutil.copyfile(tmp / "n7rt_runtime.o", N7RT / "lib" / "n7rt_runtime.o")
         _run([ar, "x", student_archive, "n7rt_student_glue.c.obj"], cwd=tmp)
@@ -248,12 +312,14 @@ def generate(bin_dir: Path, runtime_image: bytes, build_id: str, student_archive
         glue_lib.unlink(missing_ok=True)
         _run([ar, "rcsD", glue_lib, tmp / "n7rt_glue.o"])
     (N7RT / "include" / "n7rt.h").write_text(_sdk_header(rel), encoding="utf-8", newline="\n")
-    (N7RT / "ld" / "N7RT_H753_student.ld").write_text(_linker_script(rel, reset), encoding="utf-8", newline="\n")
+    (N7RT / "ld" / fam.linker_script).write_text(_linker_script(rel, reset, fam), encoding="utf-8", newline="\n")
     (N7RT / "LISEZMOI.txt").write_text(README.format(sdk=SDK_VERSION, rt=rel["runtime_version"],
-                                                     abi=f"{major}.{rel['abi'][1]}"),
+                                                     abi=f"{major}.{rel['abi'][1]}", sdk_dir=fam.sdk_dir,
+                                                     board=fam.board, ld=fam.linker_script,
+                                                     ram="DTCM" if fam is H753 else "SRAM"),
                                        encoding="utf-8", newline="\n")
     manifest = {
-        "_doc": "N7RT student SDK manifest (generated by stm32lab sdk). Every n7rt/ file is listed with its SHA-256.",
+        "_doc": f"N7RT student SDK manifest (generated by stm32lab sdk). Every {fam.sdk_dir}/ file is listed with its SHA-256.",
         "sdk_version": SDK_VERSION,
         "runtime": {k: rel[k] for k in ("runtime_version", "build_id", "image_size", "image_sha256", "toolchain",
                                         "validated_on", "evidence")}
@@ -263,11 +329,11 @@ def generate(bin_dir: Path, runtime_image: bytes, build_id: str, student_archive
                 "symbols": {"runtime_version": f"n7rt_runtime_{tag}", "runtime_abi": f"n7rt_runtime_abi_{major}",
                             "glue_abi": f"n7rt_glue_abi_{major}", "entry": "n7rt_runtime_reset"}},
         "layout": {"runtime_flash": [f"0x{RUNTIME_BASE:08X}", rel["image_size"]],
-                   "student_flash": [f"0x{STUDENT_FLASH[0]:08X}", STUDENT_FLASH[1] - STUDENT_FLASH[0]],
-                   "student_ram": [f"0x{STUDENT_RAM[0]:08X}", STUDENT_RAM[1] - STUDENT_RAM[0]],
+                   "student_flash": [f"0x{fam.student_flash[0]:08X}", fam.student_flash[1] - fam.student_flash[0]],
+                   "student_ram": [f"0x{fam.student_ram[0]:08X}", fam.student_ram[1] - fam.student_ram[0]],
                    "student_heap": HEAP_SIZE},
         "student_files": list(STUDENT_FILES),
-        "files": {f"n7rt/{rel_path}": sha256((N7RT / rel_path).read_bytes()) for rel_path in GENERATED},
+        "files": {f"{fam.sdk_dir}/{rel_path}": sha256((N7RT / rel_path).read_bytes()) for rel_path in fam.generated},
     }
     (N7RT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
     return manifest
@@ -310,9 +376,10 @@ def runtime_bytes_from_object(bin_dir: Path, obj: Path) -> bytes:
         return out.read_bytes()
 
 
-def check_sdk(bin_dir: Path) -> list[tuple[str, bool, str]]:
-    """Consistency of the SDK shipped in the template project. No board, no CubeIDE."""
-    rel = release()
+def check_sdk(bin_dir: Path, fam: Family = H753) -> list[tuple[str, bool, str]]:
+    """Consistency of one SDK shipped in the template project. No board, no CubeIDE."""
+    rel = release(fam)
+    N7RT = fam.n7rt
     checks: list[tuple[str, bool, str]] = []
     nm = _tool(bin_dir, "nm")
     man_path = N7RT / "manifest.json"
@@ -326,8 +393,8 @@ def check_sdk(bin_dir: Path) -> list[tuple[str, bool, str]]:
                    f"runtime {rt['runtime_version']} build {rt['build_id']} ABI {man['abi']['major']}.{man['abi']['minor']}"))
     names = [p.name for p in PROJECT.iterdir()]
     extra = sorted(str(p.relative_to(PROJECT)) for p in N7RT.rglob("*") if p.is_file()
-                   and f"n7rt/{p.relative_to(N7RT).as_posix()}" not in man["files"] and p.name != "manifest.json")
-    checks.append(("SDK folder is exactly n7rt/ and holds only SDK files", "n7rt" in names and not extra,
+                   and f"{fam.sdk_dir}/{p.relative_to(N7RT).as_posix()}" not in man["files"] and p.name != "manifest.json")
+    checks.append((f"SDK folder is exactly {fam.sdk_dir}/ and holds only SDK files", fam.sdk_dir in names and not extra,
                    f"folders {sorted(names)}" + (f", extra {extra[:4]}" if extra else "")))
     bad = [f for f, digest in man["files"].items() if not (PROJECT / f).is_file()
            or sha256((PROJECT / f).read_bytes()) != digest]
@@ -358,14 +425,14 @@ def check_sdk(bin_dir: Path) -> list[tuple[str, bool, str]]:
     checks.append(("glue carries no debug information", ".debug_" not in debug, ""))
     header = (N7RT / "include" / "n7rt.h").read_text(encoding="utf-8")
     checks.append(("header ABI check", f"n7rt_glue_abi_{major}" in header and f"N7RT_ABI_MAJOR {major}" in header, ""))
-    ld = (N7RT / "ld" / "N7RT_H753_student.ld").read_text(encoding="utf-8")
+    ld = (N7RT / "ld" / fam.linker_script).read_text(encoding="utf-8")
     checks.append(("linker script = release",
                    f"LENGTH = {rel['image_size']}" in ld and f"n7rt_runtime_{tag}" in ld
                    and f"n7rt_glue_abi_{major}" in ld and "ORIGIN = 0x08040000" in ld, ""))
     sources = sorted(str(p.relative_to(PROJECT)) for p in PROJECT.rglob("*")
                      if p.suffix.lower() in (".c", ".s", ".cpp", ".h") and p.is_file()
                      and p.relative_to(PROJECT).parts[0] not in ("student", CONFIG)
-                     and p != N7RT / "include" / "n7rt.h")
+                     and p not in {f.n7rt / "include" / "n7rt.h" for f in FAMILIES})
     checks.append(("no runtime source in the project", not sources, f"{sources}" if sources else
                    "student/ + n7rt/include/n7rt.h only"))
     texts = [p for p in PROJECT.rglob("*") if p.is_file() and p.suffix.lower() in (".c", ".h", ".ld", ".txt", ".json",
@@ -420,9 +487,10 @@ def cubeide_build(cubeide: Path, project: Path, workspace: Path) -> tuple[bool, 
     return ok, elf, log
 
 
-def student_image_report(bin_dir: Path, elf: Path) -> dict:
-    """Placement and integrity of a student image (CubeIDE output). Needs no board."""
-    rel = release()
+def student_image_report(bin_dir: Path, elf: Path, fam: Family = H753) -> dict:
+    """Placement and integrity of a student image (editor or CubeIDE output). Needs no board."""
+    rel = release(fam)
+    STUDENT_FLASH, STUDENT_RAM = fam.student_flash, fam.student_ram
     checks: list[tuple[str, bool, str]] = []
     with tempfile.TemporaryDirectory() as tmp_name:
         flat = Path(tmp_name) / "image.bin"
@@ -441,7 +509,7 @@ def student_image_report(bin_dir: Path, elf: Path) -> dict:
                    f"magic {fields[0]:08X}, ABI {fields[1]}.{fields[2]}" if fields else "missing"))
     hooks_ok = fields is not None and all(STUDENT_FLASH[0] < f < STUDENT_FLASH[1] and f & 1 for f in fields[3:6])
     ram_ok = fields is not None and all(STUDENT_RAM[0] <= f <= STUDENT_RAM[1] for f in fields[7:11])
-    checks.append(("hooks in student flash, data/bss in DTCM", hooks_ok and ram_ok, ""))
+    checks.append((f"hooks in student flash, data/bss in {'DTCM' if fam is H753 else 'student SRAM'}", hooks_ok and ram_ok, ""))
     nm = _tool(bin_dir, "nm")
     syms = _symbols(nm, elf)
     outside = sorted(n for n, (a, kind) in syms.items() if kind in "TtRrDdBb"

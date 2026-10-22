@@ -39,7 +39,7 @@ def resources(tmp_path, monkeypatch):
     required = [*("docs/" + name for name in B.STUDENT_DOCS),
                 *("tools/stm32/" + name for name in B.STUDENT_HELPERS),
                 "tools/stm32/requirements-student-ide.txt", "firmware/n7rt_student/runtime-release.json",
-                "app/CODEMIRROR-LICENSES.txt",
+                "firmware/n7rt_student/runtime-release-g0b1.json", "app/CODEMIRROR-LICENSES.txt",
                 "tools/release/templates/LISEZMOI.txt", "DEMARRER_ICI.md", "DEMARRER_ICI.html"]
     for relative in required:
         target = root / relative
@@ -92,6 +92,10 @@ def test_archive_allowlist_includes_editor_and_omits_private_or_extra_files(reso
     root, exe = resources
     files = B.student_sources(exe)
     assert "runtime-release.json" in files
+    # NUCLEO-G0B1RE: its pin and its SDK next to the H753 one
+    assert "runtime-release-g0b1.json" in files
+    assert "N7RT_CANLab_Student/n7rt_g0b1/ld/N7RT_G0B1_student.ld" in files
+    assert "N7RT_CANLab_Student/n7rt_g0b1/lib/n7rt_runtime.o" in files
     assert "requirements-student-ide.txt" in files
     assert "docs/inapp-student-ide-r1.md" in files
     assert "docs/inapp-student-ide-tutorial.md" in files

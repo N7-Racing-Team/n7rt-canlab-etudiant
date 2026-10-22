@@ -277,6 +277,8 @@ export class Cockpit implements View {
     };
     const b = s.board;
     set("port", s.port ? s.port.port : "—");
+    set("board", b ? b.board || `microcontrôleur 0x${b.dev_id.toString(16).toUpperCase()} non pris en charge` : "—",
+      b ? (b.board ? "" : "err") : "");
     set("probe", s.port ? `${s.port.probe ?? "?"} ${s.port.serial ?? ""}`.trim() : "—");
     set("runtime", b ? `${b.runtime} · ${b.build_id} · ABI ${b.abi}` : "—");
     set("verified", b ? (b.runtime_verified ? "défi SHA-256 vérifié" : "NON vérifié") + (b.compatible ? "" : " — incompatible") : "—",

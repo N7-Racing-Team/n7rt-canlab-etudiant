@@ -60,6 +60,41 @@ def test_sdk_files_agree_with_each_other_and_with_the_release():
     assert all(ok for _, ok, _ in checks), [c for c in checks if not c[1]]
 
 
+needs_gcc = pytest.mark.skipif(BUNDLE is None or not (sdk.G0B1.n7rt / "manifest.json").is_file(),
+                               reason="GCC or generated G0B1 SDK missing")
+
+
+@needs_gcc
+def test_every_board_sdk_agrees_with_its_own_release():
+    for fam in sdk.FAMILIES:
+        checks = sdk.check_sdk(BUNDLE[1].parent, fam)
+        assert all(ok for _, ok, _ in checks), (fam.key, [c for c in checks if not c[1]])
+    assert sdk.release(sdk.G0B1)["image_sha256"] != sdk.release(sdk.H753)["image_sha256"]
+
+
+@needs_gcc
+def test_g0b1_template_links_with_soft_float_and_lands_in_its_regions(tmp_path):
+    gcc = BUNDLE[1].parent / f"arm-none-eabi-gcc{sdk.EXE}"
+    n7rt, flags = sdk.G0B1.n7rt, [*sdk.G0B1.cpu_flags, "-std=gnu11", "-O0", "--specs=nano.specs"]
+    (tmp_path / "student_decoder.h").write_text('#include "n7rt.h"\n', encoding="utf-8")
+    # float and division on a Cortex-M0+: libgcc helpers must be linked into the student region
+    (tmp_path / "student_decoder.c").write_text(
+        TEMPLATE + "\nfloat n7rt_test_scale(unsigned a, unsigned b) { return (float)(a / b) * 0.5f; }\n",
+        encoding="utf-8")
+    proc = subprocess.run([gcc, *flags, "-I", n7rt / "include", "-I", tmp_path, "-ffunction-sections", "-c",
+                           "student_decoder.c", "-o", "s.o"], cwd=tmp_path, capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stderr
+    proc = subprocess.run([gcc, *flags, "s.o", n7rt / "lib" / "n7rt_runtime.o", "-L", n7rt / "lib",
+                           "-T", n7rt / "ld" / sdk.G0B1.linker_script, "--specs=nosys.specs", "-nostartfiles", "-static",
+                           "-Wl,--undefined=n7rt_test_scale", "-o", "s.elf",
+                           "-Wl,--start-group", "-ln7rt_glue", "-lc", "-lm", "-lgcc", "-Wl,--end-group"],
+                          cwd=tmp_path, capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stderr
+    report = sdk.student_image_report(BUNDLE[1].parent, tmp_path / "s.elf", sdk.G0B1)
+    assert report["ok"], [c for c in report["checks"] if not c[1]]
+    assert sdk.sha256(report["runtime_image"]) == sdk.release(sdk.G0B1)["image_sha256"]
+
+
 @needs_tools
 def test_template_links_and_lands_where_the_runtime_expects_it(tmp_path):
     proc = build(tmp_path, TEMPLATE)

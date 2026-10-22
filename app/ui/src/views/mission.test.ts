@@ -144,6 +144,7 @@ function readyStatus(over: Partial<Status> = {}): Status {
     ports: [], session: null, heartbeat: null, fault: null,
     stimuli: { pot: 0, button: false, format: "classic", can_id: 0, dlc: 0, rate_hz: 0 }, stim_rev: 0, can_start: false, can_stop: true,
     board: {
+      board: "NUCLEO-H753ZI", family: "h753",
       runtime: "", build_id: "", abi: "", proto: 0, uid: "", dev_id: 0, rev_id: 0, reset_flags: 0, reset_causes: [],
       student_status: 1, student_status_text: "", student_abi: "", student_crc32: "", rx_window: 32, fault_pending: false,
       runtime_verified: true, compatible: true, problems: [],

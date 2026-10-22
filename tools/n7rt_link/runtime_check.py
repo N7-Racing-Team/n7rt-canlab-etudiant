@@ -31,7 +31,8 @@ WINDOW = 32
 TICK_MS = 10
 HOST_HEARTBEAT_S = 0.25
 STALL_S = 0.75                 # spec 10: T_STALL
-RSR_SFT = 1 << 24
+RSR_SFT = 1 << 24          # RCC_RSR.SFTRSTF (STM32H7); RCC_CSR.SFTRSTF is bit 28 on the STM32G0
+DEV_ID_H7 = 0x450
 CORE_HZ = 64_000_000           # runtime v0: SYSCLK = HSI 64 MHz
 LINE_BYTES_PER_S = L.BAUD_V0 / L.UART_BITS_PER_BYTE
 
@@ -271,7 +272,7 @@ SMOKE_VARIANTS = (  # (can_id, flags, dlc, data): classic, extended, RTR, empty,
 
 
 def smoke(port: str, reset_board: Callable[[], None], image: bytes, uid_words: str,
-          emit: Callable[[str], None] = print) -> dict[str, Any]:
+          emit: Callable[[str], None] = print, dev_id: int = DEV_ID_H7, sw_reset_bit: int = RSR_SFT) -> dict[str, Any]:
     """Bidirectional smoke test of a freshly flashed runtime. Returns a report with 'ok'."""
     checks: list[dict[str, Any]] = []
 
@@ -292,10 +293,10 @@ def smoke(port: str, reset_board: Callable[[], None], image: bytes, uid_words: s
         report["boot"] = f
         s.beats.clear()  # heartbeats of the previous boot are not this run's
         check("identity", f["proto"] == 0 and (f["abi_major"], f["abi_minor"]) == (1, 0)
-              and f["dev_id"] == 0x450 and f["uid"] == uid_bytes(uid_words),
+              and f["dev_id"] == dev_id and f["uid"] == uid_bytes(uid_words),
               f"runtime {f['rt_major']}.{f['rt_minor']}.{f['rt_patch']} build {f['build_id']}, "
               f"UID {f['uid']}, DEV 0x{f['dev_id']:03X} REV 0x{f['rev_id']:04X}, "
-              f"RCC_RSR 0x{f['reset_flags']:08X}")
+              f"reset flags 0x{f['reset_flags']:08X}")
         check("student_ok", f["student_status"] == 1 and f["fault_pending"] == 0 and f["rx_window"] == WINDOW,
               f"student_status {f['student_status']}, ABI {f['student_abi_major']}.{f['student_abi_minor']}, "
               f"CRC 0x{f['student_crc32']:08X}, W {f['rx_window']}")
@@ -411,8 +412,19 @@ def smoke(port: str, reset_board: Callable[[], None], image: bytes, uid_words: s
         link.close()
         time.sleep(0.5)
         link = s.link = RuntimeLink(port)
-        link.send(HELLO, {"proto_min": 0, "proto_max": 0, "nonce": os.urandom(16).hex()})
-        hello = s.wait(lambda e: e.type == HELLO_ACK, 1.0)
+        # As the application does (spec 4.3): what arrives before this connection's HELLO_ACK is left over (an
+        # ST-LINK V2-1 delivers bytes it buffered while the port was closed), and HELLO is repeated every
+        # T_HELLO (the V2-1 can lose the first bytes written after opening). After that, every error counts.
+        strays_before = len(s.stray)
+        s.wait(lambda ev: False, 0.3)
+        link.frame_errors.clear()  # this link object only holds the new connection's errors
+        del s.stray[strays_before:]
+        hello = None
+        for _ in range(10):
+            link.send(HELLO, {"proto_min": 0, "proto_max": 0, "nonce": os.urandom(16).hex()})
+            hello = s.wait(lambda e: e.type == HELLO_ACK, 0.2)
+            if hello is not None:
+                break
         after = s.next_beat()
         fs, t = fs + 1, t + 1000
         problems = s.exchange(exp, [(VCAN_FRAME, make_frame(fs, t, 0x123, 0, 8, bytes(range(8))))])
@@ -432,9 +444,9 @@ def smoke(port: str, reset_board: Callable[[], None], image: bytes, uid_words: s
         t0 = time.perf_counter()
         link.send(RESET_REQ, {})
         boot = s.wait(lambda e: e.type == HELLO_ACK and e.fields["reason"] == 1, 1.5)
-        check("reset_request", boot is not None and bool(boot.fields["reset_flags"] & RSR_SFT),
+        check("reset_request", boot is not None and bool(boot.fields["reset_flags"] & sw_reset_bit),
               f"HELLO_ACK(boot) after {(time.perf_counter() - t0) * 1000:.0f} ms, "
-              f"RCC_RSR 0x{boot.fields['reset_flags']:08X}" if boot else "no reboot within 1.5 s")
+              f"reset flags 0x{boot.fields['reset_flags']:08X}" if boot else "no reboot within 1.5 s")
 
         check("clean_link", not link.frame_errors and not link.rejects and not s.stray and not s.faults,
               f"PC frame errors {link.frame_errors}, rejects {len(link.rejects)}, "
@@ -482,7 +494,7 @@ def soak(port: str, duration_s: float, rate: int, emit: Callable[[str], None] = 
             return
         if ev.type == HELLO_ACK and ev.fields["reason"] == 1:
             s.boots.append(ev)
-            problem(f"board rebooted: RCC_RSR 0x{ev.fields['reset_flags']:08X}")
+            problem(f"board rebooted: reset flags 0x{ev.fields['reset_flags']:08X}")
         elif ev.type == FAULT_REPORT:
             problem(f"FAULT_REPORT {ev.fields}")
         elif ev.type == NACK:

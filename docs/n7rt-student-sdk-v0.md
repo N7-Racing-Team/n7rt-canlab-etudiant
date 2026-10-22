@@ -5,6 +5,20 @@ Le SDK permet à un étudiant de construire, dans STM32CubeIDE 2.0.0, une **imag
 - **Les octets du runtime distribué sont ceux de l'image S1.2 validée.** C'est la région `0x0800 0000…+20 312` de l'image qui a passé le smoke 19/19, la sonde à 1 000/s et le soak 10 min ; ils ne sont jamais recompilés.
 - **Épinglage.** Le fichier `firmware/n7rt_student/runtime-release.json` fixe la version, le `build_id`, la taille, le SHA-256 et les preuves de validation. `stm32lab sdk` refuse toute autre image.
 
+## Deux cartes, deux SDK (depuis 0.3.3)
+
+Le projet modèle contient un SDK par carte, côte à côte, avec la même ABI 1.0 et le même code étudiant :
+
+| Dossier | Carte | Cœur | Flash étudiante | RAM étudiante | Pin |
+|---|---|---|---|---|---|
+| `n7rt/` | NUCLEO-H753ZI | Cortex-M7, FPU double | 0x08040000, 768 Ko | 0x20000000 (DTCM), 128 Ko | `runtime-release.json` |
+| `n7rt_g0b1/` | NUCLEO-G0B1RE | Cortex-M0+, sans FPU | 0x08040000, 256 Ko (banque 2) | 0x2000C000, 96 Ko | `runtime-release-g0b1.json` |
+
+La page **Code STM32** compile le source une fois par carte et garde les deux images (`build/student.elf` pour la H753,
+`build/student-g0b1.elf` pour la G0B1) ; le chargement lit le `DEV_ID` de la carte branchée (0x450 ou 0x467) et
+n'envoie que son image. Sur le Cortex-M0+, flottants et divisions passent par les routines de libgcc, liées dans la
+zone étudiante. Le projet STM32CubeIDE reste configuré pour la H753 : pour la G0B1, utilisez la page Code STM32.
+
 ## Artefacts distribuables
 
 Le projet modèle est `firmware/n7rt_student/N7RT_CANLab_Student/` : 13 fichiers, sans sortie de build. L'étudiant le reçoit dans l'archive étudiante (dossier `N7RT_CANLab_Student/`, voir [distribution.md](distribution.md)). `stm32lab sdk` le régénère et en fait aussi une archive seule, `firmware/n7rt_student/dist/N7RT_CANLab_Student_sdk0.1.0_rt0.1.0.zip` (procédure encadrant, plus bas).
@@ -86,6 +100,9 @@ python tools/stm32/stm32lab.py build --runtime   # rebuild reproductible : doit 
 python tools/stm32/stm32lab.py sdk               # extrait le runtime S1.2, régénère n7rt/, vérifie (12 contrôles), zip
 python tools/stm32/stm32lab.py sdk --check       # vérification seule
 ```
+
+Pour la NUCLEO-G0B1RE : `build --runtime --family g0b1` (sources dans `firmware/stm32_g0b1_runtime`, dépôt encadrant),
+puis `sdk --family g0b1` ; sans `--family`, `sdk` traite les deux cartes.
 
 - `sdk` refuse une image runtime différente de `runtime-release.json`. Il ne peut donc pas distribuer silencieusement un runtime non validé.
 - La génération est déterministe : deux exécutions produisent les mêmes octets.

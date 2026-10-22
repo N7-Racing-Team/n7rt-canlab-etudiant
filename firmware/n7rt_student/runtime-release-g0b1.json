@@ -1,0 +1,16 @@
+{
+  "_doc": "N7RT runtime image for NUCLEO-G0B1RE (STM32G0B1RE, Cortex-M0+), distributed in the student SDK n7rt_g0b1/. 'stm32lab sdk --family g0b1' takes the runtime region of the runtime build (firmware/stm32_g0b1_runtime, preset runtime: sources in the instructor repository only, never in the student repository) and refuses it unless its SHA-256, size and build id are exactly these. Same N7RT-Link v0 and ABI 1.0 as the H753 runtime (runtime-release.json). Bump this file only with new hardware evidence.",
+  "runtime_version": "0.1.0",
+  "build_id": "082918d78ef5becd",
+  "abi": [1, 0],
+  "load_address": "0x08000000",
+  "image_size": 15532,
+  "image_sha256": "202db3fb6e7bc35d6f8a133224c2728f2a7b38ba3f4871eeb1c6425cf4e1de94",
+  "toolchain": "Arm GNU Toolchain 14.3.Rel1 (arm-none-eabi-gcc 14.3.1 20250623), CMake preset runtime (Release, -O2)",
+  "validated_on": "2026-10-21",
+  "evidence": {
+    "smoke": "data/logs/runtime_smoke_g_20261021-183129.json",
+    "capacity_1000fps": "data/logs/runtime_soak_g_20261021-183235.json",
+    "soak_10min_600fps": "data/logs/runtime_soak_g_20261021-222351.json"
+  }
+}

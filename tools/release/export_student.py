@@ -36,6 +36,7 @@ FILES = [
     "app/Cargo.toml", "app/Cargo.lock", "app/README.md", "app/package.json", "app/package-lock.json",
     "app/tsconfig.json", "app/vite.config.ts", "app/CODEMIRROR-LICENSES.txt",
     "firmware/n7rt_student/.gitignore", "firmware/n7rt_student/runtime-release.json",
+    "firmware/n7rt_student/runtime-release-g0b1.json",
     "library/README.md", "library/links.json",
     "tools/library/check_library.py",
     "tools/stm32/stm32lab.py", "tools/stm32/stm32lab.cmd", "tools/stm32/n7rt_sdk.py", "tools/stm32/n7rt_app.py",

@@ -275,10 +275,10 @@ Identité, compatibilité et défi d'intégrité du runtime.
 | 7 | `abi_minor` | u16 |  |
 | 9 | `build_id` | u8[8] | identifiant de build du runtime (hash de commit tronqué) |
 | 17 | `challenge` | u8[32] | SHA-256(nonce ‖ image runtime) ; nonce = 16 × 0x00 si reason = 1 |
-| 49 | `uid` | u8[12] | UID du MCU (0x1FF1E800, 3 mots little-endian) |
-| 61 | `dev_id` | u16 | DBGMCU_IDCODE.DEV_ID (0x450) |
+| 49 | `uid` | u8[12] | UID du MCU (H753 : 0x1FF1E800, G0B1 : 0x1FFF7590 ; 3 mots little-endian) |
+| 61 | `dev_id` | u16 | DBGMCU_IDCODE.DEV_ID (0x450 NUCLEO-H753ZI, 0x467 NUCLEO-G0B1RE) |
 | 63 | `rev_id` | u16 | DBGMCU_IDCODE.REV_ID |
-| 65 | `reset_flags` | u32 | RCC_RSR capturé au boot |
+| 65 | `reset_flags` | u32 | registre des causes de reset capturé au boot (RCC_RSR sur H753, RCC_CSR sur G0B1) |
 | 69 | `student_status` | u8 | 0 absent · 1 ok · 2 magic · 3 ABI · 4 bornes · 5 désactivé après faute |
 | 70 | `student_abi_major` | u16 | ABI déclarée par l'en-tête étudiant (0 si absent) |
 | 72 | `student_abi_minor` | u16 |  |

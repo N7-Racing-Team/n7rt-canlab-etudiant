@@ -4,6 +4,9 @@
 Only student_decoder.c/.h are inputs. No project makefile, user flags, runtime
 source or mission data is read. This protects the upload path; C executing on
 the MCU is not a security sandbox.
+
+One build compiles the source once per supported board (NUCLEO-H753ZI, NUCLEO-G0B1RE), each against
+its own SDK; the upload sends the image of the board actually connected (read over SWD).
 """
 from __future__ import annotations
 
@@ -33,16 +36,25 @@ import stm32lab as lab
 SOURCE_NAMES = ("student_decoder.c", "student_decoder.h")
 SOURCE_LIMIT = 256 * 1024
 LOG_LIMIT = 1024 * 1024
-ARTIFACT_NAMES = ("student.elf", "student.bin", "build.json")
+ARTIFACT_NAMES = ("student.elf", "student.bin", "student-g0b1.elf", "student-g0b1.bin", "build.json")
 STANDARD_HEADERS = {
     "assert.h", "ctype.h", "errno.h", "float.h", "inttypes.h", "limits.h",
     "math.h", "stdbool.h", "stddef.h", "stdint.h", "stdio.h", "stdlib.h",
     "string.h", "stdarg.h", "time.h",
 }
-CFLAGS = ["-mcpu=cortex-m7", "-mthumb", "-mfpu=fpv5-d16", "-mfloat-abi=hard",
-          "-std=gnu11", "-g3", "-O0", "-ffunction-sections", "-fdata-sections",
-          "-Wall", "-Wextra", "-fmax-errors=20", "-fdiagnostics-column-unit=byte",
-          "-fdiagnostics-column-origin=1", "--specs=nano.specs"]
+COMMON_CFLAGS = ["-std=gnu11", "-g3", "-O0", "-ffunction-sections", "-fdata-sections",
+                 "-Wall", "-Wextra", "-fmax-errors=20", "-fdiagnostics-column-unit=byte",
+                 "-fdiagnostics-column-origin=1", "--specs=nano.specs"]
+CFLAGS = [*sdk.H753.cpu_flags, *COMMON_CFLAGS]
+
+
+def cflags(fam: sdk.Family) -> list[str]:
+    return [*fam.cpu_flags, *COMMON_CFLAGS]
+
+
+def _elf_name(fam: sdk.Family) -> str:
+    """H753 keeps the historical names (student.elf / student.bin)."""
+    return "student.elf" if fam is sdk.H753 else f"student-{fam.key}.elf"
 
 
 class IdeError(Exception):
@@ -152,19 +164,19 @@ def _execute(args: list, cwd: Path | None = None, timeout: int = 60) -> subproce
                           capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
 
 
-def _sdk_check(bin_dir: Path) -> list[dict]:
-    manifest = json.loads((sdk.N7RT / "manifest.json").read_text(encoding="utf-8"))
-    expected = {f"n7rt/{p}" for p in sdk.GENERATED}
+def _sdk_check(bin_dir: Path, fam: sdk.Family = sdk.H753) -> list[dict]:
+    manifest = json.loads((fam.n7rt / "manifest.json").read_text(encoding="utf-8"))
+    expected = {f"{fam.sdk_dir}/{p}" for p in fam.generated}
     if set(manifest.get("files", {})) != expected:
-        raise IdeError("Manifest du SDK invalide.")
-    checks = [{"check": label, "ok": ok, "detail": detail}
-              for label, ok, detail in sdk.check_sdk(bin_dir)]
+        raise IdeError(f"Manifest du SDK {fam.board} invalide.")
+    checks = [{"check": f"{fam.key}: {label}", "ok": ok, "detail": detail}
+              for label, ok, detail in sdk.check_sdk(bin_dir, fam)]
     if not all(c["ok"] for c in checks):
-        raise IdeError("Le SDK a été modifié ou ne correspond pas au runtime validé.")
+        raise IdeError(f"Le SDK {fam.board} a été modifié ou ne correspond pas au runtime validé.")
     return checks
 
 
-def _layout_check(bin_dir: Path, elf: Path) -> list[str]:
+def _layout_check(bin_dir: Path, elf: Path, fam: sdk.Family = sdk.H753) -> list[str]:
     """Validate every allocated section before objcopy can allocate a sparse image."""
     out = sdk._run([sdk._tool(bin_dir, "objdump"), "-h", elf])
     lines = out.splitlines()
@@ -179,16 +191,17 @@ def _layout_check(bin_dir: Path, elf: Path) -> list[str]:
         if not size or "ALLOC" not in flags:
             continue
         if name == ".n7rt_runtime":
-            rel = sdk.release()
+            rel = sdk.release(fam)
             if vma != sdk.RUNTIME_BASE or lma != sdk.RUNTIME_BASE or size != rel["image_size"]:
                 raise IdeError("Section runtime déplacée ou altérée.")
             continue
-        in_flash = sdk.STUDENT_FLASH[0] <= vma and vma + size <= sdk.STUDENT_FLASH[1]
-        in_ram = sdk.STUDENT_RAM[0] <= vma and vma + size <= sdk.STUDENT_RAM[1]
+        student_flash, student_ram = fam.student_flash, fam.student_ram
+        in_flash = student_flash[0] <= vma and vma + size <= student_flash[1]
+        in_ram = student_ram[0] <= vma and vma + size <= student_ram[1]
         if not (in_flash or in_ram):
-            raise IdeError(f"Section {name} en dehors des régions étudiantes.")
+            raise IdeError(f"Section {name} en dehors des régions étudiantes ({fam.board}).")
         if "LOAD" in flags:
-            if not (sdk.STUDENT_FLASH[0] <= lma and lma + size <= sdk.STUDENT_FLASH[1]):
+            if not (student_flash[0] <= lma and lma + size <= student_flash[1]):
                 raise IdeError(f"Section {name} chargerait des octets hors de la flash étudiante.")
             load_names.append(name)
     if ".n7rt_student_header" not in load_names:
@@ -196,11 +209,11 @@ def _layout_check(bin_dir: Path, elf: Path) -> list[str]:
     return load_names
 
 
-def _image(bin_dir: Path, elf: Path, output: Path) -> dict:
-    sections = _layout_check(bin_dir, elf)
-    report = sdk.student_image_report(bin_dir, elf)
-    if not report["ok"] or not (64 <= report["student_flash_used"] <= sdk.STUDENT_FLASH[1] - sdk.STUDENT_FLASH[0]):
-        raise IdeError("Image étudiante invalide ; aucun téléversement possible.")
+def _image(bin_dir: Path, elf: Path, output: Path, fam: sdk.Family = sdk.H753) -> dict:
+    sections = _layout_check(bin_dir, elf, fam)
+    report = sdk.student_image_report(bin_dir, elf, fam)
+    if not report["ok"] or not (64 <= report["student_flash_used"] <= fam.student_flash[1] - fam.student_flash[0]):
+        raise IdeError(f"Image étudiante invalide pour {fam.board} ; aucun téléversement possible.")
     args = [sdk._tool(bin_dir, "objcopy"), "-O", "binary", "--gap-fill=0"]
     for section in sections:
         args.append(f"--only-section={section}")
@@ -212,9 +225,14 @@ def _image(bin_dir: Path, elf: Path, output: Path) -> dict:
         raise IdeError("L'image extraite diffère de l'ELF validé.")
     return {"sha256": _digest(binary), "student_crc32": report["student_crc32"],
             "flash_bytes": len(binary), "ram_bytes": report["student_ram_used"],
-            "load_address": f"0x{sdk.STUDENT_FLASH[0]:08X}",
-            "runtime_sha256": sdk.release()["image_sha256"],
+            "load_address": f"0x{fam.student_flash[0]:08X}", "board": fam.board, "dev_id": fam.dev_id,
+            "runtime_sha256": sdk.release(fam)["image_sha256"],
             "checks": [{"check": name, "ok": ok, "detail": detail} for name, ok, detail in report["checks"]]}
+
+
+def _build_id(targets: dict) -> str:
+    """Identity of a whole build: every board image. The editor passes it back to flash."""
+    return _digest("".join(f"{key}:{targets[key]['sha256']}\n" for key in sorted(targets)).encode())
 
 
 def _diagnostics(log: str) -> list[dict]:
@@ -243,30 +261,40 @@ def build(path: Path) -> dict:
         artifact.unlink(missing_ok=True)
     files = _sources(workspace)
     bin_dir = _require("gcc").parent
-    checks = _sdk_check(bin_dir)
+    checks = [c for fam in sdk.FAMILIES for c in _sdk_check(bin_dir, fam)]
     gcc = sdk._tool(bin_dir, "gcc")
     with tempfile.TemporaryDirectory(prefix=".ide-build-", dir=workspace) as name:
         tmp = Path(name)
         for source, data in files.items():
             (tmp / source).write_bytes(data)
-        shutil.copytree(sdk.N7RT, tmp / "n7rt")
-        inc, libs = tmp / "n7rt/include", tmp / "n7rt/lib"
-        done = _execute([gcc, *CFLAGS, "-I", inc, "-I", tmp, "-c", "student_decoder.c", "-o", "student.o"], tmp)
-        log = (done.stdout + done.stderr)[:LOG_LIMIT]
-        if done.returncode == 0:
-            done = _execute([gcc, *CFLAGS, "student.o", libs / "n7rt_runtime.o", "-L", libs,
-                             "-T", tmp / "n7rt/ld/N7RT_H753_student.ld", "--specs=nosys.specs",
-                             "-nostartfiles", "-static", "-Wl,--gc-sections", "-o", "student.elf",
-                             "-Wl,--start-group", "-ln7rt_glue", "-lc", "-lm", "-Wl,--end-group"], tmp)
-            log = (log + done.stdout + done.stderr)[:LOG_LIMIT]
+        log, targets = "", {}
+        for fam in sdk.FAMILIES:  # the same source for every board; the first failure stops the build
+            shutil.copytree(fam.n7rt, tmp / fam.sdk_dir)
+            inc, libs, obj = tmp / fam.sdk_dir / "include", tmp / fam.sdk_dir / "lib", f"student-{fam.key}.o"
+            done = _execute([gcc, *cflags(fam), "-I", inc, "-I", tmp, "-c", "student_decoder.c", "-o", obj], tmp)
+            # Diagnostics come from the first board only: the others compile the very same source.
+            step = done.stdout + done.stderr if not targets or done.returncode else ""
+            log = (log + step)[:LOG_LIMIT]
+            if done.returncode == 0:
+                done = _execute([gcc, *cflags(fam), obj, libs / "n7rt_runtime.o", "-L", libs,
+                                 "-T", tmp / fam.sdk_dir / "ld" / fam.linker_script, "--specs=nosys.specs",
+                                 "-nostartfiles", "-static", "-Wl,--gc-sections", "-o", _elf_name(fam),
+                                 "-Wl,--start-group", "-ln7rt_glue", "-lc", "-lm", "-Wl,--end-group"], tmp)
+                log = (log + done.stdout + done.stderr)[:LOG_LIMIT]
+            if done.returncode != 0:
+                log = log.replace(str(tmp), "<projet>")
+                return {"ok": False, "operation": "build", "error": f"Compilation refusée ({fam.board}).",
+                        "diagnostics": _diagnostics(log), "log": log, "checks": checks}
+            elf = tmp / _elf_name(fam)
+            targets[fam.key] = _image(bin_dir, elf, elf.with_suffix(".bin"), fam)
         log = log.replace(str(tmp), "<projet>")
-        if done.returncode != 0:
-            return {"ok": False, "operation": "build", "error": "Compilation refusée.",
-                    "diagnostics": _diagnostics(log), "log": log, "checks": checks}
-        artifact = _image(bin_dir, tmp / "student.elf", tmp / "student.bin")
         if _source_hashes(_sources(workspace)) != _source_hashes(files):
             raise IdeError("Le source a changé pendant la compilation ; recompilez.")
-        artifact["source_sha256"] = _source_hashes(files)
+        # Top level: the build identity (sha256) and the H753 figures, as before; one entry per board in targets.
+        first = targets[sdk.H753.key]
+        artifact = {"sha256": _build_id(targets), "student_crc32": first["student_crc32"],
+                    "flash_bytes": first["flash_bytes"], "ram_bytes": first["ram_bytes"],
+                    "targets": targets, "source_sha256": _source_hashes(files)}
         (tmp / "build.json").write_text(json.dumps(artifact), encoding="utf-8")
         for name in ARTIFACT_NAMES:
             if _linked(output / name):
@@ -287,10 +315,10 @@ def _programmer(*args: str) -> str:
     return out
 
 
-def _runtime_hash(serial: str, tmp: Path, label: str) -> str:
+def _runtime_hash(serial: str, tmp: Path, label: str, fam: sdk.Family = sdk.H753) -> str:
     dump = tmp / f"runtime-{label}.bin"
     _programmer("-c", "port=SWD", f"sn={serial}", "mode=HOTPLUG", "-u",
-                f"0x{sdk.RUNTIME_BASE:08X}", f"0x{sdk.release()['image_size']:X}", str(dump))
+                f"0x{sdk.RUNTIME_BASE:08X}", f"0x{sdk.release(fam)['image_size']:X}", str(dump))
     if not dump.is_file():
         raise IdeError("Lecture du runtime impossible ; téléversement refusé.")
     return _digest(dump.read_bytes())
@@ -311,51 +339,74 @@ def flash(path: Path, serial: str, uid: str, expected_sha256: str) -> dict:
         raise IdeError("Le source a changé depuis la compilation ; recompilez.")
     if receipt.get("sha256") != expected_sha256.lower():
         raise IdeError("L'image diffère de la dernière compilation ; téléversement refusé.")
+    targets = receipt.get("targets")
+    if not isinstance(targets, dict) or _build_id(targets) != receipt["sha256"]:
+        raise IdeError("Compilation d'une version précédente : recompilez le projet.")
+    fam = _connected_family(serial)
+    target = targets.get(fam.key)
+    elf = output / _elf_name(fam)
+    if not isinstance(target, dict) or _linked(elf) or not elf.is_file() or elf.stat().st_size > 8 * 1024 * 1024:
+        raise IdeError(f"Aucune image compilée pour la {fam.board} : recompilez le projet.")
 
     def unchanged() -> None:
         if receipt.get("source_sha256") != _source_hashes(_sources(workspace)):
             raise IdeError("Le source a changé avant le téléversement ; recompilez.")
 
-    return flash_image(elf, serial, uid, expected_sha256, unchanged)
+    return flash_image(elf, serial, uid, target["sha256"], unchanged, fam)
+
+
+def _connected_family(serial: str) -> sdk.Family:
+    """Family of the board behind this ST-LINK, from its DEV_ID read over SWD."""
+    if not re.fullmatch(r"[0-9a-fA-F]{8,64}", serial):
+        raise IdeError("Identité ST-LINK/MCU invalide ; aucun téléversement.")
+    _require("programmer")
+    if serial.upper() not in {p["sn"].upper() for p in lab.list_probes()}:
+        raise IdeError("Le ST-LINK sélectionné n'est plus connecté.")
+    fam = sdk.family_for_dev_id(lab.read_target(serial)["dev_id"])
+    if fam is None:
+        raise IdeError("Carte non prise en charge : CAN Lab fonctionne avec une NUCLEO-H753ZI ou une NUCLEO-G0B1RE.")
+    return fam
 
 
 def flash_image(elf: Path, serial: str, uid: str, expected_sha256: str | None = None,
-                source_guard=None) -> dict:
-    """Shared safe uploader for the editor and the existing student CubeIDE commands."""
+                source_guard=None, fam: sdk.Family = sdk.H753) -> dict:
+    """Shared safe uploader for the editor and the existing student CubeIDE commands (H753 image)."""
     if not re.fullmatch(r"[0-9a-fA-F]{8,64}", serial) or not re.fullmatch(r"[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{8}){2}", uid):
         raise IdeError("Identité ST-LINK/MCU invalide ; aucun téléversement.")
     if _linked(elf) or not elf.is_file() or elf.stat().st_size > 8 * 1024 * 1024:
         raise IdeError("Image de compilation absente ou invalide.")
     bin_dir = _require("gcc").parent
     _require("programmer")  # before the probe list, which would otherwise fail on the bench tool's English message
-    _sdk_check(bin_dir)
+    _sdk_check(bin_dir, fam)
     with tempfile.TemporaryDirectory(prefix="n7rt-student-flash-") as name:
         tmp = Path(name)
         shutil.copyfile(elf, tmp / "student.elf")
-        artifact = _image(bin_dir, tmp / "student.elf", tmp / "student.bin")
+        artifact = _image(bin_dir, tmp / "student.elf", tmp / "student.bin", fam)
         if expected_sha256 is not None and artifact["sha256"] != expected_sha256.lower():
             raise IdeError("L'image diffère de la dernière compilation ; téléversement refusé.")
         if serial.upper() not in {p["sn"].upper() for p in lab.list_probes()}:
             raise IdeError("Le ST-LINK sélectionné n'est plus connecté.")
         target = lab.read_target(serial)
-        if target["uid"].upper() != uid.upper() or target["dev_id"] != lab.EXPECTED_DEV_ID:
+        if target["uid"].upper() != uid.upper():
             raise IdeError("La carte connectée ne correspond pas à la carte sélectionnée.")
-        before = _runtime_hash(serial, tmp, "before")
-        if before != sdk.release()["image_sha256"]:
+        if target["dev_id"] != fam.dev_id:
+            raise IdeError(f"Cette image est pour une {fam.board} : la carte connectée est différente.")
+        before = _runtime_hash(serial, tmp, "before", fam)
+        if before != sdk.release(fam)["image_sha256"]:
             raise IdeError("Le runtime de la carte diffère du SDK ; seul un encadrant peut le réinstaller.")
         if source_guard is not None:
             source_guard()
         # A flat binary starts at sector 2. Never pass ELF, erase-all, option bytes,
         # or an address outside student flash to the programmer's write command.
         out = _programmer("-c", "port=SWD", f"sn={serial}", "mode=UR", "-w",
-                          str(tmp / "student.bin"), f"0x{sdk.STUDENT_FLASH[0]:08X}", "-v")
+                          str(tmp / "student.bin"), f"0x{fam.student_flash[0]:08X}", "-v")
         if "Download verified successfully" not in out:
             raise IdeError("Le téléversement n'a pas été vérifié ; reconnectez la carte.")
-        after = _runtime_hash(serial, tmp, "after")
+        after = _runtime_hash(serial, tmp, "after", fam)
         if after != before:
             raise IdeError("Contrôle du runtime après téléversement échoué ; contactez l'encadrant.")
         _programmer("-c", "port=SWD", f"sn={serial}", "mode=HOTPLUG", "-rst")
-    return {"ok": True, "operation": "flash", "serial": serial, "uid": target["uid"],
+    return {"ok": True, "operation": "flash", "serial": serial, "uid": target["uid"], "board": fam.board,
             "runtime_unchanged": True, "artifact": artifact}
 
 

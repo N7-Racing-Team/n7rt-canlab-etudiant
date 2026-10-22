@@ -4,7 +4,7 @@ import { $ } from "../dom";
 import type { E2eConfig } from "../types";
 import type { Store } from "../store";
 import { activeIde } from "./view";
-import { ide } from "./api";
+import { ide, imageFor } from "./api";
 import { FILES } from "./model";
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
@@ -110,7 +110,7 @@ export async function prepareIde(cfg: E2eConfig, store: Store, screenshots: bool
     expect(!!editor.state?.flash?.ok, editor.failure || "Flash IDE échoué.");
     await until("CRC carte mis à jour", () => {
       const loaded = store.status?.board?.student_crc32;
-      return !!loaded && parseInt(loaded.replace(/^0x/i, ""), 16) === editor.state?.build?.artifact?.student_crc32 && store.status?.state === "READY";
+      return !!loaded && parseInt(loaded.replace(/^0x/i, ""), 16) === imageFor(editor.state?.build?.artifact, store.status?.board?.family)?.student_crc32 && store.status?.state === "READY";
     }, 15000);
     expect(store.status?.board?.uid === uid && store.status.board.runtime_verified, "Identité/intégrité différente après flash.");
     await sleep(200);

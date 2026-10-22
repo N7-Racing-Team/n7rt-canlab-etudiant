@@ -38,12 +38,14 @@ import shutil
 import subprocess
 import sys
 import time
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 FW_DIR = ROOT / "firmware" / "stm32_h753_bringup"
 THIRD_PARTY = FW_DIR / "third_party"
+G0_FW_DIR = ROOT / "firmware" / "stm32_g0b1_runtime"  # N7RT runtime for NUCLEO-G0B1RE (instructor sources)
 BOARDS_FILE = Path(__file__).resolve().with_name("boards.json")
 # Machine-local boards (not part of the shared A/B bench, ignored by git and by the dashboard),
 # same schema as boards.json. "images": ["runtime"] marks a board without a bring-up image.
@@ -63,6 +65,11 @@ DEPS = (
     ("stm32h7xx_hal_driver", "https://github.com/STMicroelectronics/stm32h7xx_hal_driver.git",
      "v1.11.6", "a1996eed9172b59887bafaaa0ea1816ea14d48b5"),
 )
+# G0B1 runtime: device header and startup only (no HAL); it shares cmsis_core above.
+G0_DEPS = (
+    ("cmsis_device_g0", "https://github.com/STMicroelectronics/cmsis-device-g0.git",
+     "v1.4.5", "f576c24e123edf3332988ecd49512c0f35f85186"),
+)
 
 # tool -> (executable, STM32Cube bundle, STM32CubeCLT sub-directory, STM32CubeIDE plugin prefix)
 TOOLS = {
@@ -81,8 +88,9 @@ INSTALLER_DIRS = {
     "programmer": (("STMicroelectronics/STM32Cube/STM32CubeProgrammer", "bin"),),
 }
 
-EXPECTED_DEV_ID = 0x450          # STM32H742/743/750/753 line
+EXPECTED_DEV_ID = 0x450          # STM32H742/743/750/753 line (bring-up bench boards)
 UID_ADDR = "0x1FF1E800"          # 96-bit unique ID, RM0433
+G0_DEV_ID, G0_UID_ADDR = 0x467, "0x1FFF7590"  # STM32G0B1/C1 (RM0444): the other supported family
 VCP_BAUD = 115200
 HEARTBEAT_MS = 1000
 ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
@@ -202,11 +210,16 @@ def list_probes() -> list[dict]:
 
 
 def read_target(sn: str) -> dict:
-    """Connect without reset/halt and read the device ID and 96-bit UID."""
-    code, out = programmer("-c", "port=SWD", f"sn={sn}", "mode=HOTPLUG", "-r32", UID_ADDR, "12")
+    """Connect without reset/halt and read the device ID and 96-bit UID (address of the H7, else the G0B1)."""
+    addr = UID_ADDR
+    code, out = programmer("-c", "port=SWD", f"sn={sn}", "mode=HOTPLUG", "-r32", addr, "12")
     dev = re.search(r"Device ID\s*:\s*(0x[0-9A-Fa-f]+)", out)
+    if dev and int(dev.group(1), 16) == G0_DEV_ID:
+        addr = G0_UID_ADDR
+        code, out = programmer("-c", "port=SWD", f"sn={sn}", "mode=HOTPLUG", "-r32", addr, "12")
+        dev = re.search(r"Device ID\s*:\s*(0x[0-9A-Fa-f]+)", out)
     rev = re.search(r"Revision ID\s*:\s*(.+)", out)
-    uid = re.search(UID_ADDR + r"\s*:\s*([0-9A-Fa-f]{8})\s+([0-9A-Fa-f]{8})\s+([0-9A-Fa-f]{8})",
+    uid = re.search(addr + r"\s*:\s*([0-9A-Fa-f]{8})\s+([0-9A-Fa-f]{8})\s+([0-9A-Fa-f]{8})",
                     out, re.IGNORECASE)
     if code != 0 or not dev or not uid:
         raise LabError(f"SWD read failed on ST-LINK {sn} (exit {code}):\n{_tail(out)}")
@@ -244,6 +257,14 @@ def require_bringup(key: str) -> None:
         raise LabError(f"board {key} is registered for the N7RT runtime image only: add --runtime")
 
 
+def board_family(key: str):
+    """Board family of a registered board: "family" in the registry, NUCLEO-H753ZI when absent."""
+    try:
+        return sdk.family(board_entry(key).get("family", "h753"))
+    except sdk.SdkError as exc:
+        raise LabError(f"board {key}: {exc}") from exc
+
+
 def board_entry(key: str) -> dict:
     boards = load_boards()
     if key not in boards:
@@ -259,8 +280,9 @@ def guard(key: str) -> dict:
     if sn not in connected:
         raise LabError(f"board {key}: ST-LINK {sn} not connected (connected: {connected or 'none'})")
     target = read_target(sn)
-    if target["dev_id"] != EXPECTED_DEV_ID:
-        raise LabError(f"board {key}: device ID 0x{target['dev_id']:03X}, expected 0x{EXPECTED_DEV_ID:03X}")
+    expected = board_family(key).dev_id
+    if target["dev_id"] != expected:
+        raise LabError(f"board {key}: device ID 0x{target['dev_id']:03X}, expected 0x{expected:03X}")
     if target["uid"] != entry["mcu_uid"].upper():
         raise LabError(f"board {key}: MCU UID {target['uid']} behind ST-LINK {sn} "
                        f"does not match boards.json ({entry['mcu_uid']})")
@@ -300,18 +322,59 @@ def check_image(key: str, can_bus: bool = False) -> Path:
 # --------------------------------------------------------------------------- N7RT runtime image
 
 RUNTIME_PRESET = "runtime"
-RUNTIME_BUILD = FW_DIR / "build" / RUNTIME_PRESET
-RUNTIME_ELF = RUNTIME_BUILD / "n7rt_runtime.elf"
-RUNTIME_BIN = RUNTIME_BUILD / "n7rt_runtime.bin"
-RUNTIME_MAP = RUNTIME_BUILD / "n7rt_runtime.map"
-STUDENT_LIB = RUNTIME_BUILD / "libn7rt_student.a"
-RUNTIME_TAG = b"STM32LAB_IMAGE=n7rt_runtime\x00"
 FLASH_BASE = 0x08000000
-# docs/can-lab-architecture.md 4.2 and firmware/stm32_h753_bringup/runtime/N7RT_H753_RUNTIME.ld
-FIXED_SYMBOLS = {"g_pfnVectors": 0x08000000, "n7rt_api_table": 0x08000400,
-                 "n7rt_student_header": 0x08040000, "_estack": 0x24004000}
-STUDENT_REGIONS = ((0x08040000, 0x08100000), (0x20000000, 0x20020000))
-RUNTIME_REGIONS = ((0x08000000, 0x08040000), (0x24000000, 0x24080000))
+
+
+@dataclass(frozen=True)
+class RuntimeBuild:
+    """Where one family's runtime is built, and the layout its image must have."""
+    family: str
+    src: Path
+    tag: bytes
+    fixed_symbols: dict
+    student_regions: tuple
+    runtime_regions: tuple
+
+    @property
+    def build(self) -> Path:
+        return self.src / "build" / RUNTIME_PRESET
+
+    @property
+    def elf(self) -> Path:
+        return self.build / "n7rt_runtime.elf"
+
+    @property
+    def bin(self) -> Path:
+        return self.build / "n7rt_runtime.bin"
+
+    @property
+    def map(self) -> Path:
+        return self.build / "n7rt_runtime.map"
+
+    @property
+    def student_lib(self) -> Path:
+        return self.build / "libn7rt_student.a"
+
+
+# docs/can-lab-architecture.md 4.2, runtime/N7RT_H753_RUNTIME.ld and stm32_g0b1_runtime/N7RT_G0B1_RUNTIME.ld
+RUNTIME_BUILDS = {
+    "h753": RuntimeBuild("h753", FW_DIR, b"STM32LAB_IMAGE=n7rt_runtime\x00",
+                         {"g_pfnVectors": 0x08000000, "n7rt_api_table": 0x08000400,
+                          "n7rt_student_header": 0x08040000, "_estack": 0x24004000},
+                         ((0x08040000, 0x08100000), (0x20000000, 0x20020000)),
+                         ((0x08000000, 0x08040000), (0x24000000, 0x24080000))),
+    "g0b1": RuntimeBuild("g0b1", G0_FW_DIR, b"STM32LAB_IMAGE=n7rt_runtime_g0b1\x00",
+                         {"g_pfnVectors": 0x08000000, "n7rt_api_table": 0x08000400,
+                          "n7rt_student_header": 0x08040000, "_estack": 0x20002000},
+                         ((0x08040000, 0x08080000), (0x2000C000, 0x20024000)),
+                         ((0x08000000, 0x08040000), (0x20000000, 0x2000C000))),
+}
+H753_RUNTIME = RUNTIME_BUILDS["h753"]
+# H753 names kept for the tools written before the G0B1.
+RUNTIME_BUILD, RUNTIME_ELF, RUNTIME_BIN = H753_RUNTIME.build, H753_RUNTIME.elf, H753_RUNTIME.bin
+RUNTIME_MAP, STUDENT_LIB, RUNTIME_TAG = H753_RUNTIME.map, H753_RUNTIME.student_lib, H753_RUNTIME.tag
+FIXED_SYMBOLS = H753_RUNTIME.fixed_symbols
+STUDENT_REGIONS, RUNTIME_REGIONS = H753_RUNTIME.student_regions, H753_RUNTIME.runtime_regions
 
 
 def _nm(*args: str) -> str:
@@ -364,11 +427,13 @@ def map_student_sections(text: str) -> list[tuple[str, int, int]]:
 NOT_LOADED = (".debug", ".comment", ".ARM.attributes", ".note")  # never in target memory
 
 
-def runtime_layout_report() -> dict:
+def runtime_layout_report(rb: RuntimeBuild = H753_RUNTIME) -> dict:
     """Runtime <-> student separation, checked on the built artefacts (no board needed)."""
     checks: list[tuple[str, bool, str]] = []
-    syms = _nm_symbols(_nm("-n", str(RUNTIME_ELF)))
-    for name, addr in FIXED_SYMBOLS.items():
+    RUNTIME_BUILD, STUDENT_LIB = rb.build, rb.student_lib
+    STUDENT_REGIONS, RUNTIME_REGIONS = rb.student_regions, rb.runtime_regions
+    syms = _nm_symbols(_nm("-n", str(rb.elf)))
+    for name, addr in rb.fixed_symbols.items():
         got = syms.get(name, (None, ""))[0]
         checks.append((f"addr {name}", got == addr, f"0x{got:08X}" if got is not None else "missing"))
     image_end = syms.get("__n7rt_image_end", (0, ""))[0]
@@ -385,11 +450,14 @@ def runtime_layout_report() -> dict:
                    "only ABI linker symbols referenced" if not foreign else f"references {foreign}"))
     objects = sorted((RUNTIME_BUILD / "CMakeFiles" / "n7rt_runtime.dir").rglob("*.obj")) + \
         sorted((RUNTIME_BUILD / "CMakeFiles" / "n7rt_runtime.dir").rglob("*.o"))
-    leaks = sorted(set().union(*(_undefined(_nm("-u", str(o))) for o in objects)) & student_defined) \
+    # Globals only: a helper the student image carries as a local copy (libgcc on the M0+) is not a link to it.
+    student_global = {n for n, (_, kind) in _nm_symbols(_nm("--defined-only", str(STUDENT_LIB))).items()
+                      if kind in "TRDB"}
+    leaks = sorted(set().union(*(_undefined(_nm("-u", str(o))) for o in objects)) & student_global) \
         if objects else []
     checks.append(("runtime ignores student symbols", bool(objects) and not leaks,
                    f"{len(objects)} runtime objects" + (f", reference {leaks}" if leaks else "")))
-    sections = map_student_sections(RUNTIME_MAP.read_text(encoding="utf-8", errors="replace"))
+    sections = map_student_sections(rb.map.read_text(encoding="utf-8", errors="replace"))
     outside = [f"{n}@0x{a:08X}" for n, a, _ in sections if not _in(a, STUDENT_REGIONS)]
     checks.append(("student input sections (map)", bool(sections) and not outside,
                    f"{len(sections)} sections" + (f", outside {outside}" if outside else "")))
@@ -399,18 +467,18 @@ def runtime_layout_report() -> dict:
     return {"ok": all(ok for _, ok, _ in checks), "checks": checks, "image_end": image_end}
 
 
-def check_runtime_image(verbose: bool = False) -> dict:
-    if not RUNTIME_ELF.is_file() or not RUNTIME_BIN.is_file():
-        raise LabError(f"no runtime image: run 'build --runtime' first ({RUNTIME_ELF})")
-    if RUNTIME_TAG not in RUNTIME_BIN.read_bytes():
-        raise LabError(f"{RUNTIME_BIN.name} has no {RUNTIME_TAG[:-1].decode()} tag: refusing to flash")
-    report = runtime_layout_report()
+def check_runtime_image(verbose: bool = False, rb: RuntimeBuild = H753_RUNTIME) -> dict:
+    if not rb.elf.is_file() or not rb.bin.is_file():
+        raise LabError(f"no runtime image: run 'build --runtime --family {rb.family}' first ({rb.elf})")
+    if rb.tag not in rb.bin.read_bytes():
+        raise LabError(f"{rb.bin.name} has no {rb.tag[:-1].decode()} tag: refusing to flash")
+    report = runtime_layout_report(rb)
     if verbose or not report["ok"]:
         for name, ok, detail in report["checks"]:
             print(f"   {'PASS' if ok else 'FAIL'}  {name:<36} {detail}")
     if not report["ok"]:
         raise LabError("runtime layout check failed (see above)")
-    image = RUNTIME_BIN.read_bytes()[: report["image_end"] - FLASH_BASE]
+    image = rb.bin.read_bytes()[: report["image_end"] - FLASH_BASE]
     report["image"] = image
     report["image_sha256"] = hashlib.sha256(image).hexdigest()
     return report
@@ -456,7 +524,7 @@ def student_elf() -> Path:
 
 
 def check_student_image(verbose: bool = False) -> dict:
-    """SDK consistency + placement/integrity of the image built by CubeIDE; refuse on any failure."""
+    """SDK consistency + placement/integrity of the image built by CubeIDE (H753); refuse on any failure."""
     elf = student_elf()
     if not elf.is_file():
         raise LabError(f"no student image: run 'build --student' first ({elf})")
@@ -473,21 +541,27 @@ def check_student_image(verbose: bool = False) -> dict:
 
 def cmd_sdk(args) -> int:
     bin_dir = require_tool("gcc").parent
-    if not args.check:
-        rt = check_runtime_image()
-        build_id = re.search(r'N7RT_BUILD_ID_HEX "([0-9a-f]+)"',
-                             (RUNTIME_BUILD / "n7rt_build_id.h").read_text(encoding="utf-8"))
-        print(f"== sdk: runtime build {build_id.group(1) if build_id else '?'} -> {sdk.N7RT.relative_to(ROOT)}")
-        try:
-            man = sdk.generate(bin_dir, rt["image"], build_id.group(1) if build_id else "", STUDENT_LIB)
-        except sdk.SdkError as exc:
-            raise LabError(str(exc)) from exc
-        print(f"   SDK {man['sdk_version']}: runtime {man['runtime']['runtime_version']} "
-              f"({man['runtime']['image_size']} B, SHA-256 {man['runtime']['image_sha256'][:16]}), "
-              f"ABI {man['abi']['major']}.{man['abi']['minor']}, reset {man['runtime']['reset_vector']}")
-    checks = sdk.check_sdk(bin_dir)
-    _print_checks(checks)
-    ok = all(passed for _, passed, _ in checks)
+    families = sdk.FAMILIES if args.family == "all" else (sdk.family(args.family),)
+    ok = True
+    for fam in families:
+        rb = RUNTIME_BUILDS[fam.key]
+        if not args.check:
+            rt = check_runtime_image(rb=rb)
+            build_id = re.search(r'N7RT_BUILD_ID_HEX "([0-9a-f]+)"',
+                                 (rb.build / "n7rt_build_id.h").read_text(encoding="utf-8"))
+            print(f"== sdk {fam.board}: runtime build {build_id.group(1) if build_id else '?'} -> "
+                  f"{fam.n7rt.relative_to(ROOT)}")
+            try:
+                man = sdk.generate(bin_dir, rt["image"], build_id.group(1) if build_id else "", rb.student_lib, fam)
+            except sdk.SdkError as exc:
+                raise LabError(str(exc)) from exc
+            print(f"   SDK {man['sdk_version']}: runtime {man['runtime']['runtime_version']} "
+                  f"({man['runtime']['image_size']} B, SHA-256 {man['runtime']['image_sha256'][:16]}), "
+                  f"ABI {man['abi']['major']}.{man['abi']['minor']}, reset {man['runtime']['reset_vector']}")
+        print(f"== sdk check {fam.board} ({fam.sdk_dir}/)")
+        checks = sdk.check_sdk(bin_dir, fam)
+        _print_checks(checks)
+        ok = ok and all(passed for _, passed, _ in checks)
     if ok and not args.check:
         print(f"   distributable: {sdk.make_dist().relative_to(ROOT)}")
     print(f"== sdk: {'OK' if ok else 'FAILED'}")
@@ -685,9 +759,12 @@ def _git(*args: str, cwd: Path | None = None) -> str:
 
 
 def cmd_deps(_args) -> int:
-    THIRD_PARTY.mkdir(parents=True, exist_ok=True)
-    for name, url, tag, sha in DEPS:
-        dest = THIRD_PARTY / name
+    pinned = [(THIRD_PARTY, dep) for dep in DEPS]
+    if G0_FW_DIR.is_dir():
+        pinned += [(G0_FW_DIR / "third_party", dep) for dep in G0_DEPS]
+    for folder, (name, url, tag, sha) in pinned:
+        folder.mkdir(parents=True, exist_ok=True)
+        dest = folder / name
         if not (dest / ".git").exists():
             print(f"  {name}: cloning {url} @ {tag}")
             _git("-c", "advice.detachedHead=false", "clone", "--quiet", "--depth", "1",
@@ -710,15 +787,18 @@ def cmd_build(args) -> int:
     env["PATH"] = os.pathsep.join([str(gcc.parent), str(ninja.parent), str(cmake.parent), env["PATH"]])
     size = gcc.with_name("arm-none-eabi-size" + EXE)
     if args.runtime:
-        print(f"== build N7RT runtime (preset {RUNTIME_PRESET}, board-agnostic)", flush=True)
+        rb = RUNTIME_BUILDS[args.family]
+        if rb.family != "h753" and not (rb.src / "third_party" / G0_DEPS[0][0] / ".git").exists():
+            raise LabError(f"missing ST sources for {rb.family}: run 'deps' first")
+        print(f"== build N7RT runtime {sdk.family(rb.family).board} (preset {RUNTIME_PRESET})", flush=True)
         for cmd in ([cmake, "--preset", RUNTIME_PRESET], [cmake, "--build", "--preset", RUNTIME_PRESET]):
-            if subprocess.run([str(c) for c in cmd], cwd=FW_DIR, env=env).returncode != 0:
+            if subprocess.run([str(c) for c in cmd], cwd=rb.src, env=env).returncode != 0:
                 raise LabError("runtime build failed")
-        subprocess.run([str(size), str(RUNTIME_ELF)], env=env)
-        report = check_runtime_image(verbose=True)
+        subprocess.run([str(size), str(rb.elf)], env=env)
+        report = check_runtime_image(verbose=True, rb=rb)
         build_id = re.search(r'N7RT_BUILD_ID_HEX "([0-9a-f]+)"',
-                             (RUNTIME_BUILD / "n7rt_build_id.h").read_text(encoding="utf-8"))
-        print(f"   image {RUNTIME_ELF.relative_to(ROOT)}  build_id {build_id.group(1) if build_id else '?'}")
+                             (rb.build / "n7rt_build_id.h").read_text(encoding="utf-8"))
+        print(f"   image {rb.elf.relative_to(ROOT)}  build_id {build_id.group(1) if build_id else '?'}")
         print(f"   runtime image {len(report['image'])} B, SHA-256 {report['image_sha256']}")
         return 0
     for key in _keys(args.board):
@@ -751,8 +831,9 @@ def cmd_flash(args) -> int:
               f"student CRC-32 0x{result['artifact']['student_crc32']:08X}")
         return 0
     elif args.runtime:
-        elf = RUNTIME_ELF
-        print(f"   runtime image SHA-256 {check_runtime_image()['image_sha256']}")
+        rb = RUNTIME_BUILDS[board_family(key).key]
+        elf = rb.elf
+        print(f"   runtime image {rb.family} SHA-256 {check_runtime_image(rb=rb)['image_sha256']}")
     else:
         require_bringup(key)
         elf = check_image(key, args.can_bus)
@@ -872,7 +953,8 @@ def _smoke_one(key: str, seconds: float) -> bool:
 
 def _runtime_smoke(key: str) -> bool:
     rc = runtime_tools()
-    image = check_runtime_image()
+    fam = board_family(key)
+    image = check_runtime_image(rb=RUNTIME_BUILDS[fam.key])
     target = guard(key)
     sn, port = runtime_port(key)
     print(f"== smoke-test board {key} (N7RT runtime): ST-LINK {sn}, {port}, MCU UID {target['uid']}")
@@ -882,7 +964,8 @@ def _runtime_smoke(key: str) -> bool:
         if code != 0:
             raise LabError(f"reset via ST-LINK {sn} failed (exit {code}):\n{_tail(out)}")
 
-    report = rc.smoke(port, reset_board, image["image"], board_entry(key)["mcu_uid"])
+    report = rc.smoke(port, reset_board, image["image"], board_entry(key)["mcu_uid"],
+                      dev_id=fam.dev_id, sw_reset_bit=fam.sw_reset_bit)
     report.update({"board": key, "stlink_sn": sn, "image_sha256": image["image_sha256"]})
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     log = LOG_DIR / f"runtime_smoke_{key.lower()}_{datetime.now():%Y%m%d-%H%M%S}.json"
@@ -914,13 +997,17 @@ RESET_CAUSES = (("POR", "power-on"), ("BOR", "brown-out"), ("IWDG1", "watchdog")
 SILENCE_S = 2.5          # heartbeat every 1 s: 2.5 s without a line = halted, held in reset or USB gone
 
 
-def reset_cause(flags) -> str:
+# RCC_CSR bits of the G0B1 (RM0444): PWR covers both power-on and brown-out.
+CSR_FLAGS = ((25, "OBL"), (26, "PIN"), (27, "POR"), (28, "SFT"), (29, "IWDG1"), (30, "WWDG1"), (31, "LPWR"))
+
+
+def reset_cause(flags, family: str = "h753") -> str:
     """Boot-event reset_flags ('0x01460000') -> 'SFT+PIN+CPU: software (...)'."""
     try:
         value = int(str(flags), 16)
     except ValueError:
         return f"unknown ({flags})"
-    names = [name for bit, name in RSR_FLAGS if value >> bit & 1]
+    names = [name for bit, name in (CSR_FLAGS if family == "g0b1" else RSR_FLAGS) if value >> bit & 1]
     cause = next((text for name, text in RESET_CAUSES if name in names), "unknown")
     return f"{'+'.join(names) or 'none'}: {cause}"
 
@@ -1089,7 +1176,7 @@ def _runtime_watch(key: str, seconds: float | None) -> int:
         def on_event(event: dict) -> None:
             stamp = datetime.now().isoformat(timespec="milliseconds")
             if event["event"] == "boot":
-                event["cause"] = reset_cause(event["reset_flags"])
+                event["cause"] = reset_cause(event["reset_flags"], board_family(key).key)
             log.write(json.dumps({"t": stamp, "board": key, **event}) + "\n")
             log.flush()
             details = " ".join(f"{k}={v}" for k, v in event.items() if k != "event")
@@ -1433,6 +1520,8 @@ def main() -> int:
     st_help = "student project (firmware/n7rt_student) built by STM32CubeIDE against the precompiled runtime"
     p.add_argument("--runtime", action="store_true", help=rt_help)
     p.add_argument("--student", action="store_true", help=st_help + " (headless clean build + checks)")
+    p.add_argument("--family", default="h753", choices=[f.key for f in sdk.FAMILIES],
+                   help="with --runtime: board family of the runtime image (h753 = NUCLEO-H753ZI, g0b1 = NUCLEO-G0B1RE)")
     p.set_defaults(func=cmd_build)
     p = sub.add_parser("flash", help="flash one board, selected by ST-LINK serial + MCU UID")
     p.add_argument("board", choices=boards)
@@ -1448,6 +1537,8 @@ def main() -> int:
     p.set_defaults(func=cmd_smoke)
     p = sub.add_parser("sdk", help="package the validated runtime into the student CubeIDE project, then check it")
     p.add_argument("--check", action="store_true", help="only check the SDK already in the project")
+    p.add_argument("--family", default="all", choices=[f.key for f in sdk.FAMILIES] + ["all"],
+                   help="SDK of one board family (default: every family)")
     p.set_defaults(func=cmd_sdk)
     p = sub.add_parser("soak", help="N7RT runtime: sustained V1 load, every board output verified")
     p.add_argument("board", choices=boards)

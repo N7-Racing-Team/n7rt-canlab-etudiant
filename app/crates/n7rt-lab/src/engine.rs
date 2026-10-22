@@ -1024,7 +1024,7 @@ impl Engine {
                 }
                 [] => self.set_state(
                     LinkState::Absent,
-                    "Aucune carte détectée : branchez la NUCLEO-H753ZI par son connecteur ST-LINK (CN1).".into(),
+                    "Aucune carte détectée : branchez la NUCLEO-H753ZI ou la NUCLEO-G0B1RE par son connecteur USB ST-LINK.".into(),
                 ),
                 _ => {
                     self.auto_connect = false;

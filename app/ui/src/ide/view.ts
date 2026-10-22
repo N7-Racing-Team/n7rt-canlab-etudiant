@@ -13,13 +13,14 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import { $, clear, el, setText } from "../dom";
 import type { MissionView, Status } from "../types";
 import { closeDialog, ficheUnsaved, settleFiche, type CloseChoice } from "../views/unsaved";
-import { ide, type Diagnostic, type IdeView, type ToolResult } from "./api";
+import { ide, imageFor, type Diagnostic, type IdeView, type ToolResult } from "./api";
 import { flashRefusal } from "./controls";
 import { FILES, compilerPositionOffset, cursorPosition, failureText, outline, positionOffset, type StudentFile } from "./model";
 
 const MAX_SOURCE_BYTES = 256 * 1024;
 const PHASE = { idle: "Prêt", building: "Compilation en cours…", flashing: "Programmation de la zone étudiante…", reconnecting: "Reconnexion et vérification de la carte…" };
 const crc = (n: number) => `0x${(n >>> 0).toString(16).toUpperCase().padStart(8, "0")}`;
+const BOARDS: Record<string, string> = { h753: "NUCLEO-H753ZI", g0b1: "NUCLEO-G0B1RE" };
 const completions = completeFromList([
   { label: "n7rt_publish", type: "function", detail: "(uint8_t slot, float value)" },
   { label: "n7rt_reject", type: "function", detail: "(uint8_t slot)" },
@@ -299,7 +300,8 @@ export class StudentIde {
     this.lastOperation = result.operation;
     this.appendConsole(result.message ?? (result.ok ? "Opération réussie." : "Opération échouée."));
     for (const d of result.diagnostics.slice(0, 100)) this.appendConsole(this.diagnosticText(d));
-    if (result.artifact) this.appendConsole(`CRC étudiant ${crc(result.artifact.student_crc32)} · ${result.artifact.flash_bytes} octets de flash · ${result.artifact.ram_bytes} octets de RAM`);
+    const images = result.artifact?.targets ? Object.entries(result.artifact.targets) : result.artifact ? [["", result.artifact] as const] : [];
+    for (const [family, a] of images) this.appendConsole(`${BOARDS[family] ? `${BOARDS[family]} · ` : ""}CRC étudiant ${crc(a.student_crc32)} · ${a.flash_bytes} octets de flash · ${a.ram_bytes} octets de RAM`);
   }
 
   private diagnosticText(d: Diagnostic): string {
@@ -354,7 +356,10 @@ export class StudentIde {
       setText($("#ide-source-version"), `Source r${this.view?.revision ?? 0}${dirty ? " · modifiée" : " · enregistrée"}`);
     }
     setText($("#ide-revision"), `r${this.view?.revision ?? 0}${dirty ? " + modifications" : ""}`);
-    const artifact = this.view?.build?.artifact;
+    // Figures of the image the connected board runs (one image per board family in every build).
+    const family = this.board?.board?.family;
+    const artifact = imageFor(this.view?.build?.artifact, family);
+    setText($("#ide-target"), this.board?.board?.board ? `C · ${this.board.board.board}` : "C · NUCLEO-H753ZI / G0B1RE");
     setText($("#ide-flash-size"), artifact ? `${artifact.flash_bytes} octets` : "—");
     setText($("#ide-ram-size"), artifact ? `${artifact.ram_bytes} octets` : "—");
     setText($("#ide-build-crc"), artifact ? crc(artifact.student_crc32) : "—");

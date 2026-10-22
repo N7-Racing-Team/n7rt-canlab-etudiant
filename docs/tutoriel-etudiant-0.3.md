@@ -27,7 +27,7 @@ Pressé ? Le [démarrage en 5 minutes](demarrage-5-minutes.md) résume l'essenti
 ## 1. Connecter la carte
 
 **À faire**
-1. Branchez la NUCLEO-H753ZI par son port **ST-LINK** (le connecteur USB au milieu du bord court).
+1. Branchez la carte par son port **ST-LINK** : sur la NUCLEO-H753ZI, le connecteur USB au milieu du bord court ; sur la NUCLEO-G0B1RE, son unique connecteur USB.
 2. Dans la barre du haut, choisissez son port dans **CARTE**, puis cliquez **Connecter**.
 
 **À observer** : l'état passe de « Déconnecté » à « Prête » quand le runtime N7RT répond ; le bas de la fenêtre affiche le port et l'état de la session. Sans carte, vous pouvez tout préparer (fiche, Physical Lab, code), mais aucune vérification ne démarre. Si l'état affiche « Pas de code étudiant », la carte n'a pas de programme étudiant valide et **Start** reste grisé : programmez d'abord le gabarit (**Code STM32**, **Compiler + flasher**), puis passez au §5.0.

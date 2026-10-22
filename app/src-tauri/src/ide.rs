@@ -2,6 +2,7 @@
 //! The Python helper verifies the SDK and only writes the student flash region. The link is closed
 //! before programming and the same probe/MCU/runtime/student CRC are checked after reconnecting.
 
+use std::collections::BTreeMap;
 use std::fs::{self, OpenOptions};
 use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
@@ -45,8 +46,21 @@ pub struct Diagnostic {
     pub message: String,
 }
 
+/// A build: `sha256` identifies it as a whole; the other top-level figures are those of the
+/// NUCLEO-H753ZI image, and `targets` holds one image per board family (`h753`, `g0b1`).
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Artifact {
+    pub sha256: String,
+    pub student_crc32: u32,
+    pub flash_bytes: u64,
+    pub ram_bytes: u64,
+    #[serde(default)]
+    pub targets: BTreeMap<String, TargetArtifact>,
+}
+
+/// The image of one board family.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct TargetArtifact {
     pub sha256: String,
     pub student_crc32: u32,
     pub flash_bytes: u64,
@@ -458,7 +472,13 @@ fn flash_target(status: &Status, artifact: &Artifact) -> Result<FlashTarget, Str
     }
     let serial = status.port.as_ref().filter(|p| p.is_stlink()).and_then(|p| p.serial.clone())
         .ok_or("Sonde ST-LINK non identifiée : reconnectez la carte.")?;
-    Ok(FlashTarget { serial, uid: board.uid.clone(), crc: artifact.student_crc32 })
+    // The board will run the image compiled for its own family.
+    let crc = match artifact.targets.get(board.family) {
+        Some(image) => image.student_crc32,
+        None if artifact.targets.is_empty() && board.family == "h753" => artifact.student_crc32,
+        None => return Err(format!("Aucune image compilée pour la {} : recompilez le projet.", board.board)),
+    };
+    Ok(FlashTarget { serial, uid: board.uid.clone(), crc })
 }
 
 fn wait_disconnected(lab: &Lab) -> Result<(), String> {
@@ -564,7 +584,9 @@ mod tests {
 
     fn report() -> ToolResult {
         ToolResult { ok: true, operation: "build".into(), diagnostics: vec![], checks: vec![], message: None, log: None,
-            artifact: Some(Artifact { sha256: "a".repeat(64), student_crc32: 123, flash_bytes: 1024, ram_bytes: 128 }) }
+            artifact: Some(Artifact { sha256: "a".repeat(64), student_crc32: 123, flash_bytes: 1024, ram_bytes: 128,
+                targets: [("h753", 123), ("g0b1", 456)].into_iter().map(|(key, crc)| (key.to_string(),
+                    TargetArtifact { sha256: "b".repeat(64), student_crc32: crc, flash_bytes: 1024, ram_bytes: 128 })).collect() }) }
     }
 
     #[test]
@@ -713,6 +735,7 @@ mod tests {
         status.state = LinkState::Ready;
         status.port = Some(PortInfo { port: "COM-test".into(), vid: Some(0x0483), pid: Some(0x374e), serial: Some("12345678".into()), product: None, probe: Some("STLINK-V3E") });
         status.board = Some(BoardIdentity {
+            board: "NUCLEO-H753ZI", family: "h753",
             runtime: "0.1.0".into(), build_id: "test".into(), abi: "0.1".into(), proto: 0,
             uid: "00000001-00000002-00000003".into(), dev_id: 0x450, rev_id: 0, reset_flags: 0,
             reset_causes: vec![], student_status: 1, student_status_text: "code étudiant chargé", student_abi: "0.1".into(),
@@ -720,6 +743,16 @@ mod tests {
         });
         let target = flash_target(&status, &artifact).unwrap();
         assert_eq!(target.serial, "12345678"); assert_eq!(target.uid, "00000001-00000002-00000003"); assert_eq!(target.crc, 123);
+        // A NUCLEO-G0B1RE expects the CRC of its own image; a build without it must be redone.
+        let board = status.board.as_mut().unwrap();
+        (board.board, board.family) = ("NUCLEO-G0B1RE", "g0b1");
+        assert_eq!(flash_target(&status, &artifact).unwrap().crc, 456);
+        let mut old = artifact.clone();
+        old.targets.clear();
+        assert!(flash_target(&status, &old).unwrap_err().contains("recompilez"));
+        let board = status.board.as_mut().unwrap();
+        (board.board, board.family) = ("NUCLEO-H753ZI", "h753");
+        assert_eq!(flash_target(&status, &old).unwrap().crc, 123);
         status.board.as_mut().unwrap().runtime_verified = false;
         assert!(flash_target(&status, &artifact).is_err());
         status.board.as_mut().unwrap().runtime_verified = true;

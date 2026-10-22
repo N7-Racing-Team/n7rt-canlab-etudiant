@@ -1,10 +1,11 @@
 //! Embeds the pinned N7RT runtime so that the application can check the board's `HELLO_ACK`
 //! challenge (SHA-256(nonce ‖ runtime image)).
 //!
-//! Single source of truth: `firmware/n7rt_student/runtime-release.json` (version, build id, ABI,
-//! size, SHA-256). The bytes come from the student SDK object
-//! `firmware/n7rt_student/N7RT_CANLab_Student/n7rt/lib/n7rt_runtime.o`, section `.n7rt_runtime`,
-//! the very image that is flashed with every student build. The build fails if they disagree.
+//! Single source of truth per board family: `firmware/n7rt_student/runtime-release.json` (NUCLEO-H753ZI)
+//! and `runtime-release-g0b1.json` (NUCLEO-G0B1RE): version, build id, ABI, size, SHA-256. The bytes come
+//! from the student SDK object `firmware/n7rt_student/N7RT_CANLab_Student/<n7rt|n7rt_g0b1>/lib/n7rt_runtime.o`,
+//! section `.n7rt_runtime`, the very image that is flashed with every student build. The build fails if
+//! they disagree.
 
 use std::env;
 use std::fs;
@@ -57,13 +58,23 @@ fn main() {
         }
     }
     let root = project_root();
-    let release_path = root.join("firmware/n7rt_student/runtime-release.json");
-    let object_path = root.join("firmware/n7rt_student/N7RT_CANLab_Student/n7rt/lib/n7rt_runtime.o");
+    let out = PathBuf::from(env::var("OUT_DIR").unwrap());
+    // One pinned runtime per board family: NUCLEO-H753ZI (module `pinned`), NUCLEO-G0B1RE (`pinned_g0b1`).
+    let h753 = pinned_release(&root, "runtime-release.json", "n7rt", "n7rt_runtime.bin", &out);
+    let g0b1 = pinned_release(&root, "runtime-release-g0b1.json", "n7rt_g0b1", "n7rt_runtime_g0b1.bin", &out);
+    fs::write(out.join("runtime_release.rs"), h753).unwrap();
+    fs::write(out.join("runtime_release_g0b1.rs"), g0b1).unwrap();
+}
+
+/// Constants of one pinned runtime, checked against the runtime object of its SDK folder.
+fn pinned_release(root: &Path, release_name: &str, sdk_dir: &str, image_name: &str, out: &Path) -> String {
+    let release_path = root.join("firmware/n7rt_student").join(release_name);
+    let object_path = root.join("firmware/n7rt_student/N7RT_CANLab_Student").join(sdk_dir).join("lib/n7rt_runtime.o");
     println!("cargo:rerun-if-changed={}", release_path.display());
     println!("cargo:rerun-if-changed={}", object_path.display());
 
     let release: serde_json::Value =
-        serde_json::from_str(&fs::read_to_string(&release_path).expect("runtime-release.json")).expect("valid JSON");
+        serde_json::from_str(&fs::read_to_string(&release_path).expect(release_name)).expect("valid JSON");
     let object = fs::read(&object_path).unwrap_or_else(|e| panic!("{}: {e} (run `stm32lab sdk`)", object_path.display()));
     let image = elf32_section(&object, ".n7rt_runtime", &object_path);
 
@@ -73,31 +84,26 @@ fn main() {
     let sha = release["image_sha256"].as_str().unwrap();
     let abi: Vec<u64> = release["abi"].as_array().unwrap().iter().map(|v| v.as_u64().unwrap()).collect();
     let actual: String = Sha256::digest(image).iter().map(|b| format!("{b:02x}")).collect();
-    assert_eq!(image.len(), size, "SDK runtime size differs from runtime-release.json");
-    assert_eq!(actual, sha, "SDK runtime SHA-256 differs from runtime-release.json");
+    assert_eq!(image.len(), size, "SDK runtime size differs from {release_name}");
+    assert_eq!(actual, sha, "SDK runtime SHA-256 differs from {release_name}");
     assert_eq!(build_id.len(), 16, "build_id is 8 bytes");
     let mut parts = version.split('.').map(|p| p.parse::<u8>().expect("semver"));
     let (major, minor, patch) = (parts.next().unwrap(), parts.next().unwrap(), parts.next().unwrap());
 
-    let out = PathBuf::from(env::var("OUT_DIR").unwrap());
-    fs::write(out.join("n7rt_runtime.bin"), image).unwrap();
+    fs::write(out.join(image_name), image).unwrap();
     let build_id_bytes: Vec<String> =
         (0..8).map(|i| format!("0x{}", &build_id[2 * i..2 * i + 2])).collect();
-    fs::write(
-        out.join("runtime_release.rs"),
-        format!(
-            "/// Pinned runtime (generated from firmware/n7rt_student/runtime-release.json).\n\
-             pub const VERSION: (u8, u8, u8) = ({major}, {minor}, {patch});\n\
-             pub const VERSION_STR: &str = \"{version}\";\n\
-             pub const BUILD_ID: [u8; 8] = [{ids}];\n\
-             pub const BUILD_ID_HEX: &str = \"{build_id}\";\n\
-             pub const ABI: (u16, u16) = ({abi0}, {abi1});\n\
-             pub const IMAGE_SHA256: &str = \"{sha}\";\n\
-             pub const IMAGE: &[u8] = include_bytes!(concat!(env!(\"OUT_DIR\"), \"/n7rt_runtime.bin\"));\n",
-            ids = build_id_bytes.join(", "),
-            abi0 = abi[0],
-            abi1 = abi[1],
-        ),
+    format!(
+        "/// Pinned runtime (generated from firmware/n7rt_student/{release_name}).\n\
+         pub const VERSION: (u8, u8, u8) = ({major}, {minor}, {patch});\n\
+         pub const VERSION_STR: &str = \"{version}\";\n\
+         pub const BUILD_ID: [u8; 8] = [{ids}];\n\
+         pub const BUILD_ID_HEX: &str = \"{build_id}\";\n\
+         pub const ABI: (u16, u16) = ({abi0}, {abi1});\n\
+         pub const IMAGE_SHA256: &str = \"{sha}\";\n\
+         pub const IMAGE: &[u8] = include_bytes!(concat!(env!(\"OUT_DIR\"), \"/{image_name}\"));\n",
+        ids = build_id_bytes.join(", "),
+        abi0 = abi[0],
+        abi1 = abi[1],
     )
-    .unwrap();
 }

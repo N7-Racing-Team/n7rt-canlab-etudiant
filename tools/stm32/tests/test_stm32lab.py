@@ -47,6 +47,47 @@ def test_read_target(monkeypatch) -> None:
         lab.read_target("x")
 
 
+READ_G0_AT_H7_ADDRESS = """
+ST-LINK SN  : 066EFF565383894967044915
+Device ID   : 0x467
+Revision ID : Rev Z
+Device name : STM32G0B0xx/B1xx/C1xx
+Error: Data read failed
+"""
+READ_G0_UID = """
+ST-LINK SN  : 066EFF565383894967044915
+Device ID   : 0x467
+Revision ID : Rev Z
+Device name : STM32G0B0xx/B1xx/C1xx
+0x1FFF7590 : 00490043 39415014 2030334B
+"""
+
+
+def test_read_target_of_a_g0b1_reads_its_own_uid_address(monkeypatch) -> None:
+    calls = []
+
+    def programmer(*args, **kwargs):
+        calls.append(args)
+        return (1, READ_G0_AT_H7_ADDRESS) if "0x1FF1E800" in args else (0, READ_G0_UID)
+    monkeypatch.setattr(lab, "programmer", programmer)
+    assert lab.read_target("x") == {"dev_id": 0x467, "rev": "Rev Z", "uid": "00490043-39415014-2030334B"}
+    assert [a[a.index("-r32") + 1] for a in calls] == ["0x1FF1E800", "0x1FFF7590"]
+
+
+def test_registered_family_decides_the_expected_device(monkeypatch) -> None:
+    monkeypatch.setattr(lab, "load_boards", lambda: {
+        "A": {"stlink_sn": "SA", "mcu_uid": "0028003C-32335101-34343734"},
+        "G": {"stlink_sn": "SG", "mcu_uid": "00490043-39415014-2030334B", "family": "g0b1"},
+        "X": {"stlink_sn": "SX", "mcu_uid": "0", "family": "f4"}})
+    assert lab.board_family("A") is lab.sdk.H753 and lab.board_family("G") is lab.sdk.G0B1
+    with pytest.raises(lab.LabError, match="unknown board family"):
+        lab.board_family("X")
+    monkeypatch.setattr(lab, "list_probes", lambda: [{"sn": "SG"}])
+    monkeypatch.setattr(lab, "read_target", lambda sn: {"dev_id": 0x450, "rev": "?", "uid": "00490043-39415014-2030334B"})
+    with pytest.raises(lab.LabError, match="expected 0x467"):
+        lab.guard("G")
+
+
 def test_check_image_refuses_other_board_tag(tmp_path, monkeypatch) -> None:
     elf, binary = tmp_path / "fw.elf", tmp_path / "fw.bin"
     elf.write_bytes(b"elf")
@@ -123,6 +164,9 @@ def test_reset_cause() -> None:
     assert lab.reset_cause("0x00460000").endswith("NRST pin (RESET button B2, or ST-LINK hardware reset)")
     assert lab.reset_cause("0x00E60000").endswith("power-on")
     assert lab.reset_cause(None).startswith("unknown")
+    # NUCLEO-G0B1RE RCC_CSR after a RESET_REQ (stm32lab smoke-test --runtime, 2026-10-21)
+    assert lab.reset_cause("0x14000000", "g0b1") == "PIN+SFT: software (SYSRESETREQ: debugger, programmer or firmware)"
+    assert lab.reset_cause("0x08000000", "g0b1").endswith("power-on")
 
 
 def test_parse_event_recovers_boot_glued_to_a_line_cut_by_reset() -> None:

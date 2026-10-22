@@ -8,7 +8,7 @@ Ce dépôt construit l'**édition publique** de l'application, sans oracle. Avec
 >
 > **Télécharger l'application : [dernière Release](https://github.com/N7-Racing-Team/n7rt-canlab-etudiant/releases/latest)**, rubrique **Assets**, le fichier `n7rt-canlab-<version>-windows-x64.zip` (pas « Source code »). Dans l'archive extraite, `DEMARRER_ICI.html` ouvre le même guide d'un double-clic, sans internet.
 
-**Version 0.3.2.** Téléchargement : [page Releases](https://github.com/N7-Racing-Team/n7rt-canlab-etudiant/releases/latest), fichier unique `n7rt-canlab-0.3.2-windows-x64.zip` (application, SDK étudiant, guides, tutoriel PDF et documentation), sans compte GitHub. Ensuite : [le démarrage en 5 minutes](docs/demarrage-5-minutes.md), [le tutoriel étudiant](docs/N7RT_CANLab_0.3_Tutoriel_Etudiant.pdf), et pour les outils de compilation [docs/stm32-toolchain-windows.md](docs/stm32-toolchain-windows.md). Index des documents : [docs/README_CANLab_0.3.md](docs/README_CANLab_0.3.md) ; problèmes connus : [docs/known-issues-0.3.md](docs/known-issues-0.3.md).
+**Version 0.3.3** (NUCLEO-H753ZI ou NUCLEO-G0B1RE). Téléchargement : [page Releases](https://github.com/N7-Racing-Team/n7rt-canlab-etudiant/releases/latest), fichier unique `n7rt-canlab-0.3.3-windows-x64.zip` (application, SDK étudiant, guides, tutoriel PDF et documentation), sans compte GitHub. Ensuite : [le démarrage en 5 minutes](docs/demarrage-5-minutes.md), [le tutoriel étudiant](docs/N7RT_CANLab_0.3_Tutoriel_Etudiant.pdf), et pour les outils de compilation [docs/stm32-toolchain-windows.md](docs/stm32-toolchain-windows.md). Index des documents : [docs/README_CANLab_0.3.md](docs/README_CANLab_0.3.md) ; problèmes connus : [docs/known-issues-0.3.md](docs/known-issues-0.3.md).
 
 | Dossier | Contenu |
 |---|---|

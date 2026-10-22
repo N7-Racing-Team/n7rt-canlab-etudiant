@@ -30,7 +30,7 @@ Ni ce guide ni l'application ne donnent les réponses de votre mission. Tous les
 | Il vous faut | D'où cela vient |
 |---|---|
 | Un PC sous **Windows 10 ou 11, 64 bits**, un port USB libre, un accès internet | vous |
-| La carte **NUCLEO-H753ZI** de votre poste, **avec le runtime N7RT déjà installé**, et un câble USB de données | votre encadrant ; vous ne pouvez pas installer le runtime vous-même |
+| La carte de votre poste, **NUCLEO-H753ZI** ou **NUCLEO-G0B1RE**, **avec le runtime N7RT déjà installé**, et un câble USB de données | votre encadrant ; vous ne pouvez pas installer le runtime vous-même |
 | Le **nom de votre mission** : APPS, WSF, SAS ou BPS | votre encadrant. Le choix dans l'application est **définitif** : ne choisissez rien avant de le connaître |
 | Le **pack de votre groupe** : un fichier `.n7rtpack` | votre encadrant |
 | Le **code de votre groupe** : 16 caractères, `XXXX-XXXX-XXXX-XXXX`, remis à part | votre encadrant |
@@ -40,7 +40,7 @@ Vocabulaire minimal, que la suite précise :
 
 | Mot | Sens |
 |---|---|
-| **Carte** | la NUCLEO-H753ZI : un microcontrôleur STM32 qui exécute votre programme, et sa sonde **ST-LINK** qui permet de le programmer par USB |
+| **Carte** | la NUCLEO-H753ZI ou la NUCLEO-G0B1RE : un microcontrôleur STM32 qui exécute votre programme, et sa sonde **ST-LINK** qui permet de le programmer par USB |
 | **Runtime N7RT** | le programme installé par l'encadrant sur la carte : il reçoit les trames du véhicule simulé et appelle votre code |
 | **Trame** | un message du bus CAN : un **identifiant** (de quoi elle parle), une longueur (**DLC**) et jusqu'à 8 **octets de données** |
 | **Session** | l'échange en cours entre l'application et la carte, démarré par **Start**, arrêté par **Stop** |
@@ -55,14 +55,14 @@ Le dépôt GitHub contient le code source de l'application ; **vous n'en avez pa
 **À faire**
 
 1. Ouvrez <https://github.com/N7-Racing-Team/n7rt-canlab-etudiant/releases/latest>. C'est la page **Releases** du dépôt (depuis la page d'accueil du dépôt : lien **Releases**, à droite). La version la plus récente porte l'étiquette **Latest**.
-2. Descendez jusqu'à la rubrique **Assets** de cette version. Elle contient quatre lignes. Téléchargez **`n7rt-canlab-0.3.2-windows-x64.zip`**, puis **`n7rt-canlab-0.3.2-windows-x64.zip.sha256`**. **Ne prenez pas « Source code (zip) » ni « Source code (tar.gz) »** : ce sont les sources, sans l'application compilée.
+2. Descendez jusqu'à la rubrique **Assets** de cette version. Elle contient quatre lignes. Téléchargez **`n7rt-canlab-0.3.3-windows-x64.zip`**, puis **`n7rt-canlab-0.3.3-windows-x64.zip.sha256`**. **Ne prenez pas « Source code (zip) » ni « Source code (tar.gz) »** : ce sont les sources, sans l'application compilée.
 3. Si votre navigateur dit que le fichier « n'est pas fréquemment téléchargé », choisissez **Conserver**.
 4. Vérifiez l'empreinte : elle prouve que le fichier n'est ni tronqué ni modifié. Ouvrez PowerShell dans votre dossier Téléchargements (menu Démarrer, tapez `PowerShell`, Entrée), puis copiez-collez ces trois lignes :
 
 ```powershell
 cd $HOME\Downloads
-$attendu = (Get-Content .\n7rt-canlab-0.3.2-windows-x64.zip.sha256).Split(" ")[0]
-(Get-FileHash .\n7rt-canlab-0.3.2-windows-x64.zip -Algorithm SHA256).Hash -eq $attendu
+$attendu = (Get-Content .\n7rt-canlab-0.3.3-windows-x64.zip.sha256).Split(" ")[0]
+(Get-FileHash .\n7rt-canlab-0.3.3-windows-x64.zip -Algorithm SHA256).Hash -eq $attendu
 ```
 
 5. Clic droit sur le `.zip`, **Extraire tout…**. La fenêtre propose un dossier dans Téléchargements : remplacez-le (bouton **Parcourir…**, ou en tapant le chemin) par un dossier à vous, par exemple `C:\Users\VOTRE_NOM\Documents\CANLab`, puis **Extraire**. Pas dans `Program Files`, ni dans Téléchargements, ni dans un dossier temporaire : le nettoyage automatique de Windows (Assistant Stockage) peut y supprimer des fichiers de l'archive, qui portent tous la date du 01/01/1980. Ce dossier, celui qui contient `n7rt-can-lab.exe`, est appelé « le dossier de CAN Lab » dans la suite.
@@ -72,7 +72,7 @@ $attendu = (Get-Content .\n7rt-canlab-0.3.2-windows-x64.zip.sha256).Split(" ")[0
 **Vous devez voir**
 
 - À l'étape 4, PowerShell répond **`True`**.
-- À l'étape 7, la fenêtre « N7RT CAN Lab » s'ouvre ; le titre de la barre du haut affiche la version (`v0.3.2`). Au premier lancement, elle s'ouvre sur la page **Code STM32** ; la barre d'activité, tout à gauche, a trois boutons : **Code STM32**, **Cockpit**, **Physical Lab**.
+- À l'étape 7, la fenêtre « N7RT CAN Lab » s'ouvre ; le titre de la barre du haut affiche la version (`v0.3.3`). Au premier lancement, elle s'ouvre sur la page **Code STM32** ; la barre d'activité, tout à gauche, a trois boutons : **Code STM32**, **Cockpit**, **Physical Lab**.
 
 **Si ça ne marche pas**
 
@@ -193,7 +193,7 @@ $actuel = [Environment]::GetEnvironmentVariable("Path", "User")
 python .\tools\stm32\student_ide.py inventory
 ```
 
-**Vous devez voir** une ligne qui commence par `{"ok": true`, avec `"gcc": {"available": true, …}` et `"programmer": {"available": true, …}`. C'est exactement la recherche que fait CAN Lab avant **Compiler** et **Flasher**. Si la carte est branchée, `"probes"` cite sa sonde, avec `"board": "NUCLEO-H753ZI"`.
+**Vous devez voir** une ligne qui commence par `{"ok": true`, avec `"gcc": {"available": true, …}` et `"programmer": {"available": true, …}`. C'est exactement la recherche que fait CAN Lab avant **Compiler** et **Flasher**. Si la carte est branchée, `"probes"` cite sa sonde, avec `"board": "NUCLEO-H753ZI"` ou `"board": "NUCLEO-G0B1RE"`.
 
 **Si ça ne marche pas**
 
@@ -213,9 +213,9 @@ Pas à pas complet, avec la table des messages de Code STM32 : [docs/stm32-toolc
 
 **À faire**
 
-1. Branchez la NUCLEO-H753ZI par le connecteur USB de son **ST-LINK, CN1**, au milieu du petit côté de la carte, et **pas** par l'autre connecteur USB. Utilisez un câble de données (un câble de charge seule ne transmet rien).
+1. Branchez la carte par le connecteur USB de son **ST-LINK** : sur la NUCLEO-H753ZI, **CN1**, au milieu du petit côté de la carte, et **pas** par l'autre connecteur USB ; sur la NUCLEO-G0B1RE, son unique connecteur USB. Utilisez un câble de données (un câble de charge seule ne transmet rien).
 2. Identifiez le port COM de la carte : clic droit sur le bouton Démarrer, **Gestionnaire de périphériques**, rubrique **Ports (COM et LPT)** : la ligne **STMicroelectronics STLink Virtual COM Port (COMn)** donne son numéro.
-3. Dans CAN Lab, regardez la barre du haut, liste **CARTE**. Avec une seule carte branchée, l'application s'y connecte d'elle-même. Sinon, choisissez la ligne `COMn · STLINK-V3E · …` (le port de l'étape 2, puis le numéro de série de la sonde), puis cliquez **Connecter**. Le bouton aux deux flèches circulaires, à droite de la liste, relit la liste des ports.
+3. Dans CAN Lab, regardez la barre du haut, liste **CARTE**. Avec une seule carte branchée, l'application s'y connecte d'elle-même. Sinon, choisissez la ligne `COMn · STLINK-V3E · …` (`STLINK-V2-1` sur la NUCLEO-G0B1RE) (le port de l'étape 2, puis le numéro de série de la sonde), puis cliquez **Connecter**. Le bouton aux deux flèches circulaires, à droite de la liste, relit la liste des ports.
 4. Attendez quelques secondes.
 
 **Vous devez voir** : le voyant d'état, en haut à droite, passe par « Poignée de main », puis **PRÊTE** (en vert). Le message sous la barre d'outils dit « Carte prête : runtime … vérifié, code étudiant chargé (CRC …). » Dans le Cockpit, la section **Carte** du panneau latéral affiche « Intégrité : défi SHA-256 vérifié » en vert.
@@ -547,11 +547,12 @@ Pour ouvrir `%APPDATA%\fr.n7rt.canlab` : touches Windows + R, collez le chemin, 
 
 ## 13. Différences avec le tutoriel PDF
 
-Le tutoriel PDF décrit la version 0.3.0. Depuis, la version 0.3.1 a corrigé l'application et la version 0.3.2 ajoute ce guide :
+Le tutoriel PDF décrit la version 0.3.0. Depuis, la version 0.3.1 a corrigé l'application, la version 0.3.2 ajoute ce guide et la version 0.3.3 prend en charge la carte NUCLEO-G0B1RE à côté de la NUCLEO-H753ZI :
 
 | Le PDF dit (0.3.0) | Depuis 0.3.1 |
 |---|---|
-| Archive `n7rt-canlab-0.3.0-windows-x64.zip` | `n7rt-canlab-0.3.2-windows-x64.zip`, avec ce guide à sa racine (`DEMARRER_ICI.md` et `DEMARRER_ICI.html`) |
+| Archive `n7rt-canlab-0.3.0-windows-x64.zip` | `n7rt-canlab-0.3.3-windows-x64.zip`, avec ce guide à sa racine (`DEMARRER_ICI.md` et `DEMARRER_ICI.html`) |
+| Carte NUCLEO-H753ZI | NUCLEO-H753ZI ou NUCLEO-G0B1RE (depuis 0.3.3) : CAN Lab reconnaît la carte et charge le programme compilé pour elle |
 | Outils trouvés dans `C:\ST` et le PATH | trouvés aussi dans leurs dossiers d'installation par défaut (`Program Files`) |
 | « Outil de compilation indisponible : installez les prérequis du projet étudiant. », `arm-none-eabi-gcc not found`, `STM32_Programmer_CLI not found` | « Python introuvable… », « Compilateur arm-none-eabi-gcc introuvable… », « STM32_Programmer_CLI introuvable… », chacun avec l'outil à installer |
 | « Le document cité par ces messages n'est pas fourni » | il est fourni : `docs/stm32-toolchain-windows.md` (et sa copie HTML) |
